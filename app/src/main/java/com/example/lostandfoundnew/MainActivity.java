@@ -7,6 +7,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.location.Location;
 import android.location.LocationManager;
+import android.os.Handler;
 import android.provider.Telephony;
 import android.os.Bundle;
 import android.util.Log;
@@ -29,14 +30,11 @@ import com.mxn.soul.flowingdrawer_core.ElasticDrawer;
 import com.mxn.soul.flowingdrawer_core.FlowingDrawer;
 import com.yarolegovich.slidingrootnav.SlidingRootNavBuilder;
 
-import hotchemi.android.rate.AppRate;
-import hotchemi.android.rate.OnClickButtonListener;
 
 public class MainActivity extends AppCompatActivity {
     public static final int ERROR_DIALOG_REQ = 9001;
 
     Button btnFound, btnLost, btnLoginMenu;
-    Context context;
     FirebaseAuth firebaseAuth;
     DatabaseReference lastOnlineRef;
     Location location;
@@ -50,6 +48,7 @@ public class MainActivity extends AppCompatActivity {
     TextView txtpostfound;
     TextView txtpostlost;
     TextView tVinboxMenu, tVprofileMenu;
+    ImageButton drawerButton;
 
     protected void onCreate(Bundle paramBundle) {
         super.onCreate(paramBundle);
@@ -70,65 +69,56 @@ public class MainActivity extends AppCompatActivity {
 
         tVinboxMenu.setOnClickListener(new View.OnClickListener() {
             public void onClick(View param1View) {
-                if (MainActivity.this.firebaseAuth.getCurrentUser() != null) {
-                    Intent intent = new Intent(MainActivity.this.getBaseContext(), Telephony.Sms.Inbox.class);
-                    MainActivity.this.startActivity(intent);
+                if (firebaseAuth.getCurrentUser() != null) {
+                    Intent intent = new Intent(getBaseContext(), Telephony.Sms.Inbox.class);
+                    startActivity(intent);
                     return;
                 }
 
-                Snackbar snackbar = Snackbar.make(MainActivity.this.relativeLayout, "You Are not Login", Snackbar.LENGTH_SHORT).setAction("Login", new View.OnClickListener() {
+                Snackbar snackbar = Snackbar.make(relativeLayout, "You Are not Login", Snackbar.LENGTH_SHORT).setAction("Login", new View.OnClickListener() {
                     public void onClick(View param2View) {
-                        Intent intent = new Intent(MainActivity.this.getBaseContext(), Login.class);
-                        MainActivity.this.startActivity(intent);
+                        Intent intent = new Intent(getBaseContext(), Login.class);
+                        startActivity(intent);
                     }
                 });
-                snackbar.setActionTextColor(MainActivity.this.getResources().getColor(R.color.colorPrimary));
+                snackbar.setActionTextColor(getResources().getColor(R.color.colorPrimary));
                 snackbar.show();
             }
         });
-        AppRate.with(this).setInstallDays(0).setLaunchTimes(3).setRemindInterval(2).setShowLaterButton(true).setDebug(false).setOnClickButtonListener(new OnClickButtonListener() {
-            public void onClickButton(int param1Int) { Log.d(MainActivity.class.getName(), Integer.toString(param1Int)); }
-        }).monitor();
-        AppRate.showRateDialogIfMeetsConditions(this);
-        this.txtaboutus.setOnClickListener(new View.OnClickListener() {
+
+        txtpostfound.setOnClickListener(new View.OnClickListener() {
             public void onClick(View param1View) {
-                Intent intent = new Intent(MainActivity.this.getBaseContext(), AboutUs.class);
-                MainActivity.this.startActivity(intent);
-            }
-        });
-        this.txtpostfound.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View param1View) {
-                if (MainActivity.this.firebaseAuth.getCurrentUser() != null) {
-                    Intent intent = new Intent(MainActivity.this.getBaseContext(), ItemUpload.class);
+                if (firebaseAuth.getCurrentUser() != null) {
+                    Intent intent = new Intent(getBaseContext(), ItemUpload.class);
                     intent.putExtra("status", 0);
-                    MainActivity.this.startActivity(intent);
+                    startActivity(intent);
                     return;
                 }
-                Snackbar snackbar = Snackbar.make(MainActivity.this.relativeLayout, "You Are not Login", Snackbar.LENGTH_LONG).setAction("Login", new View.OnClickListener() {
+                Snackbar snackbar = Snackbar.make(relativeLayout, "You Are not Login", Snackbar.LENGTH_LONG).setAction("Login", new View.OnClickListener() {
                     public void onClick(View param2View) {
-                        Intent intent = new Intent(MainActivity.this.getBaseContext(), Login.class);
-                        MainActivity.this.startActivity(intent);
+                        Intent intent = new Intent(getBaseContext(), Login.class);
+                        startActivity(intent);
                     }
                 });
-                snackbar.setActionTextColor(MainActivity.this.getResources().getColor(R.color.colorPrimary));
+                snackbar.setActionTextColor(getResources().getColor(R.color.colorPrimary));
                 snackbar.show();
             }
         });
         this.txtpostlost.setOnClickListener(new View.OnClickListener() {
             public void onClick(View param1View) {
-                if (MainActivity.this.firebaseAuth.getCurrentUser() != null) {
-                    Intent intent = new Intent(MainActivity.this.getBaseContext(), ItemUpload.class);
+                if (firebaseAuth.getCurrentUser() != null) {
+                    Intent intent = new Intent(getBaseContext(), ItemUpload.class);
                     intent.putExtra("status", 1);
-                    MainActivity.this.startActivity(intent);
+                    startActivity(intent);
                     return;
                 }
-                Snackbar snackbar = Snackbar.make(MainActivity.this.relativeLayout, "You Are not Login", Snackbar.LENGTH_SHORT).setAction("Login", new View.OnClickListener() {
+                Snackbar snackbar = Snackbar.make(relativeLayout, "You Are not Login", Snackbar.LENGTH_SHORT).setAction("Login", new View.OnClickListener() {
                     public void onClick(View param2View) {
-                        Intent intent = new Intent(MainActivity.this.getBaseContext(), Login.class);
-                        MainActivity.this.startActivity(intent);
+                        Intent intent = new Intent(getBaseContext(), Login.class);
+                        startActivity(intent);
                     }
                 });
-                snackbar.setActionTextColor(MainActivity.this.getResources().getColor(R.color.colorPrimary));
+                snackbar.setActionTextColor(getResources().getColor(R.color.colorPrimary));
                 snackbar.show();
             }
         });
@@ -137,82 +127,89 @@ public class MainActivity extends AppCompatActivity {
             btnLoginMenu.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View param1View) {
                     String str = FirebaseAuth.getInstance().getCurrentUser().getUid();
-                    MainActivity.this.stopnotifyref.child(str).child("token_id").setValue("notlogin");
-                    MainActivity.this.lastOnlineRef.setValue(ServerValue.TIMESTAMP);
-                    MainActivity.this.firebaseAuth.signOut();
-                    MainActivity.this.finish();
-                    Intent intent = new Intent(MainActivity.this.getBaseContext(), MainActivity.class);
-                    MainActivity.this.startActivity(intent);
-                    Toast.makeText(MainActivity.this.getApplicationContext(), "logout", Toast.LENGTH_SHORT).show();
+                    stopnotifyref.child(str).child("token_id").setValue("notlogin");
+                    lastOnlineRef.setValue(ServerValue.TIMESTAMP);
+                    firebaseAuth.signOut();
+                    finish();
+                    Intent intent = new Intent(getBaseContext(), MainActivity.class);
+                    startActivity(intent);
+                    Toast.makeText(getApplicationContext(), "logout", Toast.LENGTH_SHORT).show();
                 }
             });
         } else {
             btnLoginMenu.setText("log in");
             btnLoginMenu.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View param1View) {
-                    Intent intent = new Intent(MainActivity.this.getBaseContext(), Login.class);
-                    MainActivity.this.startActivity(intent);
+                    Intent intent = new Intent(getBaseContext(), Login.class);
+                    startActivity(intent);
                 }
             });
         }
         tVprofileMenu.setOnClickListener(new View.OnClickListener() {
             public void onClick(View param1View) {
-                if (MainActivity.this.firebaseAuth.getCurrentUser() != null) {
-                    Intent intent = new Intent(MainActivity.this.getBaseContext(), ItemShow.class);
-                    MainActivity.this.startActivity(intent);
+                if (firebaseAuth.getCurrentUser() != null) {
+                    Intent intent = new Intent(getBaseContext(), ItemShow.class);
+                    startActivity(intent);
                     return;
                 }
-                Snackbar snackbar = Snackbar.make(MainActivity.this.relativeLayout, "You Are not Login", Snackbar.LENGTH_SHORT).setAction("Login", new View.OnClickListener() {
+                Snackbar snackbar = Snackbar.make(relativeLayout, "You Are not Login", Snackbar.LENGTH_SHORT).setAction("Login", new View.OnClickListener() {
                     public void onClick(View param2View) {
-                        Intent intent = new Intent(MainActivity.this.getBaseContext(), Login.class);
-                        MainActivity.this.startActivity(intent);
+                        Intent intent = new Intent(getBaseContext(), Login.class);
+                        startActivity(intent);
                     }
                 });
-                snackbar.setActionTextColor(MainActivity.this.getResources().getColor(R.color.colorPrimary));
+                snackbar.setActionTextColor(getResources().getColor(R.color.colorPrimary));
                 snackbar.show();
             }
         });
+
         getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
         getSupportActionBar().setDisplayShowCustomEnabled(true);
         getSupportActionBar().setCustomView(R.layout.main_menu);
 
-        final ImageButton dawerButton = (ImageButton)getSupportActionBar().getCustomView().findViewById(R.id.drawerbutton);
-        this.mDrawer = (FlowingDrawer)findViewById(R.id.drawerlayout);
-        this.mDrawer.setTouchMode(1);
-        this.mDrawer.setOnDrawerStateChangeListener(new ElasticDrawer.OnDrawerStateChangeListener() {
-            public void onDrawerSlide(float param1Float, int param1Int) { Log.i("MainActivity", "openRatio=" + param1Float + " ,offsetPixels=" + param1Int); }
 
-            public void onDrawerStateChange(int param1Int1, int param1Int2) {
-                if (param1Int2 == 0) {
-                    Log.i("MainActivity", "Drawer STATE_CLOSED");
-                    dawerButton.setBackground(MainActivity.this.getResources().getDrawable(R.drawable.ic_menu_black_24dp));
-                    return;
-                }
-                if (param1Int2 == 8) {
-                    dawerButton.setBackground(MainActivity.this.getResources().getDrawable(R.drawable.ic_arrow_back_black_24dp));
-                    return;
-                }
-            }
-        });
+        drawerButton = getSupportActionBar().getCustomView().findViewById(R.id.drawerbutton);
+
+
+        mDrawer = findViewById(R.id.drawerlayout);
+        mDrawer.setTouchMode(ElasticDrawer.TOUCH_MODE_BEZEL);
+               mDrawer.setOnDrawerStateChangeListener(new ElasticDrawer.OnDrawerStateChangeListener() {
+
+                    public void onDrawerSlide(float param1Float, int param1Int)
+                    { Log.i("MainActivity", "openRatio=" + param1Float + " ,offsetPixels=" + param1Int); }
+
+                    public void onDrawerStateChange(int param1Int1, int param1Int2) {
+                        if (param1Int2 == ElasticDrawer.STATE_CLOSED) {
+                            Log.i("MainActivity", "Drawer STATE_CLOSED");
+                            drawerButton.setBackground(getResources().getDrawable(R.drawable.ic_menu_black_24dp));
+
+                        }
+                        if (param1Int2 == ElasticDrawer.STATE_OPEN) {
+                            drawerButton.setBackground(getResources().getDrawable(R.drawable.ic_arrow_back_black_24dp));
+
+                        }
+                    }
+                });
+
+
         btnFound.setOnClickListener(new View.OnClickListener() {
             public void onClick(View param1View) {
-                Intent intent = new Intent(MainActivity.this.getApplicationContext(), FoundItem.class);
-                MainActivity.this.startActivity(intent);
+                Intent intent = new Intent(getApplicationContext(), FoundItem.class);
+                startActivity(intent);
             }
         });
         btnLost.setOnClickListener(new View.OnClickListener() {
             public void onClick(View param1View) {
-                Intent intent = new Intent(MainActivity.this.getApplicationContext(), LostItem.class);
-                MainActivity.this.startActivity(intent);
+                Intent intent = new Intent(getApplicationContext(), LostItem.class);
+                startActivity(intent);
             }
         });
-        dawerButton.setOnClickListener(new View.OnClickListener() {
+        drawerButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View param1View) {
-                if (MainActivity.this.mDrawer.isMenuVisible()) {
-                    MainActivity.this.mDrawer.closeMenu();
-                    return;
-                }
-                MainActivity.this.mDrawer.openMenu();
+                if (mDrawer.isMenuVisible()) {
+                    mDrawer.closeMenu();
+                    }
+                mDrawer.openMenu();
             }
         });
         if (this.firebaseAuth.getCurrentUser() != null) {
@@ -224,9 +221,9 @@ public class MainActivity extends AppCompatActivity {
 
                 public void onDataChange(DataSnapshot param1DataSnapshot) {
                     if (((Boolean)param1DataSnapshot.getValue(Boolean.class)).booleanValue()) {
-                        DatabaseReference databaseReference = MainActivity.this.myConnectionsRef;
+                        DatabaseReference databaseReference = myConnectionsRef;
                         databaseReference.onDisconnect().removeValue();
-                        MainActivity.this.lastOnlineRef.onDisconnect().setValue(ServerValue.TIMESTAMP);
+                        lastOnlineRef.onDisconnect().setValue(ServerValue.TIMESTAMP);
                         databaseReference.setValue(Boolean.TRUE);
                     }
                 }
