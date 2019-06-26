@@ -5,7 +5,6 @@ import android.os.Bundle;
 
 import com.mxn.soul.flowingdrawer_core.FlowingDrawer;
 
-
 public class MainActivity extends AppCompatActivity {
 
     @Override
@@ -15,5 +14,6 @@ public class MainActivity extends AppCompatActivity {
         FlowingDrawer ff;
 
 
+        int b;
     }
 }
