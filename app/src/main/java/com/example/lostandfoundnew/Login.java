@@ -40,6 +40,7 @@ public class Login extends AppCompatActivity {
     protected void onCreate(Bundle paramBundle) {
         super.onCreate(paramBundle);
         setContentView(R.layout.activity_login);
+
         loginbutton = findViewById(R.id. btnlogin);
         editTextemail = findViewById(R.id. loginemail);
         editTextpassword = findViewById(R.id. loginpassword);
@@ -49,6 +50,7 @@ public class Login extends AppCompatActivity {
         databaseRef = FirebaseDatabase.getInstance().getReference("token");
         txtForget = findViewById(R.id. txtforget);
         progressDialog = new ProgressDialog(this);
+
         loginbutton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View param1View) {
                 if (param1View == loginbutton) {
@@ -67,7 +69,7 @@ public class Login extends AppCompatActivity {
         });
         txtForget.setOnClickListener(new View.OnClickListener() {
             public void onClick(View param1View) {
-                Intent intent = new Intent(getApplicationContext(), Forget_password.class);
+                Intent intent = new Intent(getApplicationContext(), ForgetPassword.class);
                 startActivity(intent);
             }
         });
@@ -81,7 +83,7 @@ public class Login extends AppCompatActivity {
             return;
         }
         if (TextUtils.isEmpty(str2)) {
-            Toast.makeText(this, "Passwordis empty ", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Password is empty ", Toast.LENGTH_SHORT).show();
             return;
         }
         progressDialog.setMessage("loging in");
@@ -96,7 +98,7 @@ public class Login extends AppCompatActivity {
                     databaseRef.child(str).child("token_id").setValue(token);
                     finish();
                     intent = new Intent(getApplicationContext(), MainActivity.class);
-               //     intent.setFlags(268468224);
+                   intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                     startActivity(intent);
                 }
 //                if (intent.getException() instanceof com.google.firebase.auth.FirebaseAuthWeakPasswordException)
