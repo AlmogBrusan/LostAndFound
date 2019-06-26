@@ -1,9 +1,64 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/item_found_relative"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".FoundItem">
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+    android:layout_height="match_parent">
+    <com.yalantis.jellytoolbar.widget.JellyToolbar
+        android:id="@+id/toolbarfound"
+        android:background="@color/colorPrimary"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingStart="30dp" />
+    <Button
+        android:textColor="#fff"
+        android:id="@+id/btnhavefound"
+        android:background="#212121"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Have Found Something ?"
+        android:layout_above="@+id/adViewfoundlist"/>
+    <TextView
+        android:textSize="17dp"
+        android:textColor="#fff"
+        android:gravity="center"
+        android:id="@+id/txtinterneterror"
+        android:background="#dd2c00"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="No Internet Connection"
+        android:layout_below="@+id/toolbarfound"/>
+    <ListView
+        android:id="@+id/itemfound"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:stackFromBottom="false"
+        android:transcriptMode="normal"
+        android:layout_above="@+id/btnhavefound"
+        android:layout_below="@+id/txtinterneterror"/>
+    <ProgressBar
+        android:id="@+id/foundprogress"
+        android:visibility="gone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"/>
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/btntest"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="15dp"
+        android:src="@drawable/ic_filter"
+        android:layout_above="@+id/btnhavefound"
+        android:layout_alignParentRight="true"/>
+    <com.google.android.gms.ads.AdView
+        android:id="@+id/adViewfoundlist"
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/bottomfound"
+        android:layout_centerHorizontal="true"/>
+    <androidx.legacy.widget.Space
+        android:id="@+id/bottomfound"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"/>
+</RelativeLayout>

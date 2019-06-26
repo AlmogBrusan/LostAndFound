@@ -1,9 +1,60 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/itemlostrelative"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".LostItem">
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+    android:layout_height="match_parent">
+    <com.yalantis.jellytoolbar.widget.JellyToolbar
+        android:id="@+id/toolbarlost"
+        android:background="@color/colorPrimary"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingStart="30dp"/>
+    <TextView android:textSize="17dp"
+        android:textColor="#fff"
+        android:gravity="center"
+        android:id="@+id/txtinterneterrorlost"
+        android:background="#dd2c00"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="No Internet Connection"
+        android:layout_below="@+id/toolbarlost"/>
+    <Button android:textColor="#fff"
+        android:id="@+id/btnhavelost"
+        android:background="#212121"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Have Lost Something ?"
+        android:layout_above="@+id/adViewlostlist"/>
+    <ListView
+        android:id="@+id/itemlost"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/btnhavelost"
+        android:layout_below="@+id/txtinterneterrorlost"/>
+    <ProgressBar
+        android:id="@+id/lostprogress"
+        android:visibility="gone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"/>
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/btnfilterlost"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="15dp"
+        android:src="@drawable/ic_filter"
+        android:layout_above="@+id/btnhavelost"
+        android:layout_alignParentRight="true"/>
+    <com.google.android.gms.ads.AdView
+        android:id="@+id/adViewlostlist"
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/bottomfound"
+        android:layout_centerHorizontal="true"/>
+    <androidx.legacy.widget.Space
+        android:id="@+id/bottomfound"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"/>
+</RelativeLayout>

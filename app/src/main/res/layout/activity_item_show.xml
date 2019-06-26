@@ -1,9 +1,117 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/relativelayoutsnack"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".ItemShow">
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+    android:layout_height="match_parent">
+    <ImageView
+        android:id="@+id/imagecover"
+        android:background="@color/colorPrimaryDark"
+        android:layout_width="match_parent"
+        android:layout_height="170dp"/>
+    <RelativeLayout
+        android:id="@+id/relativelayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="25dp"
+        android:layout_centerHorizontal="true">
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/imgitemshow"
+            android:layout_width="100dp"
+            android:layout_height="100dp" >
+        </de.hdodenhof.circleimageview.CircleImageView>
+    </RelativeLayout>
+    <TextView
+        android:textSize="25dp"
+        android:textColor="#fff"
+        android:id="@+id/displaynameitemshow"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:layout_below="@+id/relativelayout"
+        android:layout_centerHorizontal="true"/>
+    <androidx.cardview.widget.CardView
+        android:id="@+id/card" android:layout_width="match_parent"
+        android:layout_height="100dp" android:layout_marginTop="10dp"
+        android:layout_below="@+id/imagecover">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true">
+                <TextView android:textSize="20sp"
+                    android:id="@+id/emailprofileitemshow"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+                <TextView android:textSize="20sp"
+                    android:layout_gravity="center"
+                    android:id="@+id/phonenumberprofileitemshow"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/email"/>
+            </LinearLayout>
+        </RelativeLayout>
+    </androidx.cardview.widget.CardView>
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="10dp"
+        android:layout_below="@+id/card">
+        <TabHost
+            android:id="@+id/tabHost"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true">
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+                <TabWidget
+                    android:id="@android:id/tabs"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+                <FrameLayout
+                    android:id="@android:id/tabcontent"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+                    <RelativeLayout
+                        android:id="@+id/Lost_items"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+                        <ListView
+                            android:id="@+id/lv"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"/>
+                        <TextView
+                            android:id="@+id/txtnodatalostitem"
+                            android:visibility="gone"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="No Data"
+                            android:layout_centerInParent="true"/>
+                    </RelativeLayout>
+                    <RelativeLayout
+                        android:id="@+id/Found_items"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+                        <ListView
+                            android:id="@+id/lv2"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"/>
+                        <TextView
+                            android:id="@+id/txtnodatafounditem"
+                            android:visibility="gone"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="No Data"
+                            android:layout_centerInParent="true"/>
+                    </RelativeLayout>
+                </FrameLayout>
+            </LinearLayout>
+        </TabHost>
+    </LinearLayout>
+</RelativeLayout>
