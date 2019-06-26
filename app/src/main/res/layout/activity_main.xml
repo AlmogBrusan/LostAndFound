@@ -1,18 +1,81 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".MainActivity">
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android" android:id="@+id/mainrelativelayout" android:layout_width="match_parent" android:layout_height="match_parent">
+    <com.mxn.soul.flowingdrawer_core.FlowingDrawer android:id="@+id/drawerlayout" android:clipChildren="false" android:clipToPadding="false" android:layout_width="match_parent" android:layout_height="match_parent">
+        <RelativeLayout android:layout_width="match_parent" android:layout_height="match_parent">
+            <ImageView android:id="@+id/backimage" android:layout_width="match_parent" android:layout_height="match_parent" android:src="@mipmap/backgroundnew" android:scaleType="centerCrop"/>
+            <Button android:textColor="#ffffff" android:id="@+id/btnfound" android:background="#212121" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginLeft="60dp" android:layout_marginTop="10dp" android:layout_marginRight="60dp" android:layout_marginBottom="10dp" android:text="Found Items" android:layout_alignParentBottom="true"/>
+            <Button android:textColor="#ffffff" android:id="@+id/btnlost" android:background="#00838f" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginLeft="60dp" android:layout_marginTop="10dp" android:layout_marginRight="60dp" android:layout_marginBottom="0dp" android:text="Lost Items" android:layout_above="@+id/btnfound"/>
+        </RelativeLayout>
+        <com.mxn.soul.flowingdrawer_core.FlowingMenuLayout
+            android:id="@+id/menulayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <RelativeLayout android:layout_width="match_parent"
+                android:layout_height="match_parent">
+                <ImageView android:id="@+id/menuimge"
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp"
+                    android:src="@drawable/appiconfinal"
+                    android:scaleType="centerCrop"/>
+                <Button android:textSize="25sp"
+                    android:textColor="@android:color/white"
+                    android:gravity="center"
+                    android:id="@+id/btnloginmenu"
+                    android:background="@color/colorPrimary"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:text="Login"
+                    android:layout_alignParentBottom="true"/>
+                <LinearLayout android:orientation="vertical"
+                    android:background="#212121"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_above="@+id/btnloginmenu"
+                    android:layout_below="@+id/menuimge">
+                    <TextView android:textSize="20sp"
+                        android:textColor="@android:color/white"
+                        android:gravity="center"
+                        android:id="@+id/txtviewprofilemenu"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginBottom="10dp"
+                        android:text="View Profile"/>
+                    <TextView android:textSize="20sp"
+                        android:textColor="@android:color/white"
+                        android:gravity="center"
+                        android:id="@+id/txtviewinboxmenu"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="10dp"
+                        android:text="Inbox"/>
+                    <TextView android:textSize="20sp"
+                        android:textColor="@android:color/white"
+                        android:gravity="center"
+                        android:id="@+id/txtpostlost"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="10dp"
+                        android:text="Post a lost"/>
+                    <TextView android:textSize="20sp"
+                        android:textColor="@android:color/white"
+                        android:gravity="center"
+                        android:id="@+id/txtpostfound"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="10dp"
+                        android:text="Post a Found"/>
+                    <TextView android:textSize="20sp"
+                        android:textColor="@android:color/white"
+                        android:gravity="center"
+                        android:id="@+id/txtaboutus"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="10dp"
+                        android:text="About Us"/>
+                </LinearLayout>
+            </RelativeLayout>
+        </com.mxn.soul.flowingdrawer_core.FlowingMenuLayout>
+    </com.mxn.soul.flowingdrawer_core.FlowingDrawer>
+</RelativeLayout>
