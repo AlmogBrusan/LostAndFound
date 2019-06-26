@@ -104,7 +104,7 @@ public class MainActivity extends AppCompatActivity {
                 snackbar.show();
             }
         });
-        this.txtpostlost.setOnClickListener(new View.OnClickListener() {
+        txtpostlost.setOnClickListener(new View.OnClickListener() {
             public void onClick(View param1View) {
                 if (firebaseAuth.getCurrentUser() != null) {
                     Intent intent = new Intent(getBaseContext(), ItemUpload.class);
@@ -122,7 +122,7 @@ public class MainActivity extends AppCompatActivity {
                 snackbar.show();
             }
         });
-        if (this.firebaseAuth.getCurrentUser() != null) {
+        if (firebaseAuth.getCurrentUser() != null) {
             btnLoginMenu.setText("log out");
             btnLoginMenu.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View param1View) {
@@ -212,12 +212,13 @@ public class MainActivity extends AppCompatActivity {
                 mDrawer.openMenu();
             }
         });
-        if (this.firebaseAuth.getCurrentUser() != null) {
+        if (firebaseAuth.getCurrentUser() != null) {
             FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
-            this.myConnectionsRef = firebaseDatabase.getReference("onlineuser").child(this.firebaseAuth.getCurrentUser().getUid()).child("conection");
-            this.lastOnlineRef = firebaseDatabase.getReference("onlineuser").child(this.firebaseAuth.getCurrentUser().getUid()).child("conection");
+            myConnectionsRef = firebaseDatabase.getReference("onlineuser").child(firebaseAuth.getCurrentUser().getUid()).child("conection");
+            lastOnlineRef = firebaseDatabase.getReference("onlineuser").child(firebaseAuth.getCurrentUser().getUid()).child("conection");
             firebaseDatabase.getReference(".info/connected").addValueEventListener(new ValueEventListener() {
-                public void onCancelled(DatabaseError param1DatabaseError) { System.err.println("Listener was cancelled at .info/connected"); }
+                public void onCancelled(DatabaseError param1DatabaseError)
+                { System.err.println("Listener was cancelled at .info/connected"); }
 
                 public void onDataChange(DataSnapshot param1DataSnapshot) {
                     if (((Boolean)param1DataSnapshot.getValue(Boolean.class)).booleanValue()) {
