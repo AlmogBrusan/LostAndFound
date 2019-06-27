@@ -8,10 +8,11 @@
         android:layout_margin="5dp"
         android:fillViewport="false"
         android:foregroundGravity="left">
-        <RelativeLayout android:layout_width="match_parent"
+        <RelativeLayout
+            android:layout_width="wrap_content"
             android:layout_height="match_parent">
-            <LinearLayout android:gravity="left"
-                android:layout_gravity="left"
+            <LinearLayout android:gravity="start"
+                android:layout_gravity="start"
                 android:orientation="horizontal"
                 android:id="@+id/selected_photos_container"
                 android:visibility="visible"
@@ -22,10 +23,10 @@
                 android:layout_width="100dp"
                 android:layout_height="100dp"
                 android:layout_margin="5dp"
-                android:src="@drawable/ic_add"
+                android:src="@drawable/ic_add_a_photo_black_24dp"
                 android:scaleType="centerCrop"
                 android:cropToPadding="true"
-                android:layout_toRightOf="@+id/selected_photos_container"/>
+                android:layout_toEndOf="@+id/selected_photos_container"/>
         </RelativeLayout>
     </HorizontalScrollView>
     <LinearLayout android:orientation="vertical"
@@ -35,7 +36,8 @@
         android:layout_marginLeft="5dp"
         android:layout_marginRight="5dp"
         android:layout_below="@+id/hori_scroll_view">
-        <EditText android:textColor="#000"
+        <EditText
+            android:textColor="#000"
             android:textColorHint="#000"
             android:id="@+id/edttitle"
             android:background="@drawable/txtbackground"
@@ -48,7 +50,8 @@
             android:maxLength="25"
             android:layout_weight="1"
             android:inputType="text"/>
-        <EditText android:textColor="#000"
+        <EditText
+            android:textColor="#000"
             android:textColorHint="#000"
             android:id="@+id/edtPhone"
             android:background="@drawable/txtbackground"
@@ -59,18 +62,20 @@
             android:hint="Phone number"
             android:layout_weight="1"
             android:inputType="phone"/>
-        <RelativeLayout android:id="@+id/relpickloction"
+        <RelativeLayout
+            android:id="@+id/relpickloction"
             android:background="@drawable/txtbackground"
             android:padding="5dp"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_margin="5dp"
             android:layout_weight="1">
-            <ImageView android:id="@+id/ic_pick_location"
-                android:background="@drawable/ic_next_icon"
+            <ImageView
+                android:id="@+id/ic_pick_location"
+                android:background="@drawable/ic_navigate_next_black_24dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
                 android:layout_centerVertical="true"/>
             <TextView android:textColor="#000"
                 android:textColorHint="#000"
@@ -78,9 +83,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:hint="Choose Location"
-                android:layout_toLeftOf="@+id/ic_pick_location"/>
+                android:layout_toStartOf="@+id/ic_pick_location"/>
         </RelativeLayout>
-        <RelativeLayout android:background="@drawable/txtbackground"
+        <RelativeLayout
+            android:id="@+id/pick_category"
+            android:background="@drawable/txtbackground"
             android:padding="5dp"
             android:layout_width="match_parent"
             android:layout_height="0dp"
@@ -89,20 +96,21 @@
             <Spinner android:entries="@array/Category"
                 android:id="@+id/spinr_category"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_toLeftOf="@+id/icmagnify"/>
+                android:layout_height="match_parent" />
         </RelativeLayout>
-        <RelativeLayout android:background="@drawable/txtbackground"
+        <RelativeLayout
+            android:background="@drawable/txtbackground"
             android:padding="5dp"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_margin="5dp"
             android:layout_weight="1">
-            <ImageView android:id="@+id/ic_date"
-                android:background="@drawable/ic_calender"
+            <ImageView
+                android:id="@+id/ic_date"
+                android:background="@drawable/ic_calender_black_24dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
                 android:layout_centerVertical="true"/>
             <TextView android:textColor="#000"
                 android:textColorHint="#000"
