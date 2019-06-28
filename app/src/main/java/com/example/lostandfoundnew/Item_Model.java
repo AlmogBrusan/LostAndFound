@@ -2,56 +2,40 @@ package com.example.lostandfoundnew;
 
 public class Item_Model {
     int Status;
-
     public String address;
-
     public String categories;
-
     String date;
-
     String description;
-
     String id;
-
     String imageurl1 = "no";
-
     String imageurl2 = "no";
-
     String imageurl3 = "no";
-
     String imageurl4 = "no";
-
     String imageurl5 = "no";
-
     double latitude;
-
     double longitude;
-
     String phone;
-
     public String title;
-
     String user_id;
-
     public Item_Model() {}
 
     public Item_Model(String paramString1, String paramString2, String paramString3, String paramString4, String paramString5, String paramString6, String paramString7, String paramString8, double paramDouble1, double paramDouble2, String paramString9, int paramInt, String paramString10, String paramString11, String paramString12, String paramString13) {
-        this.title = paramString1;
-        this.address = paramString2;
-        this.categories = paramString3;
-        this.imageurl1 = paramString4;
-        this.imageurl2 = paramString5;
-        this.imageurl3 = paramString6;
-        this.imageurl4 = paramString7;
-        this.imageurl5 = paramString8;
-        this.longitude = paramDouble1;
-        this.latitude = paramDouble2;
-        this.description = paramString9;
-        this.Status = paramInt;
-        this.id = paramString10;
-        this.date = paramString11;
-        this.phone = paramString12;
-        this.user_id = paramString13;
+         title = paramString1;
+        address = paramString2;
+        categories = paramString3;
+        imageurl1 = paramString4;
+        imageurl2 = paramString5;
+        imageurl3 = paramString6;
+        imageurl4 = paramString7;
+        imageurl5 = paramString8;
+        longitude = paramDouble1;
+        latitude = paramDouble2;
+        description = paramString9;
+        Status = paramInt;
+        id = paramString10;
+        date = paramString11;
+        phone = paramString12;
+        user_id = paramString13;
     }
 
     public String getAddress() { return this.address; }

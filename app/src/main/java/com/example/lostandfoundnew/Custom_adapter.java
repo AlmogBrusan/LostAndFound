@@ -10,22 +10,18 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import com.google.firebase.storage.StorageReference;
-
 import java.util.List;
 
-public class Costom_adopter extends ArrayAdapter<Item_Model> {
+public class Custom_adapter extends ArrayAdapter<Item_Model> {
     TextView address;
     Context context;
     TextView date;
     List<Item_Model> item_model;
     MyViewHolder myViewHolder;
     ImageView profileimage;
-    StorageReference storageReference;
     TextView title;
 
     private static class MyViewHolder {
@@ -42,7 +38,7 @@ public class Costom_adopter extends ArrayAdapter<Item_Model> {
         }
     }
 
-    Costom_adopter(Context context, List<Item_Model> item_model) {
+    Custom_adapter(Context context, List<Item_Model> item_model) {
         super(context, 0, item_model);
         this.context = context;
         this.item_model = item_model;
@@ -52,7 +48,7 @@ public class Costom_adopter extends ArrayAdapter<Item_Model> {
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
         View view = convertView;
         if (convertView == null) {
-            view = LayoutInflater.from(this.context).inflate(R.layout.card_veiw, parent, false);
+            view = LayoutInflater.from(this.context).inflate(R.layout.card_view, parent, false);
             profileimage =  view.findViewById(R.id.main_card_image);
             title =  view.findViewById(R.id.main_card_title);
             address =  view.findViewById(R.id.main_card_address);

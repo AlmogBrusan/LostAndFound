@@ -12,33 +12,21 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 public class FilterFragment extends AAH_FabulousFragment {
-    int all_filterselect = 1;
-
-    TextView animal_cat;
-
-    int animal_filterselect = 0;
-
     DatabaseReference databaseReference;
-
-    TextView doc_cat;
-
-    int doc_filterselect = 0;
-
-    int key_filterselect = 0;
-
-    TextView keycat;
-
-    TextView other_cat;
-
-    int other_filterselect = 0;
-
-    TextView phone_cat;
-
-    int phone_filterselect = 0;
-
     Query query;
-
     ValueEventListener valueEventListener;
+    TextView docCategory;
+    TextView animalCategory;
+    TextView keyCategory;
+    TextView otherCategory;
+    TextView phoneCategory;
+    int all_filterselect = 1;
+    int animal_filterselect = 0;
+    int doc_filterselect = 0;
+    int key_filterselect = 0;
+    int other_filterselect = 0;
+    int phone_filterselect = 0;
+    
 
     public static FilterFragment newInstance() { return new FilterFragment(); }
 
@@ -46,63 +34,63 @@ public class FilterFragment extends AAH_FabulousFragment {
         View view = View.inflate(getContext(), R.layout.fragment_filter, null);
         RelativeLayout relativeLayout = view.findViewById(R.id.rl_content);
         LinearLayout linearLayout = view.findViewById(R.id.ll_buttons);
-        keycat = view.findViewById(R.id.keys_cat);
-        doc_cat = view.findViewById(R.id.keys_doc);
-        phone_cat = view.findViewById(R.id.keys_phone);
-        animal_cat = view.findViewById(R.id.keys_animal);
-        other_cat = view.findViewById(R.id.keys_other);
-        keycat.setOnClickListener(new View.OnClickListener() {
+        keyCategory = view.findViewById(R.id.keys_cat);
+        docCategory = view.findViewById(R.id.keys_doc);
+        phoneCategory = view.findViewById(R.id.keys_phone);
+        animalCategory = view.findViewById(R.id.keys_animal);
+        otherCategory = view.findViewById(R.id.keys_other);
+        keyCategory.setOnClickListener(new View.OnClickListener() {
             public void onClick(View param1View) {
                 if (key_filterselect == 0) {
-                    keycat.setBackground(getResources().getDrawable(R.drawable.filter_select));
+                    keyCategory.setBackground(getResources().getDrawable(R.drawable.filter_select));
                     key_filterselect = 1;
                     return;
                 }
-                keycat.setBackground(getResources().getDrawable(R.drawable.filter));
+                keyCategory.setBackground(getResources().getDrawable(R.drawable.filter));
                 key_filterselect = 0;
             }
         });
-        this.doc_cat.setOnClickListener(new View.OnClickListener() {
+        this.docCategory.setOnClickListener(new View.OnClickListener() {
             public void onClick(View param1View) {
                 if (doc_filterselect == 0) {
-                    doc_cat.setBackground(getResources().getDrawable(R.drawable.filter_select));
+                    docCategory.setBackground(getResources().getDrawable(R.drawable.filter_select));
                     doc_filterselect = 1;
                     return;
                 }
-                doc_cat.setBackground(getResources().getDrawable(R.drawable.filter));
+                docCategory.setBackground(getResources().getDrawable(R.drawable.filter));
                 doc_filterselect = 0;
             }
         });
-        this.phone_cat.setOnClickListener(new View.OnClickListener() {
+        this.phoneCategory.setOnClickListener(new View.OnClickListener() {
             public void onClick(View param1View) {
                 if (phone_filterselect == 0) {
-                    phone_cat.setBackground(getResources().getDrawable(R.drawable.filter_select));
+                    phoneCategory.setBackground(getResources().getDrawable(R.drawable.filter_select));
                     phone_filterselect = 1;
                     return;
                 }
-                phone_cat.setBackground(getResources().getDrawable(R.drawable.filter));
+                phoneCategory.setBackground(getResources().getDrawable(R.drawable.filter));
                 phone_filterselect = 0;
             }
         });
-        this.animal_cat.setOnClickListener(new View.OnClickListener() {
+        this.animalCategory.setOnClickListener(new View.OnClickListener() {
             public void onClick(View param1View) {
                 if (animal_filterselect == 0) {
-                    animal_cat.setBackground(getResources().getDrawable(R.drawable.filter_select));
+                    animalCategory.setBackground(getResources().getDrawable(R.drawable.filter_select));
                     animal_filterselect = 1;
                     return;
                 }
-                animal_cat.setBackground(getResources().getDrawable(R.drawable.filter));
+                animalCategory.setBackground(getResources().getDrawable(R.drawable.filter));
                 animal_filterselect = 0;
             }
         });
-        this.other_cat.setOnClickListener(new View.OnClickListener() {
+        this.otherCategory.setOnClickListener(new View.OnClickListener() {
             public void onClick(View param1View) {
                 if (other_filterselect == 0) {
-                    other_cat.setBackground(getResources().getDrawable(R.drawable.filter_select));
+                    otherCategory.setBackground(getResources().getDrawable(R.drawable.filter_select));
                     other_filterselect = 1;
                     return;
                 }
-                other_cat.setBackground(getResources().getDrawable(R.drawable.filter));
+                otherCategory.setBackground(getResources().getDrawable(R.drawable.filter));
                 other_filterselect = 0;
             }
         });
