@@ -16,7 +16,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Have Found Something ?"
-        android:layout_above="@+id/adViewfoundlist"/>
+        android:layout_above="@+id/bottomfound"/>
     <TextView
         android:textSize="17dp"
         android:textColor="#fff"
@@ -41,7 +41,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"/>
-    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/btntest"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -49,13 +49,7 @@
         android:src="@drawable/ic_filter"
         android:layout_above="@+id/btnhavefound"
         android:layout_alignParentRight="true" />
-    <com.google.android.gms.ads.AdView
-        android:id="@+id/adViewfoundlist"
-        android:visibility="gone"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/bottomfound"
-        android:layout_centerHorizontal="true"/>
+
     <androidx.legacy.widget.Space
         android:id="@+id/bottomfound"
         android:layout_width="match_parent"

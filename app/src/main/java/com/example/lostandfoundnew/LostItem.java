@@ -9,7 +9,6 @@ import android.graphics.drawable.BitmapDrawable;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatEditText;
 import android.text.TextUtils;
@@ -27,7 +26,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.gms.ads.AdView;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -45,76 +44,36 @@ import java.util.List;
 
 public class LostItem extends AppCompatActivity {
 
-
     private static final String TEXT_KEY = "text";
-
     private static final int TOTAL_ITEM_TO_LOAD = 10;
-
-    Activity activity;
-
-    AdView adView;
-
     CustomAdapter adopter1;
-
     Context context;
-
     DatabaseReference databaseReference;
-
     private AppCompatEditText editText;
-
     FirebaseAuth firebaseAuth;
-
     int index = 0;
-
     List<Item_Model> item_modelList = new ArrayList();
-
     private int itempos = 0;
-
-    private JellyListener jellyListener1 = new JellyListener() {
-        public void onCancelIconClicked() {
-            if (TextUtils.isEmpty(editText.getText())) {
-                toolbar1.collapse();
-                return;
-            }
-            editText.getText().clear();
-            item_modelList.clear();
-            showdata();
-        }
-    };
-
     String lastkeyonetime = "";
-
     ListView listViewshow;
-
     private String mlastkey = "";
-
     private String prevkey = "";
-
     String prevkeyonetime = "";
-
     ProgressBar progressBar;
-
     Query query;
-
     int refreashcount = 0;
-
     RelativeLayout relativeLayout;
-
     private int swipecount = 0;
-
     JellyToolbar toolbar1;
-
     FirebaseUser user;
-
     boolean userScrolled = false;
-
     ValueEventListener valueEventListener;
+
 
     @SuppressLint({"ResourceAsColor"})
     protected void onCreate(Bundle paramBundle) {
         super.onCreate(paramBundle);
         setContentView(R.layout.activity_lost_item);
-        adView = findViewById(R.id.adViewlostlist);
         listViewshow = findViewById(R.id.itemlost);
         firebaseAuth = FirebaseAuth.getInstance();
         user = firebaseAuth.getCurrentUser();
@@ -138,7 +97,6 @@ public class LostItem extends AppCompatActivity {
         getWindow().getDecorView().setSystemUiVisibility(1280);
         toolbar1.setContentView(editText);
         if (haveNetworkConnection()) {
-            adView.setVisibility(View.VISIBLE);
             textView.setVisibility(View.GONE);
             button.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View param1View) {
@@ -234,7 +192,7 @@ public class LostItem extends AppCompatActivity {
                             progressBar.setVisibility(View.GONE);
                         }
                     });
-                    FoundItem.hideKeyboard(activity);
+                    FoundItem.hideKeyboard(LostItem.this);
                 }
                 return false;
             }
@@ -254,6 +212,18 @@ public class LostItem extends AppCompatActivity {
             i = getResources().getDimensionPixelSize(j);
         return i;
     }
+
+    private JellyListener jellyListener1 = new JellyListener() {
+        public void onCancelIconClicked() {
+            if (TextUtils.isEmpty(editText.getText())) {
+                toolbar1.collapse();
+                return;
+            }
+            editText.getText().clear();
+            item_modelList.clear();
+            showdata();
+        }
+    };
 
     private boolean haveNetworkConnection() {
         boolean bool = false;

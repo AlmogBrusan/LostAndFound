@@ -11,7 +11,7 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
 import androidx.annotation.RequiresApi;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatEditText;
 import android.text.TextUtils;
@@ -28,9 +28,8 @@ import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.AdView;
-import com.google.android.gms.ads.MobileAds;
+
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -50,7 +49,6 @@ public class FoundItem extends AppCompatActivity {
     private static final String TEXT_KEY = "text";
 
     Activity activity;
-    AdView adView;
     CustomAdapter adopter1;
     Context context;
     DatabaseReference databaseReference;
@@ -59,19 +57,6 @@ public class FoundItem extends AppCompatActivity {
     int index;
     List<Item_Model> item_modelList = new ArrayList();
     private int itempos = 0;
-
-    private JellyListener jellyListener1 = new JellyListener() {
-        public void onCancelIconClicked() {
-            if (TextUtils.isEmpty(editText.getText())) {
-                toolbar1.collapse();
-                return;
-            }
-            editText.getText().clear();
-            item_modelList.clear();
-            showdata();
-        }
-    };
-
     String lastkeyonetime = "";
     ListView listViewshow;
     int mCurrentPage = 0;
@@ -91,6 +76,156 @@ public class FoundItem extends AppCompatActivity {
     TextView txtinternet_error;
     FirebaseUser user;
     boolean userScrolled = false;
+    Button btnHaveFound;
+    FloatingActionButton fab;
+
+
+    @SuppressLint({"NewApi", "ResourceAsColor"})
+    //@RequiresApi(api = 23)
+    protected void onCreate(Bundle paramBundle) {
+        super.onCreate(paramBundle);
+        setContentView(R.layout.activity_found_item);
+
+        listViewshow = findViewById(R.id.itemfound);
+        firebaseAuth = FirebaseAuth.getInstance();
+        user = firebaseAuth.getCurrentUser();
+        databaseReference = FirebaseDatabase.getInstance().getReference("database");
+        query = databaseReference.orderByKey().limitToLast(10);
+        progressBar = findViewById(R.id.foundprogress);
+        relativeLayout = findViewById(R.id.item_found_relative);
+        adopter1 = new CustomAdapter(this, item_modelList);
+        listViewshow.setAdapter(adopter1);
+        progressBar.setVisibility(View.VISIBLE);
+        btnHaveFound = findViewById(R.id.btnhavefound);
+         fab = findViewById(R.id.btntest);
+        getSupportActionBar().hide();
+        activity = this;
+        toolbar1 = findViewById(R.id.toolbarfound);
+        toolbar1.setJellyListener(jellyListener1);
+        context = this;
+        txtinternet_error = findViewById(R.id.txtinterneterror);
+        editText = (AppCompatEditText)LayoutInflater.from(this).inflate(R.layout.search_text, null);
+        editText.setBackgroundResource(R.color.transparent);
+        toolbar1.getToolbar().setPadding(0, getStatusBarHeight(), 0, 0);
+        getWindow().getDecorView().setSystemUiVisibility(1280);
+        toolbar1.setContentView(editText);
+        if (haveNetworkConnection()) {
+            txtinternet_error.setVisibility(View.GONE);
+            btnHaveFound.setOnClickListener(new View.OnClickListener() {
+                public void onClick(View param1View) {
+                    if (firebaseAuth.getCurrentUser() != null) {
+                        Intent intent1 = new Intent(FoundItem.this, ItemUpload.class);
+                        intent1.putExtra("status", 0);
+                        startActivity(intent1);
+                        return;
+                    }
+                    Intent intent = new Intent(getApplicationContext(), Login.class);
+                    startActivity(intent);
+                }
+            });
+        } else {
+            btnHaveFound.setOnClickListener(new View.OnClickListener() {
+                public void onClick(View param1View) { Toast.makeText(FoundItem.this, "Conect to the internet", Toast.LENGTH_SHORT).show(); }
+            });
+        }
+        fab.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View param1View) {
+                FilterFragment filterFragment = FilterFragment.newInstance();
+                filterFragment.setParentFab(fab);
+                filterFragment.show(getSupportFragmentManager(), filterFragment.getTag());
+            }
+        });
+        fab.hide();
+        showdata();
+        listViewshow.setOnScrollListener(new AbsListView.OnScrollListener() {
+            int scrollcheck = -1;
+
+            public void onScroll(AbsListView param1AbsListView, int param1Int1, int param1Int2, int param1Int3) {
+                index = param1Int1;
+                if (userScrolled && param1Int1 + param1Int2 == param1Int3 && scrollcheck != index) {
+                    scrollcheck = scrollitem(index);
+                    userScrolled = false;
+                }
+            }
+
+            public void onScrollStateChanged(AbsListView param1AbsListView, int param1Int) {
+                if (param1Int == 1)
+                    userScrolled = true;
+            }
+        });
+        listViewshow.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            public void onItemClick(AdapterView<?> param1AdapterView, View param1View, int param1Int, long param1Long) {
+                Intent intent = new Intent(getBaseContext(), ItemDetail.class);
+                Item_Model item_Model = item_modelList.get(param1Int);
+                intent.putExtra("title", item_Model.getTitle());
+                intent.putExtra("address", item_Model.getAddress());
+                intent.putExtra("categories", item_Model.getCategories());
+                intent.putExtra("longitude", item_Model.getLongitude());
+                intent.putExtra("latitude", item_Model.getLatitude());
+                intent.putExtra("description", item_Model.getDescription());
+                intent.putExtra("Status", item_Model.getStatus());
+                intent.putExtra("phone", item_Model.getPhone());
+                intent.putExtra("user_id", item_Model.getUser_id());
+                intent.putExtra("push_id", item_Model.getId());
+                startActivity(intent);
+            }
+        });
+        editText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            public boolean onEditorAction(TextView param1TextView, int param1Int, KeyEvent param1KeyEvent) {
+                if (param1Int == 3 || param1Int == 6 || param1KeyEvent.getAction() == 0 || param1KeyEvent.getAction() == 66) {
+                    item_modelList.clear();
+                    String str = editText.getText().toString().trim();
+                    databaseReference.orderByChild("title").startAt(str).endAt(str + "?").limitToLast(100).addListenerForSingleValueEvent(new ValueEventListener() {
+                        public void onCancelled(DatabaseError param2DatabaseError) {}
+
+                        public void onDataChange(DataSnapshot param2DataSnapshot) {
+                            item_modelList.clear();
+                            for (DataSnapshot dataSnapshot : param2DataSnapshot.getChildren()) {
+                                Item_Model item_Model = new Item_Model();
+                                item_Model.setImageurl1((dataSnapshot.getValue(Item_Model.class)).getImageurl1());
+                                item_Model.setTitle((dataSnapshot.getValue(Item_Model.class)).getTitle());
+                                item_Model.setAddress((dataSnapshot.getValue(Item_Model.class)).getAddress());
+                                item_Model.setLatitude((dataSnapshot.getValue(Item_Model.class)).latitude);
+                                item_Model.setLongitude((dataSnapshot.getValue(Item_Model.class)).longitude);
+                                item_Model.setDescription((dataSnapshot.getValue(Item_Model.class)).getDescription());
+                                item_Model.setCategories((dataSnapshot.getValue(Item_Model.class)).getCategories());
+                                item_Model.setStatus((dataSnapshot.getValue(Item_Model.class)).getStatus());
+                                item_Model.setId((dataSnapshot.getValue(Item_Model.class)).getId());
+                                item_Model.setDate((dataSnapshot.getValue(Item_Model.class)).getDate());
+                                item_Model.setPhone((dataSnapshot.getValue(Item_Model.class)).getPhone());
+                                item_Model.setUser_id((dataSnapshot.getValue(Item_Model.class)).getUser_id());
+                                if ((dataSnapshot.getValue(Item_Model.class)).getStatus() == 0)
+                                    item_modelList.add(item_Model);
+                            }
+                            if (item_modelList.isEmpty()) {
+                                Toast.makeText(getApplicationContext(), " No Found Item availible !", Toast.LENGTH_SHORT).show();
+                                progressBar.setVisibility(View.GONE);
+                                return;
+                            }
+                            listViewshow.setAdapter(new CustomAdapter(getBaseContext(), item_modelList));
+                            progressBar.setVisibility(View.GONE);
+                        }
+                    });
+                    FoundItem.hideKeyboard(activity);
+                }
+                return false;
+            }
+        });
+    }
+
+    private JellyListener jellyListener1 = new JellyListener() {
+        public void onCancelIconClicked() {
+            if (TextUtils.isEmpty(editText.getText())) {
+                toolbar1.collapse();
+                return;
+            }
+            editText.getText().clear();
+            item_modelList.clear();
+            showdata();
+        }
+    };
+
+  
 
     public static String encodeTobase64(Bitmap paramBitmap) {
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
@@ -253,142 +388,7 @@ public class FoundItem extends AppCompatActivity {
         }
     }); }
 
-    @SuppressLint({"NewApi", "ResourceAsColor"})
-    @RequiresApi(api = 23)
-    protected void onCreate(Bundle paramBundle) {
-        super.onCreate(paramBundle);
-        setContentView(R.layout.activity_found_item);
-        //       MobileAds.initialize(this, "ca-app-pub-6391308259881572~5165525254");
-//        adView = (AdView)findViewById(2131296288);
-//        ds = (new AdRequest.Builder()).build();
-//        adView.loadAd(ds);
-        listViewshow = findViewById(R.id.itemfound);
-        firebaseAuth = FirebaseAuth.getInstance();
-        user = firebaseAuth.getCurrentUser();
-        databaseReference = FirebaseDatabase.getInstance().getReference("database");
-        query = databaseReference.orderByKey().limitToLast(10);
-        progressBar = findViewById(R.id.foundprogress);
-        relativeLayout = findViewById(R.id.item_found_relative);
-        adopter1 = new CustomAdapter(this, item_modelList);
-        listViewshow.setAdapter(adopter1);
-        progressBar.setVisibility(View.VISIBLE);
-        Button button = findViewById(R.id.btnhavefound);
-        final FloatingActionButton fab = findViewById(R.id.btntest);
-        getSupportActionBar().hide();
-        activity = this;
-        toolbar1 = findViewById(R.id.toolbarfound);
-        toolbar1.setJellyListener(jellyListener1);
-        context = this;
-        txtinternet_error = findViewById(R.id.txtinterneterror);
-        editText = (AppCompatEditText)LayoutInflater.from(this).inflate(R.layout.search_text, null);
-        editText.setBackgroundResource(R.color.transparent);
-        toolbar1.getToolbar().setPadding(0, getStatusBarHeight(), 0, 0);
-        getWindow().getDecorView().setSystemUiVisibility(1280);
-        toolbar1.setContentView(editText);
-        if (haveNetworkConnection()) {
-            adView.setVisibility(View.VISIBLE);
-            txtinternet_error.setVisibility(View.GONE);
-            button.setOnClickListener(new View.OnClickListener() {
-                public void onClick(View param1View) {
-                    if (firebaseAuth.getCurrentUser() != null) {
-                        Intent intent1 = new Intent(FoundItem.this, ItemUpload.class);
-                        intent1.putExtra("status", 0);
-                        startActivity(intent1);
-                        return;
-                    }
-                    Intent intent = new Intent(getApplicationContext(), Login.class);
-                    startActivity(intent);
-                }
-            });
-        } else {
-            button.setOnClickListener(new View.OnClickListener() {
-                public void onClick(View param1View) { Toast.makeText(FoundItem.this, "Conect to the internet", Toast.LENGTH_SHORT).show(); }
-            });
-        }
-        fab.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View param1View) {
-                FilterFragment filterFragment = FilterFragment.newInstance();
-                filterFragment.setParentFab(fab);
-                filterFragment.show(getSupportFragmentManager(), filterFragment.getTag());
-            }
-        });
-        fab.hide();
-        showdata();
-        listViewshow.setOnScrollListener(new AbsListView.OnScrollListener() {
-            int scrollcheck = -1;
 
-            public void onScroll(AbsListView param1AbsListView, int param1Int1, int param1Int2, int param1Int3) {
-                index = param1Int1;
-                if (userScrolled && param1Int1 + param1Int2 == param1Int3 && scrollcheck != index) {
-                    scrollcheck = scrollitem(index);
-                    userScrolled = false;
-                }
-            }
-
-            public void onScrollStateChanged(AbsListView param1AbsListView, int param1Int) {
-                if (param1Int == 1)
-                    userScrolled = true;
-            }
-        });
-        listViewshow.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            public void onItemClick(AdapterView<?> param1AdapterView, View param1View, int param1Int, long param1Long) {
-                Intent intent = new Intent(getBaseContext(), ItemDetail.class);
-                Item_Model item_Model = item_modelList.get(param1Int);
-                intent.putExtra("title", item_Model.getTitle());
-                intent.putExtra("address", item_Model.getAddress());
-                intent.putExtra("categories", item_Model.getCategories());
-                intent.putExtra("longitude", item_Model.getLongitude());
-                intent.putExtra("latitude", item_Model.getLatitude());
-                intent.putExtra("description", item_Model.getDescription());
-                intent.putExtra("Status", item_Model.getStatus());
-                intent.putExtra("phone", item_Model.getPhone());
-                intent.putExtra("user_id", item_Model.getUser_id());
-                intent.putExtra("push_id", item_Model.getId());
-                startActivity(intent);
-            }
-        });
-        editText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-            public boolean onEditorAction(TextView param1TextView, int param1Int, KeyEvent param1KeyEvent) {
-                if (param1Int == 3 || param1Int == 6 || param1KeyEvent.getAction() == 0 || param1KeyEvent.getAction() == 66) {
-                    item_modelList.clear();
-                    String str = editText.getText().toString().trim();
-                    databaseReference.orderByChild("title").startAt(str).endAt(str + "?").limitToLast(100).addListenerForSingleValueEvent(new ValueEventListener() {
-                        public void onCancelled(DatabaseError param2DatabaseError) {}
-
-                        public void onDataChange(DataSnapshot param2DataSnapshot) {
-                            item_modelList.clear();
-                            for (DataSnapshot dataSnapshot : param2DataSnapshot.getChildren()) {
-                                Item_Model item_Model = new Item_Model();
-                                item_Model.setImageurl1((dataSnapshot.getValue(Item_Model.class)).getImageurl1());
-                                item_Model.setTitle((dataSnapshot.getValue(Item_Model.class)).getTitle());
-                                item_Model.setAddress((dataSnapshot.getValue(Item_Model.class)).getAddress());
-                                item_Model.setLatitude((dataSnapshot.getValue(Item_Model.class)).latitude);
-                                item_Model.setLongitude((dataSnapshot.getValue(Item_Model.class)).longitude);
-                                item_Model.setDescription((dataSnapshot.getValue(Item_Model.class)).getDescription());
-                                item_Model.setCategories((dataSnapshot.getValue(Item_Model.class)).getCategories());
-                                item_Model.setStatus((dataSnapshot.getValue(Item_Model.class)).getStatus());
-                                item_Model.setId((dataSnapshot.getValue(Item_Model.class)).getId());
-                                item_Model.setDate((dataSnapshot.getValue(Item_Model.class)).getDate());
-                                item_Model.setPhone((dataSnapshot.getValue(Item_Model.class)).getPhone());
-                                item_Model.setUser_id((dataSnapshot.getValue(Item_Model.class)).getUser_id());
-                                if ((dataSnapshot.getValue(Item_Model.class)).getStatus() == 0)
-                                    item_modelList.add(item_Model);
-                            }
-                            if (item_modelList.isEmpty()) {
-                                Toast.makeText(getApplicationContext(), " No Found Item availible !", Toast.LENGTH_SHORT).show();
-                                progressBar.setVisibility(View.GONE);
-                                return;
-                            }
-                            listViewshow.setAdapter(new CustomAdapter(getBaseContext(), item_modelList));
-                            progressBar.setVisibility(View.GONE);
-                        }
-                    });
-                    FoundItem.hideKeyboard(activity);
-                }
-                return false;
-            }
-        });
-    }
 
     protected void onRestoreInstanceState(Bundle paramBundle) {
         super.onRestoreInstanceState(paramBundle);

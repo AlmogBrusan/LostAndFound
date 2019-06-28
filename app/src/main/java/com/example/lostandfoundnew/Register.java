@@ -134,11 +134,14 @@ public class Register extends AppCompatActivity {
                 if (param1Task.isSuccessful()) {
                     uid = firebaseAuth1.getUid();
                     userprofile();
+                    return;
                 }
-                Register.this.progressDialog.dismiss();
+               progressDialog.dismiss();
                 if (param1Task.getException() instanceof com.google.firebase.auth.FirebaseAuthUserCollisionException) {
                     Toast.makeText(Register.this, "Email Already Register", Toast.LENGTH_SHORT).show();
+                    return;
                 }
+
                 Toast.makeText(getApplicationContext(), param1Task.getException().getMessage(), Toast.LENGTH_SHORT).show();
             }
         });

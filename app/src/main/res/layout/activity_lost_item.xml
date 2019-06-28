@@ -24,7 +24,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Have Lost Something ?"
-        android:layout_above="@+id/adViewlostlist"/>
+        android:layout_above="@+id/bottomfound"/>
     <ListView
         android:id="@+id/itemlost"
         android:layout_width="match_parent"
@@ -45,13 +45,7 @@
         android:src="@drawable/ic_filter"
         android:layout_above="@+id/btnhavelost"
         android:layout_alignParentRight="true"/>
-    <com.google.android.gms.ads.AdView
-        android:id="@+id/adViewlostlist"
-        android:visibility="gone"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/bottomfound"
-        android:layout_centerHorizontal="true"/>
+
     <androidx.legacy.widget.Space
         android:id="@+id/bottomfound"
         android:layout_width="match_parent"
