@@ -1,5 +1,5 @@
 <resources>
     <string name="app_name">Lost And Found</string>
-
+    <string name="custom_title">Select Image</string>
 
 </resources>

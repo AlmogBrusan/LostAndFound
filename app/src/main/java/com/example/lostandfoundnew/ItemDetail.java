@@ -147,12 +147,12 @@ public class ItemDetail extends AppCompatActivity implements GoogleApiClient.OnC
             public void onCancelled(DatabaseError param1DatabaseError) {}
 
             public void onDataChange(DataSnapshot param1DataSnapshot) {
-                String str1 = ((Model_User_profile)param1DataSnapshot.getValue(Model_User_profile.class)).getFirstname();
-                String str2 = ((Model_User_profile)param1DataSnapshot.getValue(Model_User_profile.class)).getLastname();
+                String str1 = (param1DataSnapshot.getValue(Model_User_profile.class)).getFirstname();
+                String str2 = (param1DataSnapshot.getValue(Model_User_profile.class)).getLastname();
                 txtname.setText(str1 + " " + str2);
-                profile_image = ((Model_User_profile)param1DataSnapshot.getValue(Model_User_profile.class)).getImage();
-                profile_phone = ((Model_User_profile)param1DataSnapshot.getValue(Model_User_profile.class)).getPhonenumber();
-                profileid = ((Model_User_profile)param1DataSnapshot.getValue(Model_User_profile.class)).getEmail();
+                profile_image = (param1DataSnapshot.getValue(Model_User_profile.class)).getImage();
+                profile_phone = (param1DataSnapshot.getValue(Model_User_profile.class)).getPhonenumber();
+                profileid = (param1DataSnapshot.getValue(Model_User_profile.class)).getEmail();
             }
         });
         txtname.setOnClickListener(new View.OnClickListener() {
@@ -317,10 +317,10 @@ public class ItemDetail extends AppCompatActivity implements GoogleApiClient.OnC
 
                 public void onDataChange(DataSnapshot param1DataSnapshot) {
                     new Item_Model();
-                    image1 = ((Item_Model)param1DataSnapshot.getValue(Item_Model.class)).getImageurl1();
-                    image2 = ((Item_Model)param1DataSnapshot.getValue(Item_Model.class)).getImageurl2();
-                    image3 = ((Item_Model)param1DataSnapshot.getValue(Item_Model.class)).getImageurl3();
-                    image4 = ((Item_Model)param1DataSnapshot.getValue(Item_Model.class)).getImageurl4();
+                    image1 = (param1DataSnapshot.getValue(Item_Model.class)).getImageurl1();
+                    image2 = (param1DataSnapshot.getValue(Item_Model.class)).getImageurl2();
+                    image3 = (param1DataSnapshot.getValue(Item_Model.class)).getImageurl3();
+                    image4 = (param1DataSnapshot.getValue(Item_Model.class)).getImageurl4();
                     if (image4.equals("no")) {
                         imagelist = new String[] { image1, image2, image3 };
                     } else {
@@ -332,7 +332,7 @@ public class ItemDetail extends AppCompatActivity implements GoogleApiClient.OnC
                         imagelist = new String[] { image1 };
                     if (image1.equals("no")) {
                         Bitmap bitmap = ((BitmapDrawable)getResources().getDrawable(R.mipmap.no_image_availible)).getBitmap();
-                        image1 = ItemDetail.encodeTobase64(bitmap);
+                        image1 = encodeTobase64(bitmap);
                         imagelist = new String[] { image1 };
                     }
                     viewpagerAdaptor = new ViewpagerAdapter(imagelist, getApplicationContext());
@@ -358,10 +358,10 @@ public class ItemDetail extends AppCompatActivity implements GoogleApiClient.OnC
 
                 public void onDataChange(DataSnapshot param1DataSnapshot) {
                     new Item_Model();
-                    image1 = ((Item_Model)param1DataSnapshot.getValue(Item_Model.class)).getImageurl1();
-                    image2 = ((Item_Model)param1DataSnapshot.getValue(Item_Model.class)).getImageurl2();
-                    image3 = ((Item_Model)param1DataSnapshot.getValue(Item_Model.class)).getImageurl3();
-                    image4 = ((Item_Model)param1DataSnapshot.getValue(Item_Model.class)).getImageurl4();
+                    image1 = (param1DataSnapshot.getValue(Item_Model.class)).getImageurl1();
+                    image2 = (param1DataSnapshot.getValue(Item_Model.class)).getImageurl2();
+                    image3 = (param1DataSnapshot.getValue(Item_Model.class)).getImageurl3();
+                    image4 = (param1DataSnapshot.getValue(Item_Model.class)).getImageurl4();
                     if (image4.equals("no")) {
                         imagelist = new String[] { image1, image2, image3 };
                     } else {
@@ -423,7 +423,7 @@ public class ItemDetail extends AppCompatActivity implements GoogleApiClient.OnC
 
     public void movecamera(LatLng paramLatLng, float paramFloat, String paramString) {
         if (paramString.equals("My Location"))
-            this.mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(paramLatLng, paramFloat));
+            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(paramLatLng, paramFloat));
     }
 
     public void onConnectionFailed(@NonNull ConnectionResult paramConnectionResult) {}
@@ -476,7 +476,7 @@ public class ItemDetail extends AppCompatActivity implements GoogleApiClient.OnC
                     }
                     if (viewPager.getCurrentItem() == 1) {
                         viewPager.setCurrentItem(0);
-                        return;
+
                     }
                 }
             }
@@ -526,7 +526,7 @@ public class ItemDetail extends AppCompatActivity implements GoogleApiClient.OnC
                 }
                 if (viewPager.getCurrentItem() == 1) {
                     viewPager.setCurrentItem(0);
-                    return;
+
                 }
             }
         }

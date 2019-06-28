@@ -100,6 +100,7 @@ public class Login extends AppCompatActivity {
                     intent = new Intent(getApplicationContext(), MainActivity.class);
                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                     startActivity(intent);
+
                 }
 //                if (intent.getException() instanceof com.google.firebase.auth.FirebaseAuthWeakPasswordException)
 //                    Toast.makeText(getApplicationContext(), intent.getException().getMessage(), 0).show();
