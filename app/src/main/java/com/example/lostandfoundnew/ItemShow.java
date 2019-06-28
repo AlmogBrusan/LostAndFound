@@ -44,8 +44,8 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class ItemShow extends AppCompatActivity {
 
-    Custom_adapter adapter;
-    Custom_adapter adapter2;
+    CustomAdapter adapter;
+    CustomAdapter adapter2;
     int count_Selected = 0;
     DatabaseReference databaseReference;
     DatabaseReference databaseReferencelost;
@@ -100,7 +100,7 @@ public class ItemShow extends AppCompatActivity {
         firebaseAuth = FirebaseAuth.getInstance();
         user = firebaseAuth.getCurrentUser();
         listViewshow.setChoiceMode(3);
-        adapter = new Custom_adapter(this, item_modelList);
+        adapter = new CustomAdapter(this, item_modelList);
         listViewshow.setAdapter(adapter);
         databaseReference = FirebaseDatabase.getInstance().getReference("database");
         query = databaseReference.orderByChild("user_id").equalTo(user.getUid());
@@ -221,7 +221,7 @@ public class ItemShow extends AppCompatActivity {
             public boolean onPrepareActionMode(ActionMode param1ActionMode, Menu param1Menu) { return false; }
         });
         listView2.setChoiceMode(3);
-        adapter2 = new Custom_adapter(this, item_modelList_lost);
+        adapter2 = new CustomAdapter(this, item_modelList_lost);
         listView2.setAdapter(adapter2);
         databaseReferencelost = FirebaseDatabase.getInstance().getReference("lostitem");
         query1 = databaseReferencelost.orderByChild("user_id").equalTo(user.getUid());

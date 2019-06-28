@@ -98,6 +98,6 @@ public class FirebasePullRequests {
             this.textView.setVisibility(View.VISIBLE);
             return;
         }
-        this.listView.setAdapter(new Custom_adapter(this.context, this.item_models));
+        this.listView.setAdapter(new CustomAdapter(this.context, this.item_models));
     }
 }

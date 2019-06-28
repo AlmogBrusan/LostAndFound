@@ -15,7 +15,7 @@ import androidx.annotation.Nullable;
 
 import java.util.List;
 
-public class Custom_adapter extends ArrayAdapter<Item_Model> {
+public class CustomAdapter extends ArrayAdapter<Item_Model> {
     TextView address;
     Context context;
     TextView date;
@@ -38,7 +38,7 @@ public class Custom_adapter extends ArrayAdapter<Item_Model> {
         }
     }
 
-    Custom_adapter(Context context, List<Item_Model> item_model) {
+    CustomAdapter(Context context, List<Item_Model> item_model) {
         super(context, 0, item_model);
         this.context = context;
         this.item_model = item_model;

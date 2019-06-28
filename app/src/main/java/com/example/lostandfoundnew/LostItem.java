@@ -54,7 +54,7 @@ public class LostItem extends AppCompatActivity {
 
     AdView adView;
 
-    Custom_adapter adopter1;
+    CustomAdapter adopter1;
 
     Context context;
 
@@ -121,7 +121,7 @@ public class LostItem extends AppCompatActivity {
         FirebaseDatabase.getInstance();
         progressBar = findViewById(R.id.lostprogress);
         relativeLayout = findViewById(R.id.itemlostrelative);
-        adopter1 = new Custom_adapter(this, item_modelList);
+        adopter1 = new CustomAdapter(this, item_modelList);
         listViewshow.setAdapter(adopter1);
         progressBar.setVisibility(View.VISIBLE);
         Button button = findViewById(R.id.btnhavelost);
@@ -230,7 +230,7 @@ public class LostItem extends AppCompatActivity {
                                 progressBar.setVisibility(View.GONE);
                                 return;
                             }
-                            listViewshow.setAdapter(new Custom_adapter(getBaseContext(), item_modelList));
+                            listViewshow.setAdapter(new CustomAdapter(getBaseContext(), item_modelList));
                             progressBar.setVisibility(View.GONE);
                         }
                     });
@@ -327,7 +327,7 @@ public class LostItem extends AppCompatActivity {
                 progressBar.setVisibility(View.GONE);
                 return;
             }
-            listViewshow.setAdapter(new Custom_adapter(getBaseContext(), item_modelList));
+            listViewshow.setAdapter(new CustomAdapter(getBaseContext(), item_modelList));
             listViewshow.setSelection(index);
             progressBar.setVisibility(View.GONE);
             listViewshow.setEnabled(true);
@@ -383,7 +383,7 @@ public class LostItem extends AppCompatActivity {
                 return;
             }
             Collections.reverse(item_modelList);
-            listViewshow.setAdapter(new Custom_adapter(getBaseContext(), item_modelList));
+            listViewshow.setAdapter(new CustomAdapter(getBaseContext(), item_modelList));
             adopter1.notifyDataSetChanged();
             progressBar.setVisibility(View.GONE);
         }

@@ -51,7 +51,7 @@ public class FoundItem extends AppCompatActivity {
 
     Activity activity;
     AdView adView;
-    Costom_adopter adopter1;
+    CustomAdapter adopter1;
     Context context;
     DatabaseReference databaseReference;
     private AppCompatEditText editText;
@@ -186,7 +186,7 @@ public class FoundItem extends AppCompatActivity {
                 progressBar.setVisibility(View.GONE);
                 return;
             }
-            listViewshow.setAdapter(new Costom_adopter(getBaseContext(), item_modelList));
+            listViewshow.setAdapter(new CustomAdapter(getBaseContext(), item_modelList));
             listViewshow.setSelection(index);
             progressBar.setVisibility(View.GONE);
             listViewshow.setEnabled(true);
@@ -247,7 +247,7 @@ public class FoundItem extends AppCompatActivity {
                 return;
             }
             Collections.reverse(item_modelList);
-            listViewshow.setAdapter(new Costom_adopter(getBaseContext(), item_modelList));
+            listViewshow.setAdapter(new CustomAdapter(getBaseContext(), item_modelList));
             adopter1.notifyDataSetChanged();
             progressBar.setVisibility(View.GONE);
         }
@@ -269,7 +269,7 @@ public class FoundItem extends AppCompatActivity {
         query = databaseReference.orderByKey().limitToLast(10);
         progressBar = findViewById(R.id.foundprogress);
         relativeLayout = findViewById(R.id.item_found_relative);
-        adopter1 = new Costom_adopter(this, item_modelList);
+        adopter1 = new CustomAdapter(this, item_modelList);
         listViewshow.setAdapter(adopter1);
         progressBar.setVisibility(View.VISIBLE);
         Button button = findViewById(R.id.btnhavefound);
@@ -379,7 +379,7 @@ public class FoundItem extends AppCompatActivity {
                                 progressBar.setVisibility(View.GONE);
                                 return;
                             }
-                            listViewshow.setAdapter(new Costom_adopter(getBaseContext(), item_modelList));
+                            listViewshow.setAdapter(new CustomAdapter(getBaseContext(), item_modelList));
                             progressBar.setVisibility(View.GONE);
                         }
                     });
