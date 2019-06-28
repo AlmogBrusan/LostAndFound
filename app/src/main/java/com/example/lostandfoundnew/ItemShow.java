@@ -163,7 +163,7 @@ public class ItemShow extends AppCompatActivity {
                     ItemShow.this.adapter.remove(item_Model);
                     ItemShow.this.delet_data(item_Model.getId());
                 }
-                Snackbar.make(ItemShow.this.relativeLayout, ItemShow.this.count_Selected + " items deleted", -1).show();
+                Snackbar.make(ItemShow.this.relativeLayout, ItemShow.this.count_Selected + " items deleted", Snackbar.LENGTH_SHORT).show();
                 ItemShow.this.count_Selected = 0;
                 param1ActionMode.finish();
                 return true;
