@@ -39,7 +39,7 @@ public class PlaceAutocompleteAdapter extends ArrayAdapter<AutocompletePredictio
     private ArrayList<AutocompletePrediction> mResultList;
 
     public PlaceAutocompleteAdapter(Context paramContext, GeoDataClient paramGeoDataClient, LatLngBounds paramLatLngBounds, AutocompleteFilter paramAutocompleteFilter) {
-        super(paramContext, 17367047, 16908308);
+        super(paramContext, R.layout.place_autocomplete_fragment, R.id.place_autocomplete_search_input);
         mGeoDataClient = paramGeoDataClient;
         mBounds = paramLatLngBounds;
         mPlaceFilter = paramAutocompleteFilter;
@@ -80,11 +80,11 @@ public class PlaceAutocompleteAdapter extends ArrayAdapter<AutocompletePredictio
     public Filter getFilter() { return new Filter() {
         public CharSequence convertResultToString(Object param1Object) { return (param1Object instanceof AutocompletePrediction) ? ((AutocompletePrediction)param1Object).getFullText(null) : super.convertResultToString(param1Object); }
 
-        protected FilterResults performFiltering(CharSequence param1CharSequence) {
+        protected FilterResults performFiltering(CharSequence  param1CharSequence) {
             FilterResults filterResults = new FilterResults();
             ArrayList arrayList = new ArrayList();
             if (param1CharSequence != null)
-                arrayList = PlaceAutocompleteAdapter.getAutocomplete(param1CharSequence);
+                arrayList = getAutocomplete(param1CharSequence);
             filterResults.values = arrayList;
             if (arrayList != null) {
                 filterResults.count = arrayList.size();
@@ -96,8 +96,8 @@ public class PlaceAutocompleteAdapter extends ArrayAdapter<AutocompletePredictio
 
         protected void publishResults(CharSequence param1CharSequence, FilterResults param1FilterResults) {
             if (param1FilterResults != null && param1FilterResults.count > 0) {
-               // PlaceAutocompleteAdapter.access$102(PlaceAutocompleteAdapter.this, (ArrayList)param1FilterResults.values);
-                PlaceAutocompleteAdapter.notifyDataSetChanged();
+              //  PlaceAutocompleteAdapter.access$102(PlaceAutocompleteAdapter.this, (ArrayList)param1FilterResults.values);
+                notifyDataSetChanged();
                 return;
             }
             PlaceAutocompleteAdapter.this.notifyDataSetInvalidated();
@@ -109,10 +109,10 @@ public class PlaceAutocompleteAdapter extends ArrayAdapter<AutocompletePredictio
     public View getView(int paramInt, View paramView, ViewGroup paramViewGroup) {
         paramView = super.getView(paramInt, paramView, paramViewGroup);
         AutocompletePrediction autocompletePrediction = getItem(paramInt);
-        TextView textView1 = paramView.findViewById(16908308);
-        TextView textView2 = paramView.findViewById(16908309);
+        TextView textView1 = paramView.findViewById( R.id.place_autocomplete_search_input);
+       // TextView textView2 = paramView.findViewById(16908309);
         textView1.setText(autocompletePrediction.getPrimaryText(STYLE_BOLD));
-        textView2.setText(autocompletePrediction.getSecondaryText(STYLE_BOLD));
+     //   textView2.setText(autocompletePrediction.getSecondaryText(STYLE_BOLD));
         return paramView;
     }
 
