@@ -170,7 +170,7 @@ public class ItemShow extends AppCompatActivity {
             }
 
             public boolean onCreateActionMode(ActionMode param1ActionMode, Menu param1Menu) {
-                param1ActionMode.getMenuInflater().inflate(2131558400, param1Menu);
+                param1ActionMode.getMenuInflater().inflate(R.menu.delete_menu, param1Menu);
                 return true;
             }
 
@@ -256,14 +256,14 @@ public class ItemShow extends AppCompatActivity {
                     ItemShow.this.adapter2.remove(item_Model);
                     ItemShow.this.delet_datalost(item_Model.getId());
                 }
-                Snackbar.make(ItemShow.this.relativeLayout, ItemShow.this.count_Selected + " items deleted", -1).show();
+                Snackbar.make(ItemShow.this.relativeLayout, ItemShow.this.count_Selected + " items deleted", Snackbar.LENGTH_SHORT).show();
                 ItemShow.this.count_Selected = 0;
                 param1ActionMode.finish();
                 return true;
             }
 
             public boolean onCreateActionMode(ActionMode param1ActionMode, Menu param1Menu) {
-                param1ActionMode.getMenuInflater().inflate(2131558400, param1Menu);
+                param1ActionMode.getMenuInflater().inflate(R.menu.delete_menu, param1Menu);
                 return true;
             }
 

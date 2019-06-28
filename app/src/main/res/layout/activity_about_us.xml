@@ -61,7 +61,7 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="5dp"
         android:layout_marginTop="20dp"
-        android:text="@string/techju_lostandfound_gmail_com"
+        android:text="aaa"
         android:layout_toRightOf="@+id/txtemail"
         android:layout_below="@+id/txtContact"/>
 </RelativeLayout>
