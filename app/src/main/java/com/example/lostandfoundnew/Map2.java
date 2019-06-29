@@ -233,7 +233,7 @@ public class Map2 extends AppCompatActivity implements GoogleApiClient.OnConnect
         }
     }
 
-    public void onConnectionFailed(@NonNull ConnectionResult paramConnectionResult) { Toast.makeText(getApplicationContext(), paramConnectionResult.getErrorMessage(), 0).show(); }
+    public void onConnectionFailed(@NonNull ConnectionResult paramConnectionResult) { Toast.makeText(getApplicationContext(), paramConnectionResult.getErrorMessage(), Toast.LENGTH_SHORT).show(); }
 
     protected void onCreate(Bundle paramBundle) {
         super.onCreate(paramBundle);
