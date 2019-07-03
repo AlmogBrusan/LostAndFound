@@ -53,12 +53,12 @@ public class ItemShow extends AppCompatActivity {
     FirebasePullRequests firebasePullRequests;
     CircleImageView imageprofile;
     String imageprofiledecode;
-    List<Item_Model> item_modelList = new ArrayList();
-    List<Item_Model> item_modelList_lost = new ArrayList();
+    List<ItemModel> item_modelList = new ArrayList();
+    List<ItemModel> item_modelList_lost = new ArrayList();
     ListView listView2;
     ListView listViewshow;
-    List<Item_Model> listdelete = new ArrayList();
-    List<Item_Model> listdelete_lost = new ArrayList();
+    List<ItemModel> listdelete = new ArrayList();
+    List<ItemModel> listdelete_lost = new ArrayList();
     TextView phonenumber;
     Query query;
     Query query1;
@@ -112,10 +112,10 @@ public class ItemShow extends AppCompatActivity {
 
             @SuppressLint({"SetTextI18n"})
             public void onDataChange(DataSnapshot param1DataSnapshot) {
-                ItemShow.this.useremail.setText(((Model_User_profile)param1DataSnapshot.getValue(Model_User_profile.class)).getEmail());
-                ItemShow.this.txtusername.setText(((Model_User_profile)param1DataSnapshot.getValue(Model_User_profile.class)).getFirstname() + " " + ((Model_User_profile)param1DataSnapshot.getValue(Model_User_profile.class)).getLastname());
-                ItemShow.this.phonenumber.setText(((Model_User_profile)param1DataSnapshot.getValue(Model_User_profile.class)).getPhonenumber());
-                ItemShow.this.imageprofiledecode = ((Model_User_profile)param1DataSnapshot.getValue(Model_User_profile.class)).getImage();
+                ItemShow.this.useremail.setText(((UserProfileModel)param1DataSnapshot.getValue(UserProfileModel.class)).getEmail());
+                ItemShow.this.txtusername.setText(((UserProfileModel)param1DataSnapshot.getValue(UserProfileModel.class)).getFirstName() + " " + ((UserProfileModel)param1DataSnapshot.getValue(UserProfileModel.class)).getLastName());
+                ItemShow.this.phonenumber.setText(((UserProfileModel)param1DataSnapshot.getValue(UserProfileModel.class)).getPhonenumber());
+                ItemShow.this.imageprofiledecode = ((UserProfileModel)param1DataSnapshot.getValue(UserProfileModel.class)).getImage();
                 if (ItemShow.this.imageprofiledecode.equals("no")) {
                     ItemShow.this.imageprofile.setImageBitmap(BitmapFactory.decodeResource(ItemShow.this.getBaseContext().getResources(), 2131623939));
                     return;
@@ -137,7 +137,7 @@ public class ItemShow extends AppCompatActivity {
         listViewshow.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> param1AdapterView, View param1View, int param1Int, long param1Long) {
                 Intent intent = new Intent(ItemShow.this.getBaseContext(), ItemDetail.class);
-                Item_Model item_Model = (Item_Model)ItemShow.this.item_modelList.get(param1Int);
+                ItemModel item_Model = (ItemModel)ItemShow.this.item_modelList.get(param1Int);
                 intent.putExtra("title", item_Model.getTitle());
                 intent.putExtra("address", item_Model.getAddress());
                 intent.putExtra("categories", item_Model.getCategories());
@@ -159,7 +159,7 @@ public class ItemShow extends AppCompatActivity {
                     case 2131296275:
                         break;
                 }
-                for (Item_Model item_Model : ItemShow.this.listdelete) {
+                for (ItemModel item_Model : ItemShow.this.listdelete) {
                     ItemShow.this.adapter.remove(item_Model);
                     ItemShow.this.delet_data(item_Model.getId());
                 }
@@ -196,8 +196,8 @@ public class ItemShow extends AppCompatActivity {
                 while (true) {
                     bool1 = bool2;
                     if (iterator.hasNext()) {
-                        String str = ((Item_Model)iterator.next()).getId();
-                        if (((Item_Model)ItemShow.this.item_modelList.get(param1Int)).getId().equals(str)) {
+                        String str = ((ItemModel)iterator.next()).getId();
+                        if (((ItemModel)ItemShow.this.item_modelList.get(param1Int)).getId().equals(str)) {
                             ItemShow item_show = ItemShow.this;
                             item_show.count_Selected--;
                             param1ActionMode.setTitle(ItemShow.this.count_Selected + " item selected");
@@ -230,7 +230,7 @@ public class ItemShow extends AppCompatActivity {
         listView2.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> param1AdapterView, View param1View, int param1Int, long param1Long) {
                 Intent intent = new Intent(ItemShow.this.getBaseContext(), ItemDetail.class);
-                Item_Model item_Model = (Item_Model)ItemShow.this.item_modelList_lost.get(param1Int);
+                ItemModel item_Model = (ItemModel)ItemShow.this.item_modelList_lost.get(param1Int);
                 intent.putExtra("title", item_Model.getTitle());
                 intent.putExtra("address", item_Model.getAddress());
                 intent.putExtra("categories", item_Model.getCategories());
@@ -252,7 +252,7 @@ public class ItemShow extends AppCompatActivity {
                     case 2131296275:
                         break;
                 }
-                for (Item_Model item_Model : ItemShow.this.listdelete_lost) {
+                for (ItemModel item_Model : ItemShow.this.listdelete_lost) {
                     ItemShow.this.adapter2.remove(item_Model);
                     ItemShow.this.delet_datalost(item_Model.getId());
                 }
@@ -289,8 +289,8 @@ public class ItemShow extends AppCompatActivity {
                 while (true) {
                     bool1 = bool2;
                     if (iterator.hasNext()) {
-                        String str = ((Item_Model)iterator.next()).getId();
-                        if (((Item_Model)ItemShow.this.item_modelList_lost.get(param1Int)).getId().equals(str)) {
+                        String str = ((ItemModel)iterator.next()).getId();
+                        if (((ItemModel)ItemShow.this.item_modelList_lost.get(param1Int)).getId().equals(str)) {
                             ItemShow item_show = ItemShow.this;
                             item_show.count_Selected--;
                             param1ActionMode.setTitle(ItemShow.this.count_Selected + " item selected");

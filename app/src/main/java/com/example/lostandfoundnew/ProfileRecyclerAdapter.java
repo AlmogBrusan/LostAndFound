@@ -17,11 +17,11 @@ import java.util.List;
 public class ProfileRecyclerAdapter extends RecyclerView.Adapter {
     Context context;
 
-    List<Item_Model> list;
+    List<ItemModel> list;
 
     View.OnClickListener mClickListener;
 
-    ProfileRecyclerAdapter(Context paramContext, List<Item_Model> paramList) {
+    ProfileRecyclerAdapter(Context paramContext, List<ItemModel> paramList) {
         this.list = paramList;
         this.context = paramContext;
     }
@@ -34,7 +34,7 @@ public class ProfileRecyclerAdapter extends RecyclerView.Adapter {
     public int getItemCount() { return this.list.size(); }
 
     public void onBindViewHolder(RecyclerView.ViewHolder paramViewHolder, int paramInt) {
-        Item_Model item_Model = (Item_Model)this.list.get(paramInt);
+        ItemModel item_Model = (ItemModel)this.list.get(paramInt);
         ((MyViewHolder)paramViewHolder).bind(item_Model);
     }
 
@@ -53,7 +53,7 @@ public class ProfileRecyclerAdapter extends RecyclerView.Adapter {
             txtTittle = param1View.findViewById(R.id.addtittle);
         }
 
-        void bind(Item_Model param1Item_Model) {
+        void bind(ItemModel param1Item_Model) {
             imageView.setImageBitmap(ProfileRecyclerAdapter.decodeBase64(param1Item_Model.getImageurl1()));
             txtTittle.setText(param1Item_Model.getTitle());
         }

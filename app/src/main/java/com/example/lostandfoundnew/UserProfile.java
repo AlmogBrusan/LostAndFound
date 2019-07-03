@@ -40,8 +40,8 @@ public class UserProfile extends AppCompatActivity {
     FirebaseAuth firebaseAuth;
     String image;
     ImageView imgonline;
-    List<Item_Model> item_modelfound = new ArrayList();
-    List<Item_Model> item_modellost = new ArrayList();
+    List<ItemModel> item_modelfound = new ArrayList();
+    List<ItemModel> item_modellost = new ArrayList();
     String lastonline;
     String phone;
     String profileid;
@@ -82,22 +82,22 @@ public class UserProfile extends AppCompatActivity {
         public void onDataChange(DataSnapshot param1DataSnapshot) {
             item_modelfound.clear();
             for (DataSnapshot dataSnapshot : param1DataSnapshot.getChildren()) {
-                Item_Model item_Model = new Item_Model();
-                item_Model.setTitle((dataSnapshot.getValue(Item_Model.class)).getTitle());
-                item_Model.setAddress((dataSnapshot.getValue(Item_Model.class)).getAddress());
-                item_Model.setLatitude((dataSnapshot.getValue(Item_Model.class)).latitude);
-                item_Model.setLongitude((dataSnapshot.getValue(Item_Model.class)).longitude);
-                item_Model.setDescription((dataSnapshot.getValue(Item_Model.class)).getDescription());
-                item_Model.setCategories((dataSnapshot.getValue(Item_Model.class)).getCategories());
-                item_Model.setStatus((dataSnapshot.getValue(Item_Model.class)).getStatus());
-                item_Model.setId((dataSnapshot.getValue(Item_Model.class)).getId());
-                item_Model.setDate((dataSnapshot.getValue(Item_Model.class)).getDate());
-                item_Model.setPhone((dataSnapshot.getValue(Item_Model.class)).getPhone());
-                item_Model.setUser_id((dataSnapshot.getValue(Item_Model.class)).getUser_id());
-                if ((dataSnapshot.getValue(Item_Model.class)).getImageurl1().equals("no")) {
+                ItemModel item_Model = new ItemModel();
+                item_Model.setTitle((dataSnapshot.getValue(ItemModel.class)).getTitle());
+                item_Model.setAddress((dataSnapshot.getValue(ItemModel.class)).getAddress());
+                item_Model.setLatitude((dataSnapshot.getValue(ItemModel.class)).latitude);
+                item_Model.setLongitude((dataSnapshot.getValue(ItemModel.class)).longitude);
+                item_Model.setDescription((dataSnapshot.getValue(ItemModel.class)).getDescription());
+                item_Model.setCategories((dataSnapshot.getValue(ItemModel.class)).getCategories());
+                item_Model.setStatus((dataSnapshot.getValue(ItemModel.class)).getStatus());
+                item_Model.setId((dataSnapshot.getValue(ItemModel.class)).getId());
+                item_Model.setDate((dataSnapshot.getValue(ItemModel.class)).getDate());
+                item_Model.setPhone((dataSnapshot.getValue(ItemModel.class)).getPhone());
+                item_Model.setUser_id((dataSnapshot.getValue(ItemModel.class)).getUser_id());
+                if ((dataSnapshot.getValue(ItemModel.class)).getImageurl1().equals("no")) {
                     item_Model.setImageurl1(UserProfile.encodeTobase64(((BitmapDrawable)getResources().getDrawable(R.mipmap.no_image_availible)).getBitmap()));
                 } else {
-                    item_Model.setImageurl1((dataSnapshot.getValue(Item_Model.class)).getImageurl1());
+                    item_Model.setImageurl1((dataSnapshot.getValue(ItemModel.class)).getImageurl1());
                 }
                 item_modelfound.add(item_Model);
             }
@@ -119,22 +119,22 @@ public class UserProfile extends AppCompatActivity {
         public void onDataChange(DataSnapshot param1DataSnapshot) {
             item_modellost.clear();
             for (DataSnapshot dataSnapshot : param1DataSnapshot.getChildren()) {
-                Item_Model item_Model = new Item_Model();
-                item_Model.setTitle((dataSnapshot.getValue(Item_Model.class)).getTitle());
-                item_Model.setAddress((dataSnapshot.getValue(Item_Model.class)).getAddress());
-                item_Model.setLatitude((dataSnapshot.getValue(Item_Model.class)).latitude);
-                item_Model.setLongitude((dataSnapshot.getValue(Item_Model.class)).longitude);
-                item_Model.setDescription((dataSnapshot.getValue(Item_Model.class)).getDescription());
-                item_Model.setCategories((dataSnapshot.getValue(Item_Model.class)).getCategories());
-                item_Model.setStatus((dataSnapshot.getValue(Item_Model.class)).getStatus());
-                item_Model.setId((dataSnapshot.getValue(Item_Model.class)).getId());
-                item_Model.setDate((dataSnapshot.getValue(Item_Model.class)).getDate());
-                item_Model.setPhone((dataSnapshot.getValue(Item_Model.class)).getPhone());
-                item_Model.setUser_id((dataSnapshot.getValue(Item_Model.class)).getUser_id());
-                if ((dataSnapshot.getValue(Item_Model.class)).getImageurl1().equals("no")) {
+                ItemModel item_Model = new ItemModel();
+                item_Model.setTitle((dataSnapshot.getValue(ItemModel.class)).getTitle());
+                item_Model.setAddress((dataSnapshot.getValue(ItemModel.class)).getAddress());
+                item_Model.setLatitude((dataSnapshot.getValue(ItemModel.class)).latitude);
+                item_Model.setLongitude((dataSnapshot.getValue(ItemModel.class)).longitude);
+                item_Model.setDescription((dataSnapshot.getValue(ItemModel.class)).getDescription());
+                item_Model.setCategories((dataSnapshot.getValue(ItemModel.class)).getCategories());
+                item_Model.setStatus((dataSnapshot.getValue(ItemModel.class)).getStatus());
+                item_Model.setId((dataSnapshot.getValue(ItemModel.class)).getId());
+                item_Model.setDate((dataSnapshot.getValue(ItemModel.class)).getDate());
+                item_Model.setPhone((dataSnapshot.getValue(ItemModel.class)).getPhone());
+                item_Model.setUser_id((dataSnapshot.getValue(ItemModel.class)).getUser_id());
+                if ((dataSnapshot.getValue(ItemModel.class)).getImageurl1().equals("no")) {
                     item_Model.setImageurl1(UserProfile.encodeTobase64(((BitmapDrawable)getResources().getDrawable(R.mipmap.no_image_availible)).getBitmap()));
                 } else {
-                    item_Model.setImageurl1((dataSnapshot.getValue(Item_Model.class)).getImageurl1());
+                    item_Model.setImageurl1((dataSnapshot.getValue(ItemModel.class)).getImageurl1());
                 }
                 item_modellost.add(item_Model);
             }

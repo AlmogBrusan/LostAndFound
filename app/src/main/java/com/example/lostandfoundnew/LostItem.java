@@ -1,7 +1,6 @@
 package com.example.lostandfoundnew;
 
 import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -52,7 +51,7 @@ public class LostItem extends AppCompatActivity {
     private AppCompatEditText editText;
     FirebaseAuth firebaseAuth;
     int index = 0;
-    List<Item_Model> item_modelList = new ArrayList();
+    List<ItemModel> item_modelList = new ArrayList();
     private int itempos = 0;
     String lastkeyonetime = "";
     ListView listViewshow;
@@ -143,7 +142,7 @@ public class LostItem extends AppCompatActivity {
         listViewshow.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> param1AdapterView, View param1View, int param1Int, long param1Long) {
                 Intent intent = new Intent(getBaseContext(), ItemDetail.class);
-                Item_Model item_Model = item_modelList.get(param1Int);
+                ItemModel item_Model = item_modelList.get(param1Int);
                 intent.putExtra("title", item_Model.getTitle());
                 intent.putExtra("address", item_Model.getAddress());
                 intent.putExtra("categories", item_Model.getCategories());
@@ -168,20 +167,20 @@ public class LostItem extends AppCompatActivity {
                         public void onDataChange(DataSnapshot param2DataSnapshot) {
                             item_modelList.clear();
                             for (DataSnapshot dataSnapshot : param2DataSnapshot.getChildren()) {
-                                Item_Model item_Model = new Item_Model();
-                                item_Model.setTitle((dataSnapshot.getValue(Item_Model.class)).getTitle());
-                                item_Model.setAddress((dataSnapshot.getValue(Item_Model.class)).getAddress());
-                                item_Model.setLatitude((dataSnapshot.getValue(Item_Model.class)).latitude);
-                                item_Model.setLongitude((dataSnapshot.getValue(Item_Model.class)).longitude);
-                                item_Model.setDescription((dataSnapshot.getValue(Item_Model.class)).getDescription());
-                                item_Model.setCategories((dataSnapshot.getValue(Item_Model.class)).getCategories());
-                                item_Model.setStatus((dataSnapshot.getValue(Item_Model.class)).getStatus());
-                                item_Model.setId((dataSnapshot.getValue(Item_Model.class)).getId());
-                                item_Model.setDate((dataSnapshot.getValue(Item_Model.class)).getDate());
-                                item_Model.setPhone((dataSnapshot.getValue(Item_Model.class)).getPhone());
-                                item_Model.setUser_id((dataSnapshot.getValue(Item_Model.class)).getUser_id());
-                                item_Model.setImageurl1((dataSnapshot.getValue(Item_Model.class)).getImageurl1());
-                                if ((dataSnapshot.getValue(Item_Model.class)).getStatus() == 1)
+                                ItemModel item_Model = new ItemModel();
+                                item_Model.setTitle((dataSnapshot.getValue(ItemModel.class)).getTitle());
+                                item_Model.setAddress((dataSnapshot.getValue(ItemModel.class)).getAddress());
+                                item_Model.setLatitude((dataSnapshot.getValue(ItemModel.class)).latitude);
+                                item_Model.setLongitude((dataSnapshot.getValue(ItemModel.class)).longitude);
+                                item_Model.setDescription((dataSnapshot.getValue(ItemModel.class)).getDescription());
+                                item_Model.setCategories((dataSnapshot.getValue(ItemModel.class)).getCategories());
+                                item_Model.setStatus((dataSnapshot.getValue(ItemModel.class)).getStatus());
+                                item_Model.setId((dataSnapshot.getValue(ItemModel.class)).getId());
+                                item_Model.setDate((dataSnapshot.getValue(ItemModel.class)).getDate());
+                                item_Model.setPhone((dataSnapshot.getValue(ItemModel.class)).getPhone());
+                                item_Model.setUser_id((dataSnapshot.getValue(ItemModel.class)).getUser_id());
+                                item_Model.setImageurl1((dataSnapshot.getValue(ItemModel.class)).getImageurl1());
+                                if ((dataSnapshot.getValue(ItemModel.class)).getStatus() == 1)
                                     item_modelList.add(item_Model);
                             }
                             if (item_modelList.isEmpty()) {
@@ -263,22 +262,22 @@ public class LostItem extends AppCompatActivity {
 
         public void onDataChange(DataSnapshot param1DataSnapshot) {
             for (DataSnapshot ds : param1DataSnapshot.getChildren()) {
-                Item_Model item_Model = new Item_Model();
-                item_Model.setTitle((ds.getValue(Item_Model.class)).getTitle());
-                item_Model.setAddress((ds.getValue(Item_Model.class)).getAddress());
-                item_Model.setLatitude((ds.getValue(Item_Model.class)).latitude);
-                item_Model.setLongitude((ds.getValue(Item_Model.class)).longitude);
-                item_Model.setDescription((ds.getValue(Item_Model.class)).getDescription());
-                item_Model.setCategories((ds.getValue(Item_Model.class)).getCategories());
-                item_Model.setStatus((ds.getValue(Item_Model.class)).getStatus());
-                item_Model.setId((ds.getValue(Item_Model.class)).getId());
-                item_Model.setDate((ds.getValue(Item_Model.class)).getDate());
-                item_Model.setPhone((ds.getValue(Item_Model.class)).getPhone());
-                item_Model.setUser_id((ds.getValue(Item_Model.class)).getUser_id());
-                if ((ds.getValue(Item_Model.class)).getImageurl1().equals("no")) {
+                ItemModel item_Model = new ItemModel();
+                item_Model.setTitle((ds.getValue(ItemModel.class)).getTitle());
+                item_Model.setAddress((ds.getValue(ItemModel.class)).getAddress());
+                item_Model.setLatitude((ds.getValue(ItemModel.class)).latitude);
+                item_Model.setLongitude((ds.getValue(ItemModel.class)).longitude);
+                item_Model.setDescription((ds.getValue(ItemModel.class)).getDescription());
+                item_Model.setCategories((ds.getValue(ItemModel.class)).getCategories());
+                item_Model.setStatus((ds.getValue(ItemModel.class)).getStatus());
+                item_Model.setId((ds.getValue(ItemModel.class)).getId());
+                item_Model.setDate((ds.getValue(ItemModel.class)).getDate());
+                item_Model.setPhone((ds.getValue(ItemModel.class)).getPhone());
+                item_Model.setUser_id((ds.getValue(ItemModel.class)).getUser_id());
+                if ((ds.getValue(ItemModel.class)).getImageurl1().equals("no")) {
                     item_Model.setImageurl1(LostItem.encodeTobase64(((BitmapDrawable)getResources().getDrawable(R.drawable.no_image_availible)).getBitmap()));
                 } else {
-                    item_Model.setImageurl1((ds.getValue(Item_Model.class)).getImageurl1());
+                    item_Model.setImageurl1((ds.getValue(ItemModel.class)).getImageurl1());
                 }
                 String str = ds.getKey();
                 if (!prevkeyonetime.equals(str))
@@ -327,22 +326,22 @@ public class LostItem extends AppCompatActivity {
         public void onDataChange(DataSnapshot param1DataSnapshot) {
             LostItem.this.item_modelList.clear();
             for (DataSnapshot dataSnapshot : param1DataSnapshot.getChildren()) {
-                Item_Model item_Model = new Item_Model();
-                item_Model.setTitle((dataSnapshot.getValue(Item_Model.class)).getTitle());
-                item_Model.setAddress((dataSnapshot.getValue(Item_Model.class)).getAddress());
-                item_Model.setLatitude((dataSnapshot.getValue(Item_Model.class)).latitude);
-                item_Model.setLongitude((dataSnapshot.getValue(Item_Model.class)).longitude);
-                item_Model.setDescription((dataSnapshot.getValue(Item_Model.class)).getDescription());
-                item_Model.setCategories((dataSnapshot.getValue(Item_Model.class)).getCategories());
-                item_Model.setStatus((dataSnapshot.getValue(Item_Model.class)).getStatus());
-                item_Model.setId((dataSnapshot.getValue(Item_Model.class)).getId());
-                item_Model.setDate((dataSnapshot.getValue(Item_Model.class)).getDate());
-                item_Model.setPhone((dataSnapshot.getValue(Item_Model.class)).getPhone());
-                item_Model.setUser_id((dataSnapshot.getValue(Item_Model.class)).getUser_id());
-                if ((dataSnapshot.getValue(Item_Model.class)).getImageurl1().equals("no")) {
+                ItemModel item_Model = new ItemModel();
+                item_Model.setTitle((dataSnapshot.getValue(ItemModel.class)).getTitle());
+                item_Model.setAddress((dataSnapshot.getValue(ItemModel.class)).getAddress());
+                item_Model.setLatitude((dataSnapshot.getValue(ItemModel.class)).latitude);
+                item_Model.setLongitude((dataSnapshot.getValue(ItemModel.class)).longitude);
+                item_Model.setDescription((dataSnapshot.getValue(ItemModel.class)).getDescription());
+                item_Model.setCategories((dataSnapshot.getValue(ItemModel.class)).getCategories());
+                item_Model.setStatus((dataSnapshot.getValue(ItemModel.class)).getStatus());
+                item_Model.setId((dataSnapshot.getValue(ItemModel.class)).getId());
+                item_Model.setDate((dataSnapshot.getValue(ItemModel.class)).getDate());
+                item_Model.setPhone((dataSnapshot.getValue(ItemModel.class)).getPhone());
+                item_Model.setUser_id((dataSnapshot.getValue(ItemModel.class)).getUser_id());
+                if ((dataSnapshot.getValue(ItemModel.class)).getImageurl1().equals("no")) {
                     item_Model.setImageurl1(LostItem.encodeTobase64(((BitmapDrawable)LostItem.this.getResources().getDrawable(R.drawable.no_image_availible)).getBitmap()));
                 } else {
-                    item_Model.setImageurl1((dataSnapshot.getValue(Item_Model.class)).getImageurl1());
+                    item_Model.setImageurl1((dataSnapshot.getValue(ItemModel.class)).getImageurl1());
                 }
 
                 item_modelList.add(item_Model);

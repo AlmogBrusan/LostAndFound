@@ -64,7 +64,7 @@ public class Chat extends AppCompatActivity {
 //    List<ChatMessage> messageList = new ArrayList();
     private String mlastkey = "";
     private LinearLayoutManager mlinearlayout;
-//    Model_User_profile model_user_profile = new Model_User_profile();
+//    UserProfileModel model_user_profile = new UserProfileModel();
     SwipeRefreshLayout mrefreashlayout;
     int notificationflag = 0;
     String online = "3";
@@ -227,10 +227,10 @@ public class Chat extends AppCompatActivity {
 //
 //            @SuppressLint({"SetTextI18n"})
 //            public void onDataChange(DataSnapshot param1DataSnapshot) {
-//                model_user_profile.setEmail(((Model_User_profile)param1DataSnapshot.getValue(Model_User_profile.class)).getEmail());
-//                txtusername.setText(((Model_User_profile)param1DataSnapshot.getValue(Model_User_profile.class)).getFirstname() + " " + ((Model_User_profile)param1DataSnapshot.getValue(Model_User_profile.class)).getLastname());
-//                model_user_profile.setPhonenumber(((Model_User_profile)param1DataSnapshot.getValue(Model_User_profile.class)).getPhonenumber());
-//                imageprofile = ((Model_User_profile)param1DataSnapshot.getValue(Model_User_profile.class)).getImage();
+//                model_user_profile.setEmail(((UserProfileModel)param1DataSnapshot.getValue(UserProfileModel.class)).getEmail());
+//                txtusername.setText(((UserProfileModel)param1DataSnapshot.getValue(UserProfileModel.class)).getFirstname() + " " + ((UserProfileModel)param1DataSnapshot.getValue(UserProfileModel.class)).getLastname());
+//                model_user_profile.setPhonenumber(((UserProfileModel)param1DataSnapshot.getValue(UserProfileModel.class)).getPhonenumber());
+//                imageprofile = ((UserProfileModel)param1DataSnapshot.getValue(UserProfileModel.class)).getImage();
 //                if (imageprofile.equals("no")) {
 //                    civActionbar.setImageBitmap(BitmapFactory.decodeResource(getBaseContext().getResources(), 2131623939));
 //                    return;

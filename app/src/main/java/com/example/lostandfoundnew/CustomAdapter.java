@@ -15,11 +15,11 @@ import androidx.annotation.Nullable;
 
 import java.util.List;
 
-public class CustomAdapter extends ArrayAdapter<Item_Model> {
+public class CustomAdapter extends ArrayAdapter<ItemModel> {
     TextView address;
     Context context;
     TextView date;
-    List<Item_Model> item_model;
+    List<ItemModel> item_model;
     MyViewHolder myViewHolder;
     ImageView profileimage;
     TextView title;
@@ -38,7 +38,7 @@ public class CustomAdapter extends ArrayAdapter<Item_Model> {
         }
     }
 
-    CustomAdapter(Context context, List<Item_Model> item_model) {
+    CustomAdapter(Context context, List<ItemModel> item_model) {
         super(context, 0, item_model);
         this.context = context;
         this.item_model = item_model;

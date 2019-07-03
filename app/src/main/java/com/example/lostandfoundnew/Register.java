@@ -1,7 +1,6 @@
 package com.example.lostandfoundnew;
 
 import android.app.ProgressDialog;
-import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -148,8 +147,8 @@ public class Register extends AppCompatActivity {
     }
 
     private void userprofile() {
-        Model_User_profile model_User_profile = new Model_User_profile(firstname.getText().toString(), lastname.getText().toString(), phonenumber.getText().toString(), editTextemail.getText().toString(), image);
-        databaseReference.child(uid).setValue(model_User_profile).addOnCompleteListener(new OnCompleteListener<Void>() {
+        UserProfileModel _User_profileModel = new UserProfileModel(firstname.getText().toString(), lastname.getText().toString(), phonenumber.getText().toString(), editTextemail.getText().toString(), image);
+        databaseReference.child(uid).setValue(_User_profileModel).addOnCompleteListener(new OnCompleteListener<Void>() {
             public void onComplete(@NonNull Task<Void> param1Task) {
                 if (param1Task.isSuccessful()) {
                     progressDialog.dismiss();

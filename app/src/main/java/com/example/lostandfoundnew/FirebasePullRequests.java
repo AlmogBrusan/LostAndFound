@@ -25,7 +25,7 @@ public class FirebasePullRequests {
 
     DatabaseReference databaseReference;
 
-    List<Item_Model> item_models = new ArrayList();
+    List<ItemModel> item_models = new ArrayList();
 
     ListView listView;
 
@@ -45,7 +45,7 @@ public class FirebasePullRequests {
         this.textView = paramTextView;
     }
 
-    public FirebasePullRequests(List<Item_Model> paramList, ListView paramListView, Context paramContext, Query paramQuery, DatabaseReference paramDatabaseReference, FirebaseUser paramFirebaseUser, TextView paramTextView) {
+    public FirebasePullRequests(List<ItemModel> paramList, ListView paramListView, Context paramContext, Query paramQuery, DatabaseReference paramDatabaseReference, FirebaseUser paramFirebaseUser, TextView paramTextView) {
         this.item_models = paramList;
         this.listView = paramListView;
         this.context = paramContext;
@@ -80,18 +80,18 @@ public class FirebasePullRequests {
 
     public void showdata(DataSnapshot paramDataSnapshot) {
         for (DataSnapshot dataSnapshot : paramDataSnapshot.getChildren()) {
-            Item_Model item_Model = new Item_Model();
-            item_Model.setTitle(((Item_Model)dataSnapshot.getValue(Item_Model.class)).getTitle());
-            item_Model.setAddress(((Item_Model)dataSnapshot.getValue(Item_Model.class)).getAddress());
-            item_Model.setLatitude(((Item_Model)dataSnapshot.getValue(Item_Model.class)).latitude);
-            item_Model.setLongitude(((Item_Model)dataSnapshot.getValue(Item_Model.class)).longitude);
-            item_Model.setDescription(((Item_Model)dataSnapshot.getValue(Item_Model.class)).getDescription());
-            item_Model.setCategories(((Item_Model)dataSnapshot.getValue(Item_Model.class)).getCategories());
-            item_Model.setStatus(((Item_Model)dataSnapshot.getValue(Item_Model.class)).getStatus());
-            item_Model.setId(((Item_Model)dataSnapshot.getValue(Item_Model.class)).getId());
-            item_Model.setPhone(((Item_Model)dataSnapshot.getValue(Item_Model.class)).getPhone());
-            item_Model.setUser_id(((Item_Model)dataSnapshot.getValue(Item_Model.class)).getUser_id());
-            item_Model.setImageurl1(((Item_Model)dataSnapshot.getValue(Item_Model.class)).getImageurl1());
+            ItemModel item_Model = new ItemModel();
+            item_Model.setTitle(((ItemModel)dataSnapshot.getValue(ItemModel.class)).getTitle());
+            item_Model.setAddress(((ItemModel)dataSnapshot.getValue(ItemModel.class)).getAddress());
+            item_Model.setLatitude(((ItemModel)dataSnapshot.getValue(ItemModel.class)).latitude);
+            item_Model.setLongitude(((ItemModel)dataSnapshot.getValue(ItemModel.class)).longitude);
+            item_Model.setDescription(((ItemModel)dataSnapshot.getValue(ItemModel.class)).getDescription());
+            item_Model.setCategories(((ItemModel)dataSnapshot.getValue(ItemModel.class)).getCategories());
+            item_Model.setStatus(((ItemModel)dataSnapshot.getValue(ItemModel.class)).getStatus());
+            item_Model.setId(((ItemModel)dataSnapshot.getValue(ItemModel.class)).getId());
+            item_Model.setPhone(((ItemModel)dataSnapshot.getValue(ItemModel.class)).getPhone());
+            item_Model.setUser_id(((ItemModel)dataSnapshot.getValue(ItemModel.class)).getUser_id());
+            item_Model.setImageurl1(((ItemModel)dataSnapshot.getValue(ItemModel.class)).getImageurl1());
             this.item_models.add(item_Model);
         }
         if (this.item_models.isEmpty()) {
