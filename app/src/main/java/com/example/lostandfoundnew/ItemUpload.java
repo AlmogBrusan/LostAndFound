@@ -91,6 +91,86 @@ public class ItemUpload extends AppCompatActivity {
     ImageView uploadimage;
     String user_login_id;
 
+    protected void onCreate(Bundle paramBundle) {
+        super.onCreate(paramBundle);
+        setContentView(R.layout.activity_item_upload);
+        btnsubmit = findViewById(R.id.btnupload);
+        txtdateupload = findViewById(R.id.edtdateuplod);
+        edtTextpicklc = findViewById(R.id.edtlocationpick);
+        edtTittle = findViewById(R.id.edttitle);
+        edtdescription = findViewById(R.id.edtdescription);
+        edtphonenum = findViewById(R.id.edtPhone);
+        spnrctrg = findViewById(R.id.spinr_category);
+        uploadimage = findViewById(R.id.uploadimage);
+        Bundle bundle = getIntent().getExtras();
+        btnpicklocation = findViewById(R.id.relpickloction);
+        context = this;
+        databaseReference = FirebaseDatabase.getInstance().getReference("database");
+        lostref = FirebaseDatabase.getInstance().getReference("lostitem");
+        firebaseAuth = FirebaseAuth.getInstance();
+        mydatabase = FirebaseDatabase.getInstance();
+        key = databaseReference.push().getKey();
+        uniqueID = key.toString();
+        user_login_id = firebaseAuth.getCurrentUser().getUid().toString().trim();
+        mStorageref = FirebaseStorage.getInstance().getReference();
+        mSelectedImagesContainer = findViewById(R.id.selected_photos_container);
+        uploadimage.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View param1View) { checkpermission(); }
+        });
+        if (bundle != null)
+            status = ((Integer)bundle.get("status")).intValue();
+        btnpicklocation.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View param1View) {
+                if (isServiceOK() && islocationenable()) {
+                    Intent intent = new Intent(getApplicationContext(), Map2.class);
+                    startActivityForResult(intent, ItemUpload.requestcodepicklocation);
+                }
+            }
+        });
+        btnsubmit.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View param1View) {
+                if (edtphonenum.getText().toString().equals("") || edtTittle.getText().toString().equals("") || edtdescription.getText().toString().equals("") || txtdateupload.getText().toString().equals("") || edtTextpicklc.getText().toString().equals("") || spnrctrg.getSelectedItem().toString().equals("Category")) {
+                    if (edtphonenum.getText().toString().equals(""))
+                        edtphonenum.setError("Field cannot be empty");
+                    if (edtTittle.getText().toString().equals(""))
+                        edtTittle.setError("Field cannot be empty");
+                    if (edtdescription.getText().toString().equals(""))
+                        edtdescription.setError("Field cannot be empty");
+                    if (edtTextpicklc.getText().toString().equals(""))
+                        edtTextpicklc.setError("Field cannot be empty");
+                    if (txtdateupload.getText().toString().equals(""))
+                        txtdateupload.setError("Field cannot be empty");
+                    if (spnrctrg.getSelectedItem().toString().equals("Category"))
+                        ((TextView)spnrctrg.getSelectedView()).setError("Error message");
+                    return;
+                }
+                if (status == 0) {
+                    upload_information();
+                    Intent intent1 = new Intent(getBaseContext(), MainActivity.class);
+                    intent1.setFlags(FLAG_ACTIVITY_NEW_TASK | FLAG_ACTIVITY_CLEAR_TASK);
+                    startActivity(intent1);
+                    return;
+                }
+                lostitemupload();
+                Intent intent = new Intent(getBaseContext(), MainActivity.class);
+                intent.setFlags(FLAG_ACTIVITY_NEW_TASK | FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(intent);
+            }
+        });
+        myCalendar2 = Calendar.getInstance();
+        final DatePickerDialog.OnDateSetListener date = new DatePickerDialog.OnDateSetListener() {
+            public void onDateSet(DatePicker param1DatePicker, int param1Int1, int param1Int2, int param1Int3) {
+                myCalendar2.set(1, param1Int1);
+                myCalendar2.set(2, param1Int2);
+                myCalendar2.set(5, param1Int3);
+                updateLabel();
+            }
+        };
+        txtdateupload.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View param1View) { (new DatePickerDialog(ItemUpload.this, date, myCalendar2.get(1), myCalendar2.get(2), myCalendar2.get(5))).show(); }
+        });
+    }
+
     private void checkpermission() {
         String[] arrayOfString = new String[2];
         arrayOfString[0] = "android.permission.CAMERA";
@@ -272,85 +352,7 @@ public class ItemUpload extends AppCompatActivity {
             }
         }
 
-        protected void onCreate(Bundle paramBundle) {
-            super.onCreate(paramBundle);
-            setContentView(R.layout.activity_item_upload);
-            btnsubmit = findViewById(R.id.btnupload);
-            txtdateupload = findViewById(R.id.edtdateuplod);
-            edtTextpicklc = findViewById(R.id.edtlocationpick);
-            edtTittle = findViewById(R.id.edttitle);
-            edtdescription = findViewById(R.id.edtdescription);
-            edtphonenum = findViewById(R.id.edtPhone);
-            spnrctrg = findViewById(R.id.spinr_category);
-            uploadimage = findViewById(R.id.uploadimage);
-            Bundle bundle = getIntent().getExtras();
-            btnpicklocation = findViewById(R.id.relpickloction);
-            context = this;
-            databaseReference = FirebaseDatabase.getInstance().getReference("database");
-            lostref = FirebaseDatabase.getInstance().getReference("lostitem");
-            firebaseAuth = FirebaseAuth.getInstance();
-            mydatabase = FirebaseDatabase.getInstance();
-            key = databaseReference.push().getKey();
-            uniqueID = key.toString();
-            user_login_id = firebaseAuth.getCurrentUser().getUid().toString().trim();
-            mStorageref = FirebaseStorage.getInstance().getReference();
-            mSelectedImagesContainer = findViewById(R.id.selected_photos_container);
-            uploadimage.setOnClickListener(new View.OnClickListener() {
-                public void onClick(View param1View) { checkpermission(); }
-            });
-            if (bundle != null)
-                status = ((Integer)bundle.get("status")).intValue();
-            btnpicklocation.setOnClickListener(new View.OnClickListener() {
-                public void onClick(View param1View) {
-                    if (isServiceOK() && islocationenable()) {
-                        Intent intent = new Intent(getApplicationContext(), Map2.class);
-                        startActivityForResult(intent, ItemUpload.requestcodepicklocation);
-                    }
-                }
-            });
-            btnsubmit.setOnClickListener(new View.OnClickListener() {
-                public void onClick(View param1View) {
-                    if (edtphonenum.getText().toString().equals("") || edtTittle.getText().toString().equals("") || edtdescription.getText().toString().equals("") || txtdateupload.getText().toString().equals("") || edtTextpicklc.getText().toString().equals("") || spnrctrg.getSelectedItem().toString().equals("Category")) {
-                        if (edtphonenum.getText().toString().equals(""))
-                            edtphonenum.setError("Field cannot be empty");
-                        if (edtTittle.getText().toString().equals(""))
-                            edtTittle.setError("Field cannot be empty");
-                        if (edtdescription.getText().toString().equals(""))
-                            edtdescription.setError("Field cannot be empty");
-                        if (edtTextpicklc.getText().toString().equals(""))
-                            edtTextpicklc.setError("Field cannot be empty");
-                        if (txtdateupload.getText().toString().equals(""))
-                            txtdateupload.setError("Field cannot be empty");
-                        if (spnrctrg.getSelectedItem().toString().equals("Category"))
-                            ((TextView)spnrctrg.getSelectedView()).setError("Error message");
-                        return;
-                    }
-                    if (status == 0) {
-                        upload_information();
-                        Intent intent1 = new Intent(getBaseContext(), MainActivity.class);
-                        intent1.setFlags(FLAG_ACTIVITY_NEW_TASK | FLAG_ACTIVITY_CLEAR_TASK);
-                        startActivity(intent1);
-                        return;
-                    }
-                    lostitemupload();
-                    Intent intent = new Intent(getBaseContext(), MainActivity.class);
-                    intent.setFlags(FLAG_ACTIVITY_NEW_TASK | FLAG_ACTIVITY_CLEAR_TASK);
-                    startActivity(intent);
-                }
-            });
-            myCalendar2 = Calendar.getInstance();
-            final DatePickerDialog.OnDateSetListener date = new DatePickerDialog.OnDateSetListener() {
-                public void onDateSet(DatePicker param1DatePicker, int param1Int1, int param1Int2, int param1Int3) {
-                    myCalendar2.set(1, param1Int1);
-                    myCalendar2.set(2, param1Int2);
-                    myCalendar2.set(5, param1Int3);
-                    updateLabel();
-                }
-            };
-            txtdateupload.setOnClickListener(new View.OnClickListener() {
-                public void onClick(View param1View) { (new DatePickerDialog(ItemUpload.this, date, myCalendar2.get(1), myCalendar2.get(2), myCalendar2.get(5))).show(); }
-            });
-        }
+
 
         public void onRequestPermissionsResult(int paramInt, @NonNull String[] paramArrayOfString, @NonNull int[] paramArrayOfInt) {
             mCamera_permissiongrannted = false;

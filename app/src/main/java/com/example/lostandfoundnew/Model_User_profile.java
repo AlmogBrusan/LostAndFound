@@ -15,6 +15,8 @@ public class Model_User_profile {
         this.image = image;
     }
 
+    public Model_User_profile(){}
+
     public String getFirstname() {
         return this.firstname;
     }

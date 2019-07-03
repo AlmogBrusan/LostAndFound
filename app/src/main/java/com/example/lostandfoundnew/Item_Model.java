@@ -1,23 +1,23 @@
 package com.example.lostandfoundnew;
 
 public class Item_Model {
-    int Status;
-    public String address;
-    public String categories;
-    String date;
-    String description;
-    String id;
-    String imageurl1 = "no";
-    String imageurl2 = "no";
-    String imageurl3 = "no";
-    String imageurl4 = "no";
-    String imageurl5 = "no";
-    double latitude;
-    double longitude;
-    String phone;
-    public String title;
-    String user_id;
-    public Item_Model() {}
+   private int Status;
+    private String address;
+    private String categories;
+    private String date;
+    private String description;
+    private String id;
+    private String imageurl1 = "no";
+    private String imageurl2 = "no";
+    private String imageurl3 = "no";
+    private String imageurl4 = "no";
+    private String imageurl5 = "no";
+    public double latitude;
+    public double longitude;
+    private String phone;
+    private  String title;
+    private String user_id;
+     Item_Model() {}
 
     public Item_Model(String paramString1, String paramString2, String paramString3, String paramString4, String paramString5, String paramString6, String paramString7, String paramString8, double paramDouble1, double paramDouble2, String paramString9, int paramInt, String paramString10, String paramString11, String paramString12, String paramString13) {
          title = paramString1;
