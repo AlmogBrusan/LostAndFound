@@ -256,7 +256,7 @@ public class ItemUpload extends AppCompatActivity {
         double d1 =latitude;
         double d2 =longitude;
         String str8 = user_login_id.trim();
-        Item_Model item_Model = new Item_Model(str1, str7, str4, imageurlarray[0], imageurlarray[1], imageurlarray[2], imageurlarray[3], imageurlarray[4], d2, d1, str2, 1, str5, str6, str3, str8);
+        ItemModel item_Model = new ItemModel(str1, str7, str4, imageurlarray[0], imageurlarray[1], imageurlarray[2], imageurlarray[3], imageurlarray[4], d2, d1, str2, 1, str5, str6, str3, str8);
        lostref.child(key).setValue(item_Model).addOnCompleteListener(new OnCompleteListener<Void>() {
             public void onComplete(@NonNull Task<Void> param1Task) {
                 if (param1Task.isSuccessful())
@@ -297,7 +297,7 @@ public class ItemUpload extends AppCompatActivity {
         double d1 = latitude;
         double d2 = longitude;
         String str8 = user_login_id.trim();
-        Item_Model item_Model = new Item_Model(str1, str7, str4, imageurlarray[0], imageurlarray[1], imageurlarray[2], imageurlarray[3], imageurlarray[4], d2, d1, str2, 0, str5, str6, str3, str8);
+        ItemModel item_Model = new ItemModel(str1, str7, str4, imageurlarray[0], imageurlarray[1], imageurlarray[2], imageurlarray[3], imageurlarray[4], d2, d1, str2, 0, str5, str6, str3, str8);
         databaseReference.child(key).setValue(item_Model).addOnCompleteListener(new OnCompleteListener<Void>() {
             public void onComplete(@NonNull Task<Void> param1Task) {
                 if (param1Task.isSuccessful())

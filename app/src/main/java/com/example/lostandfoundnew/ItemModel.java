@@ -1,6 +1,6 @@
 package com.example.lostandfoundnew;
 
-public class Item_Model {
+public class ItemModel {
    private int Status;
     private String address;
     private String categories;
@@ -17,9 +17,9 @@ public class Item_Model {
     private String phone;
     private  String title;
     private String user_id;
-     Item_Model() {}
+     ItemModel() {}
 
-    public Item_Model(String paramString1, String paramString2, String paramString3, String paramString4, String paramString5, String paramString6, String paramString7, String paramString8, double paramDouble1, double paramDouble2, String paramString9, int paramInt, String paramString10, String paramString11, String paramString12, String paramString13) {
+    public ItemModel(String paramString1, String paramString2, String paramString3, String paramString4, String paramString5, String paramString6, String paramString7, String paramString8, double paramDouble1, double paramDouble2, String paramString9, int paramInt, String paramString10, String paramString11, String paramString12, String paramString13) {
          title = paramString1;
         address = paramString2;
         categories = paramString3;

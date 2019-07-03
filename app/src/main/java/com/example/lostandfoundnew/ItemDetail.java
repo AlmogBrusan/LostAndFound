@@ -147,12 +147,12 @@ public class ItemDetail extends AppCompatActivity implements GoogleApiClient.OnC
             public void onCancelled(DatabaseError param1DatabaseError) {}
 
             public void onDataChange(DataSnapshot param1DataSnapshot) {
-                String str1 = (param1DataSnapshot.getValue(Model_User_profile.class)).getFirstname();
-                String str2 = (param1DataSnapshot.getValue(Model_User_profile.class)).getLastname();
+                String str1 = (param1DataSnapshot.getValue(UserProfileModel.class)).getFirstName();
+                String str2 = (param1DataSnapshot.getValue(UserProfileModel.class)).getLastName();
                 txtname.setText(str1 + " " + str2);
-                profile_image = (param1DataSnapshot.getValue(Model_User_profile.class)).getImage();
-                profile_phone = (param1DataSnapshot.getValue(Model_User_profile.class)).getPhonenumber();
-                profileid = (param1DataSnapshot.getValue(Model_User_profile.class)).getEmail();
+                profile_image = (param1DataSnapshot.getValue(UserProfileModel.class)).getImage();
+                profile_phone = (param1DataSnapshot.getValue(UserProfileModel.class)).getPhonenumber();
+                profileid = (param1DataSnapshot.getValue(UserProfileModel.class)).getEmail();
             }
         });
         txtname.setOnClickListener(new View.OnClickListener() {
@@ -316,11 +316,11 @@ public class ItemDetail extends AppCompatActivity implements GoogleApiClient.OnC
                 public void onCancelled(DatabaseError param1DatabaseError) {}
 
                 public void onDataChange(DataSnapshot param1DataSnapshot) {
-                    new Item_Model();
-                    image1 = (param1DataSnapshot.getValue(Item_Model.class)).getImageurl1();
-                    image2 = (param1DataSnapshot.getValue(Item_Model.class)).getImageurl2();
-                    image3 = (param1DataSnapshot.getValue(Item_Model.class)).getImageurl3();
-                    image4 = (param1DataSnapshot.getValue(Item_Model.class)).getImageurl4();
+                    new ItemModel();
+                    image1 = (param1DataSnapshot.getValue(ItemModel.class)).getImageurl1();
+                    image2 = (param1DataSnapshot.getValue(ItemModel.class)).getImageurl2();
+                    image3 = (param1DataSnapshot.getValue(ItemModel.class)).getImageurl3();
+                    image4 = (param1DataSnapshot.getValue(ItemModel.class)).getImageurl4();
                     if (image4.equals("no")) {
                         imagelist = new String[] { image1, image2, image3 };
                     } else {
@@ -357,11 +357,11 @@ public class ItemDetail extends AppCompatActivity implements GoogleApiClient.OnC
                 public void onCancelled(DatabaseError param1DatabaseError) {}
 
                 public void onDataChange(DataSnapshot param1DataSnapshot) {
-                    new Item_Model();
-                    image1 = (param1DataSnapshot.getValue(Item_Model.class)).getImageurl1();
-                    image2 = (param1DataSnapshot.getValue(Item_Model.class)).getImageurl2();
-                    image3 = (param1DataSnapshot.getValue(Item_Model.class)).getImageurl3();
-                    image4 = (param1DataSnapshot.getValue(Item_Model.class)).getImageurl4();
+                    new ItemModel();
+                    image1 = (param1DataSnapshot.getValue(ItemModel.class)).getImageurl1();
+                    image2 = (param1DataSnapshot.getValue(ItemModel.class)).getImageurl2();
+                    image3 = (param1DataSnapshot.getValue(ItemModel.class)).getImageurl3();
+                    image4 = (param1DataSnapshot.getValue(ItemModel.class)).getImageurl4();
                     if (image4.equals("no")) {
                         imagelist = new String[] { image1, image2, image3 };
                     } else {
