@@ -323,6 +323,8 @@ public class ItemDetail extends AppCompatActivity implements GoogleApiClient.OnC
                         Bitmap bitmap = ((BitmapDrawable)getResources().getDrawable(R.mipmap.no_image_availible)).getBitmap();
                         image1 = encodeTobase64(bitmap);
                         imagelist = new String[] { image1 };
+                    }else {
+                        imagelist = new String[] { image1 };
                     }
                     viewpagerAdaptor = new ViewpagerAdapter(imagelist, getApplicationContext());
                     viewPager.setAdapter(viewpagerAdaptor);

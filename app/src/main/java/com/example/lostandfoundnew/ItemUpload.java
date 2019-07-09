@@ -5,6 +5,7 @@ import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.location.LocationManager;
@@ -15,6 +16,8 @@ import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.provider.MediaStore;
 import android.util.Base64;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
@@ -40,11 +43,16 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.gun0912.tedpicker.Config;
 import com.gun0912.tedpicker.ImagePickerActivity;
-import com.myhexaville.smartimagepicker.ImagePicker;
 import com.squareup.picasso.Picasso;
+import com.zhihu.matisse.Matisse;
+import com.zhihu.matisse.MimeType;
+import com.zhihu.matisse.engine.impl.GlideEngine;
+import com.zhihu.matisse.filter.Filter;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.IOException;
+import java.net.URI;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -56,8 +64,8 @@ import static android.content.Intent.FLAG_ACTIVITY_NEW_TASK;
 
 public class ItemUpload extends AppCompatActivity {
     private static final String FINE_CAMERA = "android.permission.CAMERA";
-    private static final int INTENT_REQUEST_GET_IMAGES = 13;
-    static int REQUEST_IMAGE_CAPTURE = 10;
+    private int CAMERA_CODE = 13;
+    private int GALLERY_CODE = 10;
     private static final int RESULT_LOAD_IMAGE1 = 15;
     private static final String TAG = "TedPicker";
     private static final String WRITE_EXTERNAL_STORAGE = "android.permission.WRITE_EXTERNAL_STORAGE";
@@ -88,10 +96,10 @@ public class ItemUpload extends AppCompatActivity {
     StorageReference mStorageref;
     Calendar myCalendar2;
     FirebaseDatabase mydatabase;
+    List<Uri> mSelected;
     Spinner spnrctrg;
     int status;
     TextView txtdateupload;
-    ImagePicker imagePicker;
     String uniqueID;
     ImageView uploadimage;
     String user_login_id;
@@ -122,10 +130,7 @@ public class ItemUpload extends AppCompatActivity {
         uploadimage.setOnClickListener(new View.OnClickListener() {
             public void onClick(View param1View) {
                 checkpermission();
-                refreshImagePicker();
-                imagePicker.choosePicture(true);
-                imageUri1= imagePicker.getImageFile().toURI().toString();
-                Picasso.get().load(imageUri1).into(uploadimage);
+                showPictureDialog();
             }
         });
         if (bundle != null)
@@ -182,18 +187,42 @@ public class ItemUpload extends AppCompatActivity {
         });
     }
 
-    private void refreshImagePicker() {
+    private void showPictureDialog() {
 
-        imagePicker = new ImagePicker(this,null,  imageUri -> {
-                    Picasso.get().load(imageUri).into(uploadimage);
-                    imageUri1=imageUri.toString();
-                  int  a=0;
-
+        AlertDialog.Builder pictureDialog = new AlertDialog.Builder(this);
+        pictureDialog.setTitle("Select Action");
+        String[] pictureDialogItems = {
+                "Select photo from gallery",
+                "Capture photo from camera" };
+        pictureDialog.setItems(pictureDialogItems,
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        switch (which) {
+                            case 0:
+                                choosePhotoFromGallary();
+                                break;
+                            case 1:
+                                takePhotoFromCamera();
+                                break;
+                        }
+                    }
                 });
-
-
+        pictureDialog.show();
     }
 
+    private void choosePhotoFromGallary() {
+
+        Intent galleryIntent = new Intent(Intent.ACTION_PICK,
+                android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+
+        startActivityForResult(galleryIntent, GALLERY_CODE);
+    }
+
+    private void takePhotoFromCamera() {
+        Intent intent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
+        startActivityForResult(intent, CAMERA_CODE);
+    }
 
     private void checkpermission() {
         String[] arrayOfString = new String[2];
@@ -229,16 +258,7 @@ public class ItemUpload extends AppCompatActivity {
         startActivityForResult(intent, 13);
     }
 
-    private void imagepicker_Init() {
-        Config config = new Config();
-        config.setCameraHeight(R.dimen.app_camera_height);
-        config.setToolbarTitleRes(R.string.custom_title);
-        config.setSelectionMin(1);
-        config.setSelectionLimit(4);
-        config.setSelectedBottomHeight(R.dimen.bottom_height);
-        config.setFlashOn(true);
-        getImages(config);
-    }
+
 
     private boolean islocationenable() {
         LocationManager locationManager= (LocationManager)this.context.getSystemService(LOCATION_SERVICE);
@@ -357,26 +377,56 @@ public class ItemUpload extends AppCompatActivity {
             return false;
         }
 
-        protected void onActivityResult(int paramInt1, int paramInt2, Intent paramIntent) {
-        super.onActivityResult(paramInt1,paramInt2,paramIntent);
-            if (paramInt1 == requestcodepicklocation && paramInt2 == -1) {
-                longitude = paramIntent.getDoubleExtra("longitude", 0.0D);
-                latitude = paramIntent.getDoubleExtra("latitude", 0.0D);
-                formated_address = paramIntent.getStringExtra("addresss");
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+        super.onActivityResult(requestCode, resultCode, data);
+            if (requestCode == requestcodepicklocation && resultCode == -1) {
+                longitude = data.getDoubleExtra("longitude", 0.0D);
+                latitude = data.getDoubleExtra("latitude", 0.0D);
+                formated_address = data.getStringExtra("addresss");
                 edtTextpicklc.setText(formated_address);
                 return;
             }
 
-            imagePicker.handleActivityResult(paramInt1,paramInt2, paramIntent);
-
+        if (resultCode == this.RESULT_CANCELED) {
             return;
         }
+        if (requestCode == GALLERY_CODE) {
+            if (data != null) {
+                Uri contentURI = data.getData();
+                try {
+                    Bitmap bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), contentURI);
+                    imageUri1 = encodeTobase64(getResizedBitmap(bitmap, 400));
+                    uploadimage.setImageBitmap(bitmap);
+
+                } catch (IOException e) {
+                    e.printStackTrace();
+                    Toast.makeText(ItemUpload.this, "Failed!", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+        } else if (requestCode == CAMERA_CODE) {
+            Bitmap thumbnail = (Bitmap) data.getExtras().get("data");
+            imageUri1 = encodeTobase64(getResizedBitmap(thumbnail, 400));
+            uploadimage.setImageBitmap(thumbnail);
+        }
+
+
+        }
+
+
+
+    public Uri getImageUri(Context inContext, Bitmap inImage) {
+        ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+        inImage.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
+        String path = MediaStore.Images.Media.insertImage(inContext.getContentResolver(), inImage, "Title", null);
+        return Uri.parse(path);
+    }
 
 
 
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        imagePicker.handlePermission(requestCode, grantResults);
     }
 
         private class AsynctaskDecode extends AsyncTask<ArrayList, Void, String[]> {

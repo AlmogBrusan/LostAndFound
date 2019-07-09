@@ -33,7 +33,7 @@ dependencies {
     implementation 'com.google.firebase:firebase-database:18.0.0'
     implementation 'com.google.firebase:firebase-messaging:19.0.1'
     implementation 'com.google.firebase:firebase-core:17.0.0'
-    implementation 'com.myhexaville:smart-image-picker:1.0.4'
+    implementation 'com.zhihu.android:matisse:0.5.2-beta3'
     implementation 'com.google.firebase:firebase-storage:18.0.0'
     implementation 'com.mxn.soul:flowingdrawer-core:2.1.0'
     implementation 'com.nineoldandroids:library:2.4.0'
@@ -44,6 +44,7 @@ dependencies {
     implementation 'de.hdodenhof:circleimageview:3.0.0'
     implementation 'com.github.yalantis:jellytoolbar:v1.0'
     implementation 'androidx.legacy:legacy-support-v13:1.0.0'
+    implementation 'com.karumi:dexter:5.0.0'
 
     implementation 'androidx.fragment:fragment:1.1.0-beta01'
     implementation 'com.allattentionhere:fabulousfilter:0.0.5'
