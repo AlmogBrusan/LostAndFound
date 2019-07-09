@@ -33,6 +33,7 @@ dependencies {
     implementation 'com.google.firebase:firebase-database:18.0.0'
     implementation 'com.google.firebase:firebase-messaging:19.0.1'
     implementation 'com.google.firebase:firebase-core:17.0.0'
+    implementation 'com.myhexaville:smart-image-picker:1.0.4'
     implementation 'com.google.firebase:firebase-storage:18.0.0'
     implementation 'com.mxn.soul:flowingdrawer-core:2.1.0'
     implementation 'com.nineoldandroids:library:2.4.0'

@@ -181,7 +181,7 @@ public class FoundItem extends AppCompatActivity {
                             item_modelList.clear();
                             for (DataSnapshot dataSnapshot : param2DataSnapshot.getChildren()) {
                                 ItemModel item_Model = new ItemModel();
-                                item_Model.setImageurl1((dataSnapshot.getValue(ItemModel.class)).getImageurl1());
+                                item_Model.setImageurl((dataSnapshot.getValue(ItemModel.class)).getImageurl());
                                 item_Model.setTitle((dataSnapshot.getValue(ItemModel.class)).getTitle());
                                 item_Model.setAddress((dataSnapshot.getValue(ItemModel.class)).getAddress());
                                 item_Model.setLatitude((dataSnapshot.getValue(ItemModel.class)).latitude);
@@ -299,10 +299,10 @@ public class FoundItem extends AppCompatActivity {
                 item_Model.setDate((ds.getValue(ItemModel.class)).getDate());
                 item_Model.setPhone((ds.getValue(ItemModel.class)).getPhone());
                 item_Model.setUser_id((ds.getValue(ItemModel.class)).getUser_id());
-                if ((ds.getValue(ItemModel.class)).getImageurl1().equals("no")) {
-                    item_Model.setImageurl1(encodeTobase64(((BitmapDrawable)getResources().getDrawable(R.drawable.no_image_availible)).getBitmap()));
+                if ((ds.getValue(ItemModel.class)).getImageurl().equals("no")) {
+                    item_Model.setImageurl(encodeTobase64(((BitmapDrawable)getResources().getDrawable(R.drawable.no_image_availible)).getBitmap()));
                 } else {
-                    item_Model.setImageurl1((ds.getValue(ItemModel.class)).getImageurl1());
+                    item_Model.setImageurl((ds.getValue(ItemModel.class)).getImageurl());
                 }
                 String str = ds.getKey();
                 if (!prevkeyonetime.equals(str))
@@ -362,10 +362,10 @@ public class FoundItem extends AppCompatActivity {
                 item_Model.setDate((dataSnapshot.getValue(ItemModel.class)).getDate());
                 item_Model.setPhone((dataSnapshot.getValue(ItemModel.class)).getPhone());
                 item_Model.setUser_id((dataSnapshot.getValue(ItemModel.class)).getUser_id());
-                if ((dataSnapshot.getValue(ItemModel.class)).getImageurl1().equals("no")) {
-                    item_Model.setImageurl1(FoundItem.encodeTobase64(((BitmapDrawable)getResources().getDrawable(R.drawable.no_image_availible)).getBitmap()));
+                if ((dataSnapshot.getValue(ItemModel.class)).getImageurl().equals("no")) {
+                    item_Model.setImageurl(FoundItem.encodeTobase64(((BitmapDrawable)getResources().getDrawable(R.drawable.no_image_availible)).getBitmap()));
                 } else {
-                    item_Model.setImageurl1((dataSnapshot.getValue(ItemModel.class)).getImageurl1());
+                    item_Model.setImageurl((dataSnapshot.getValue(ItemModel.class)).getImageurl());
                 }
 
                 if (itempos == 1) {

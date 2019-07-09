@@ -57,7 +57,7 @@ public class ProfileRecyclerAdapter extends RecyclerView.Adapter {
         }
 
         void bind(ItemModel param1Item_Model) {
-            imageView.setImageBitmap(ProfileRecyclerAdapter.decodeBase64(param1Item_Model.getImageurl1()));
+            imageView.setImageBitmap(ProfileRecyclerAdapter.decodeBase64(param1Item_Model.getImageurl()));
             txtTittle.setText(param1Item_Model.getTitle());
             int a=0;
         }

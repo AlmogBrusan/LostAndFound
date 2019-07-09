@@ -7,11 +7,7 @@ public class ItemModel {
     private String date;
     private String description;
     private String id;
-    private String imageurl1 = "no";
-    private String imageurl2 = "no";
-    private String imageurl3 = "no";
-    private String imageurl4 = "no";
-    private String imageurl5 = "no";
+    private String imageurl = "no";
     public double latitude;
     public double longitude;
     private String phone;
@@ -19,15 +15,11 @@ public class ItemModel {
     private String user_id;
      ItemModel() {}
 
-    public ItemModel(String paramString1, String paramString2, String paramString3, String paramString4, String paramString5, String paramString6, String paramString7, String paramString8, double paramDouble1, double paramDouble2, String paramString9, int paramInt, String paramString10, String paramString11, String paramString12, String paramString13) {
+    public ItemModel(String paramString1, String paramString2, String paramString3, String paramString4, double paramDouble1, double paramDouble2, String paramString9, int paramInt, String paramString10, String paramString11, String paramString12, String paramString13) {
          title = paramString1;
         address = paramString2;
         categories = paramString3;
-        imageurl1 = paramString4;
-        imageurl2 = paramString5;
-        imageurl3 = paramString6;
-        imageurl4 = paramString7;
-        imageurl5 = paramString8;
+        imageurl = paramString4;
         longitude = paramDouble1;
         latitude = paramDouble2;
         description = paramString9;
@@ -48,15 +40,7 @@ public class ItemModel {
 
     public String getId() { return this.id; }
 
-    public String getImageurl1() { return this.imageurl1; }
-
-    public String getImageurl2() { return this.imageurl2; }
-
-    public String getImageurl3() { return this.imageurl3; }
-
-    public String getImageurl4() { return this.imageurl4; }
-
-    public String getImageurl5() { return this.imageurl5; }
+    public String getImageurl() { return this.imageurl; }
 
     public double getLatitude() { return this.latitude; }
 
@@ -80,15 +64,7 @@ public class ItemModel {
 
     public void setId(String paramString) { this.id = paramString; }
 
-    public void setImageurl1(String paramString) { this.imageurl1 = paramString; }
-
-    public void setImageurl2(String paramString) { this.imageurl2 = paramString; }
-
-    public void setImageurl3(String paramString) { this.imageurl3 = paramString; }
-
-    public void setImageurl4(String paramString) { this.imageurl4 = paramString; }
-
-    public void setImageurl5(String paramString) { this.imageurl5 = paramString; }
+    public void setImageurl(String paramString) { this.imageurl = paramString; }
 
     public void setLatitude(double paramDouble) { this.latitude = paramDouble; }
 

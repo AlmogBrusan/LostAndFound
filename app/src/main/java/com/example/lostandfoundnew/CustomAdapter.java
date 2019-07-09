@@ -77,7 +77,7 @@ public class CustomAdapter extends BaseAdapter {
             title.setText(item_model.getTitle());
             address.setText(item_model.getAddress());
             date.setText(item_model.getDate());
-            profileimage.setImageBitmap(decodeBase64(item_model.getImageurl1()));
+            profileimage.setImageBitmap(decodeBase64(item_model.getImageurl()));
           //  myViewHolder = new MyViewHolder(title, profileimage, address, date);
           //  view.setTag( myViewHolder);
             return view;
@@ -92,7 +92,7 @@ public class CustomAdapter extends BaseAdapter {
 //        title.setText((this.item_model.get(position)).getTitle());
 //        address.setText(( this.item_model.get(position)).getAddress());
 //        date.setText(( this.item_model.get(position)).getDate());
-//        profileimage.setImageBitmap(decodeBase64(( this.item_model.get(position)).getImageurl1()));
+//        profileimage.setImageBitmap(decodeBase64(( this.item_model.get(position)).getImageurl()));
 //        return view;
 //    }
 

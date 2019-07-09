@@ -45,19 +45,9 @@ public class ImageDetailFull extends AppCompatActivity {
 
                 public void onDataChange(DataSnapshot param1DataSnapshot) {
                     new ItemModel();
-                    image1 = (param1DataSnapshot.getValue(ItemModel.class)).getImageurl1();
-                    image2 = (param1DataSnapshot.getValue(ItemModel.class)).getImageurl2();
-                    image3 = (param1DataSnapshot.getValue(ItemModel.class)).getImageurl3();
-                    image4 = (param1DataSnapshot.getValue(ItemModel.class)).getImageurl4();
-                    if (image4.equals("no")) {
-                        imagelist = new String[] { image1, image2, image3 };
-                    } else {
-                        imagelist = new String[] { image1, image2, image3, image4 };
-                    }
-                    if (image3.equals("no"))
-                        imagelist = new String[] { image1, image2 };
-                    if (image2.equals("no"))
-                        imagelist = new String[] { image1 };
+                    image1 = (param1DataSnapshot.getValue(ItemModel.class)).getImageurl();
+
+
                     if (image1.equals("no")) {
                         Bitmap bitmap = ((BitmapDrawable)getResources().getDrawable(R.mipmap.no_image_availible)).getBitmap();
                         image1 = ImageDetailFull.encodeTobase64(bitmap);
@@ -85,20 +75,9 @@ public class ImageDetailFull extends AppCompatActivity {
 
                 public void onDataChange(DataSnapshot param1DataSnapshot) {
                     new ItemModel();
-                    image1 = (param1DataSnapshot.getValue(ItemModel.class)).getImageurl1();
-                    image2 = (param1DataSnapshot.getValue(ItemModel.class)).getImageurl2();
-                    image3 = (param1DataSnapshot.getValue(ItemModel.class)).getImageurl3();
-                    image4 = (param1DataSnapshot.getValue(ItemModel.class)).getImageurl4();
-                    if (image4.equals("no")) {
-                        imagelist = new String[] { image1, image2, image3 };
-                    } else {
-                        imagelist = new String[] { image1, image2, image3, image4 };
-                    }
-                    if (image3.equals("no"))
-                        imagelist = new String[] { image1, image2 };
-                    if (image2.equals("no"))
-                        imagelist = new String[] { image1 };
-                    if (image1.equals("no")) {
+                    image1 = (param1DataSnapshot.getValue(ItemModel.class)).getImageurl();
+
+                        if (image1.equals("no")) {
                         Bitmap bitmap = ((BitmapDrawable)getResources().getDrawable(R.drawable.no_image_availible)).getBitmap();
                         image1 = ImageDetailFull.encodeTobase64(bitmap);
                         imagelist = new String[] { image1 };

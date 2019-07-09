@@ -150,10 +150,10 @@ public class UserProfile extends AppCompatActivity {
                 item_Model.setDate((dataSnapshot.getValue(ItemModel.class)).getDate());
                 item_Model.setPhone((dataSnapshot.getValue(ItemModel.class)).getPhone());
                 item_Model.setUser_id((dataSnapshot.getValue(ItemModel.class)).getUser_id());
-                if ((dataSnapshot.getValue(ItemModel.class)).getImageurl1().equals("no")) {
-                    item_Model.setImageurl1(UserProfile.encodeTobase64(((BitmapDrawable)getResources().getDrawable(R.mipmap.no_image_availible)).getBitmap()));
+                if ((dataSnapshot.getValue(ItemModel.class)).getImageurl().equals("no")) {
+                    item_Model.setImageurl(UserProfile.encodeTobase64(((BitmapDrawable)getResources().getDrawable(R.mipmap.no_image_availible)).getBitmap()));
                 } else {
-                    item_Model.setImageurl1((dataSnapshot.getValue(ItemModel.class)).getImageurl1());
+                    item_Model.setImageurl((dataSnapshot.getValue(ItemModel.class)).getImageurl());
                 }
                 item_modelfound.add(item_Model);
             }
@@ -191,10 +191,10 @@ public class UserProfile extends AppCompatActivity {
                 item_Model.setDate((dataSnapshot.getValue(ItemModel.class)).getDate());
                 item_Model.setPhone((dataSnapshot.getValue(ItemModel.class)).getPhone());
                 item_Model.setUser_id((dataSnapshot.getValue(ItemModel.class)).getUser_id());
-                if ((dataSnapshot.getValue(ItemModel.class)).getImageurl1().equals("no")) {
-                    item_Model.setImageurl1(UserProfile.encodeTobase64(((BitmapDrawable)getResources().getDrawable(R.mipmap.no_image_availible)).getBitmap()));
+                if ((dataSnapshot.getValue(ItemModel.class)).getImageurl().equals("no")) {
+                    item_Model.setImageurl(UserProfile.encodeTobase64(((BitmapDrawable)getResources().getDrawable(R.mipmap.no_image_availible)).getBitmap()));
                 } else {
-                    item_Model.setImageurl1((dataSnapshot.getValue(ItemModel.class)).getImageurl1());
+                    item_Model.setImageurl((dataSnapshot.getValue(ItemModel.class)).getImageurl());
                 }
                 item_modellost.add(item_Model);
             }

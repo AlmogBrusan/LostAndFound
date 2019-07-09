@@ -40,6 +40,9 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.gun0912.tedpicker.Config;
 import com.gun0912.tedpicker.ImagePickerActivity;
+import com.myhexaville.smartimagepicker.ImagePicker;
+import com.squareup.picasso.Picasso;
+
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.text.SimpleDateFormat;
@@ -76,6 +79,7 @@ public class ItemUpload extends AppCompatActivity {
     ArrayList<Uri> image_uris = new ArrayList();
     String[] imageurlarray = new String[5];
     String key;
+    String imageUri1;
     double latitude;
     double longitude;
     DatabaseReference lostref;
@@ -87,6 +91,7 @@ public class ItemUpload extends AppCompatActivity {
     Spinner spnrctrg;
     int status;
     TextView txtdateupload;
+    ImagePicker imagePicker;
     String uniqueID;
     ImageView uploadimage;
     String user_login_id;
@@ -113,9 +118,15 @@ public class ItemUpload extends AppCompatActivity {
         uniqueID = key.toString();
         user_login_id = firebaseAuth.getCurrentUser().getUid().toString().trim();
         mStorageref = FirebaseStorage.getInstance().getReference();
-        mSelectedImagesContainer = findViewById(R.id.selected_photos_container);
+
         uploadimage.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View param1View) { checkpermission(); }
+            public void onClick(View param1View) {
+                checkpermission();
+                refreshImagePicker();
+                imagePicker.choosePicture(true);
+                imageUri1= imagePicker.getImageFile().toURI().toString();
+                Picasso.get().load(imageUri1).into(uploadimage);
+            }
         });
         if (bundle != null)
             status = ((Integer)bundle.get("status")).intValue();
@@ -171,6 +182,21 @@ public class ItemUpload extends AppCompatActivity {
         });
     }
 
+    private void refreshImagePicker() {
+
+        imagePicker = new ImagePicker(this,
+                null,
+                imageUri -> {
+                    Picasso.get().load(imageUri).into(uploadimage);
+                    imageUri1=imageUri.toString();
+                  int  a=0;
+
+                });
+
+
+    }
+
+
     private void checkpermission() {
         String[] arrayOfString = new String[2];
         arrayOfString[0] = "android.permission.CAMERA";
@@ -178,8 +204,7 @@ public class ItemUpload extends AppCompatActivity {
         if (ContextCompat.checkSelfPermission(getApplicationContext(), "android.permission.CAMERA") == 0) {
             if (ContextCompat.checkSelfPermission(getApplicationContext(), "android.permission.WRITE_EXTERNAL_STORAGE") == 0) {
                mCamera_permissiongrannted = true;
-                imagepicker_Init();
-                return;
+                    return;
             }
             ActivityCompat.requestPermissions(this, arrayOfString, 1234);
             return;
@@ -256,7 +281,7 @@ public class ItemUpload extends AppCompatActivity {
         double d1 =latitude;
         double d2 =longitude;
         String str8 = user_login_id.trim();
-        ItemModel item_Model = new ItemModel(str1, str7, str4, imageurlarray[0], imageurlarray[1], imageurlarray[2], imageurlarray[3], imageurlarray[4], d2, d1, str2, 1, str5, str6, str3, str8);
+        ItemModel item_Model = new ItemModel(str1, str7, str4, imageUri1, d2, d1, str2, 1, str5, str6, str3, str8);
        lostref.child(key).setValue(item_Model).addOnCompleteListener(new OnCompleteListener<Void>() {
             public void onComplete(@NonNull Task<Void> param1Task) {
                 if (param1Task.isSuccessful())
@@ -297,7 +322,7 @@ public class ItemUpload extends AppCompatActivity {
         double d1 = latitude;
         double d2 = longitude;
         String str8 = user_login_id.trim();
-        ItemModel item_Model = new ItemModel(str1, str7, str4, imageurlarray[0], imageurlarray[1], imageurlarray[2], imageurlarray[3], imageurlarray[4], d2, d1, str2, 0, str5, str6, str3, str8);
+        ItemModel item_Model = new ItemModel(str1, str7, str4, imageUri1, d2, d1, str2, 0, str5, str6, str3, str8);
         databaseReference.child(key).setValue(item_Model).addOnCompleteListener(new OnCompleteListener<Void>() {
             public void onComplete(@NonNull Task<Void> param1Task) {
                 if (param1Task.isSuccessful())
@@ -343,37 +368,18 @@ public class ItemUpload extends AppCompatActivity {
                 edtTextpicklc.setText(formated_address);
                 return;
             }
-            if (paramInt2 == -1 && paramInt1 == 13) {
-                image_uris = paramIntent.getParcelableArrayListExtra("image_uris");
-                if (image_uris != null) {
-                    showMedia();
-                    return;
-                }
-            }
+
+            imagePicker.handleActivityResult(paramInt1,paramInt2, paramIntent);
+
+            return;
         }
 
 
 
-        public void onRequestPermissionsResult(int paramInt, @NonNull String[] paramArrayOfString, @NonNull int[] paramArrayOfInt) {
-            mCamera_permissiongrannted = false;
-            switch (paramInt) {
-                default:
-                    return;
-                case 1234:
-                    break;
-            }
-            if (paramArrayOfInt.length > 0) {
-                for (paramInt = 0; paramInt < paramArrayOfInt.length; paramInt++) {
-                    if (paramArrayOfInt[paramInt] != 0) {
-                        mCamera_permissiongrannted = false;
-                        return;
-                    }
-                }
-                mCamera_permissiongrannted = true;
-                imagepicker_Init();
-                return;
-            }
-        }
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        imagePicker.handlePermission(requestCode, grantResults);
+    }
 
         private class AsynctaskDecode extends AsyncTask<ArrayList, Void, String[]> {
             private AsynctaskDecode() {}

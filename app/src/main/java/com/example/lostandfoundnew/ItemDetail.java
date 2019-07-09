@@ -137,7 +137,7 @@ public class ItemDetail extends AppCompatActivity implements GoogleApiClient.OnC
         showimageslider();
         textView1.setText(title);
         textView2.setText(address);
-        textView3.setText("( " + categories + " )");
+        textView3.setText("( " + phone + " )");
         textView4.setText(description);
         getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
         getSupportActionBar().setDisplayShowCustomEnabled(true);
@@ -317,19 +317,8 @@ public class ItemDetail extends AppCompatActivity implements GoogleApiClient.OnC
 
                 public void onDataChange(DataSnapshot param1DataSnapshot) {
                     new ItemModel();
-                    image1 = (param1DataSnapshot.getValue(ItemModel.class)).getImageurl1();
-                    image2 = (param1DataSnapshot.getValue(ItemModel.class)).getImageurl2();
-                    image3 = (param1DataSnapshot.getValue(ItemModel.class)).getImageurl3();
-                    image4 = (param1DataSnapshot.getValue(ItemModel.class)).getImageurl4();
-                    if (image4.equals("no")) {
-                        imagelist = new String[] { image1, image2, image3 };
-                    } else {
-                        imagelist = new String[] { image1, image2, image3, image4 };
-                    }
-                    if (image3.equals("no"))
-                        imagelist = new String[] { image1, image2 };
-                    if (image2.equals("no"))
-                        imagelist = new String[] { image1 };
+                    image1 = (param1DataSnapshot.getValue(ItemModel.class)).getImageurl();
+
                     if (image1.equals("no")) {
                         Bitmap bitmap = ((BitmapDrawable)getResources().getDrawable(R.mipmap.no_image_availible)).getBitmap();
                         image1 = encodeTobase64(bitmap);
@@ -358,19 +347,8 @@ public class ItemDetail extends AppCompatActivity implements GoogleApiClient.OnC
 
                 public void onDataChange(DataSnapshot param1DataSnapshot) {
                     new ItemModel();
-                    image1 = (param1DataSnapshot.getValue(ItemModel.class)).getImageurl1();
-                    image2 = (param1DataSnapshot.getValue(ItemModel.class)).getImageurl2();
-                    image3 = (param1DataSnapshot.getValue(ItemModel.class)).getImageurl3();
-                    image4 = (param1DataSnapshot.getValue(ItemModel.class)).getImageurl4();
-                    if (image4.equals("no")) {
-                        imagelist = new String[] { image1, image2, image3 };
-                    } else {
-                        imagelist = new String[] { image1, image2, image3, image4 };
-                    }
-                    if (image3.equals("no"))
-                        imagelist = new String[] { image1, image2 };
-                    if (image2.equals("no"))
-                        imagelist = new String[] { image1 };
+                    image1 = (param1DataSnapshot.getValue(ItemModel.class)).getImageurl();
+
                     if (image1.equals("no")) {
                         Bitmap bitmap = ((BitmapDrawable)getResources().getDrawable(R.mipmap.no_image_availible)).getBitmap();
                         image1 = ItemDetail.encodeTobase64(bitmap);

@@ -91,7 +91,7 @@ public class FirebasePullRequests {
             item_Model.setId(((ItemModel)dataSnapshot.getValue(ItemModel.class)).getId());
             item_Model.setPhone(((ItemModel)dataSnapshot.getValue(ItemModel.class)).getPhone());
             item_Model.setUser_id(((ItemModel)dataSnapshot.getValue(ItemModel.class)).getUser_id());
-            item_Model.setImageurl1(((ItemModel)dataSnapshot.getValue(ItemModel.class)).getImageurl1());
+            item_Model.setImageurl(((ItemModel)dataSnapshot.getValue(ItemModel.class)).getImageurl());
             this.item_models.add(item_Model);
         }
         if (this.item_models.isEmpty()) {
