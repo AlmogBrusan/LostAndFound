@@ -20,7 +20,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="20dp"
-        android:text="Login"
+        android:text="@string/Login"
         android:layout_alignParentBottom="true"/>
     <LinearLayout
         android:orientation="vertical"
@@ -36,7 +36,7 @@
             android:id="@+id/firstname"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="First Name"
+            android:hint="@string/FirstName"
             android:inputType="text"/>
         <EditText
             android:textColor="#fff"
@@ -44,7 +44,7 @@
             android:id="@+id/lastname"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Last Name"
+            android:hint="@string/LastName"
             android:inputType="text"/>
         <EditText
             android:textColor="#fff"
@@ -52,7 +52,7 @@
             android:id="@+id/email"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Email"
+            android:hint="@string/Email"
             android:inputType="textEmailAddress"/>
         <EditText
             android:textColor="#fff"
@@ -60,7 +60,7 @@
             android:id="@+id/phonenum"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Phone Number"
+            android:hint="@string/Phonenumber"
             android:inputType="number"/>
         <EditText
             android:textColor="#fff"
@@ -68,7 +68,7 @@
             android:id="@+id/password"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Password"
+            android:hint="@string/Password"
             android:inputType="textPassword"/>
         <EditText
             android:textColor="#fff"
@@ -76,7 +76,7 @@
             android:id="@+id/confermpassword"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Confirm Password"
+            android:hint="@string/ConfirmPassword"
             android:inputType="textPassword"/>
         <Button
             android:textColor="#fff"
@@ -84,7 +84,7 @@
             android:background="#0298a8"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Register"/>
+            android:text="@string/Register"/>
     </LinearLayout>
     <ProgressBar
         android:id="@+id/progressBarimageload"

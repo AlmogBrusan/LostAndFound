@@ -74,7 +74,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
-                android:text="Found Items"/>
+                android:text="@string/FoundItems"/>
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recyclerlistadds"
                 android:layout_width="match_parent"
@@ -87,7 +87,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
-                android:text="Lost Items"
+                android:text="@string/LostItems"
                 android:layout_below="@+id/recyclerlistadds"/>
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recyclerlistaddslost"

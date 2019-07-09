@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <array name="Category">
-        <item>Category</item>
-        <item>PHONE</item>
+        <item>@string/Category</item>
+        <item>@string/PHONE</item>
         <item>LAPTOP</item>
         <item>OTHER ELECTRONICS</item>
         <item>PERSON</item>

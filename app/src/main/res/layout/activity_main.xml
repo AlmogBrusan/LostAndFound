@@ -41,7 +41,7 @@
                 android:layout_marginTop="10dp"
                 android:layout_marginRight="60dp"
                 android:layout_marginBottom="10dp"
-                android:text="Found Items"
+                android:text="@string/FoundItems"
                 android:layout_alignParentBottom="true"/>
 
             <Button android:textColor="#ffffff"
@@ -53,7 +53,7 @@
                 android:layout_marginTop="10dp"
                 android:layout_marginRight="60dp"
                 android:layout_marginBottom="0dp"
-                android:text="Lost Items"
+                android:text="@string/LostItems"
                 android:layout_above="@+id/btnfound"/>
 
         </RelativeLayout>
@@ -82,7 +82,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="10dp"
-                    android:text="Login"
+                    android:text="@string/Login"
                     android:layout_alignParentBottom="true"/>
 
                 <LinearLayout
@@ -102,7 +102,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
                         android:layout_marginBottom="10dp"
-                        android:text="View Profile"/>
+                        android:text="@string/ViewProfile"/>
 
                     <TextView
                         android:textSize="20sp"
@@ -112,7 +112,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="10dp"
-                        android:text="Inbox"/>
+                        android:text="@string/Inbox"/>
 
                     <TextView
                         android:textSize="20sp"
@@ -122,7 +122,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="10dp"
-                        android:text="Post a lost"/>
+                        android:text="@string/Postalost"/>
 
                     <TextView
                         android:textSize="20sp"
@@ -132,7 +132,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="10dp"
-                        android:text="Post a Found"/>
+                        android:text="@string/PostaFound"/>
 
                     <TextView
                         android:textSize="20sp"
@@ -142,7 +142,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="10dp"
-                        android:text="About Us"/>
+                        android:text="@string/AboutUs"/>
                 </LinearLayout>
 
             </RelativeLayout>

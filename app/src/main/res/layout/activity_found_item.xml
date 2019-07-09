@@ -15,7 +15,7 @@
         android:background="#212121"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Have Found Something ?"
+        android:text="@string/HaveFoundSomething"
         android:layout_above="@+id/bottomfound"/>
     <TextView
         android:textSize="17dp"
@@ -25,7 +25,7 @@
         android:background="#dd2c00"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="No Internet Connection"
+        android:text="@string/NoInternetConnection"
         android:layout_below="@+id/toolbarfound"/>
     <ListView
         android:id="@+id/itemfound"

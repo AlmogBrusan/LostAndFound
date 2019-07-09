@@ -16,14 +16,14 @@
         android:background="#dd2c00"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="No Internet Connection"
+        android:text="@string/NoInternetConnection"
         android:layout_below="@+id/toolbarlost"/>
     <Button android:textColor="#fff"
         android:id="@+id/btnhavelost"
         android:background="#212121"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Have Lost Something ?"
+        android:text="@string/HaveLostSomething"
         android:layout_above="@+id/bottomfound"/>
     <ListView
         android:id="@+id/itemlost"
@@ -44,7 +44,7 @@
         android:layout_margin="15dp"
         android:src="@drawable/ic_filter"
         android:layout_above="@+id/btnhavelost"
-        android:layout_alignParentRight="true"/>
+        android:layout_alignParentEnd="true"/>
 
     <androidx.legacy.widget.Space
         android:id="@+id/bottomfound"

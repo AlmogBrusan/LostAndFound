@@ -45,7 +45,7 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_margin="5dp"
-            android:hint="Title"
+            android:hint="@string/Title"
             android:maxLines="1"
             android:maxLength="25"
             android:layout_weight="1"
@@ -59,7 +59,7 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_margin="5dp"
-            android:hint="Phone number"
+            android:hint="@string/Phonenumber"
             android:layout_weight="1"
             android:inputType="phone"/>
         <RelativeLayout
@@ -82,7 +82,7 @@
                 android:id="@+id/edtlocationpick"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:hint="Choose Location"
+                android:hint="@string/ChooseLocation"
                 android:layout_toStartOf="@+id/ic_pick_location"/>
         </RelativeLayout>
         <RelativeLayout
@@ -117,8 +117,8 @@
                 android:id="@+id/edtdateuplod"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:hint="Date"
-                android:layout_toLeftOf="@+id/ic_date"
+                android:hint="@string/Date"
+                android:layout_toStartOf="@+id/ic_date"
                 android:layout_alignBottom="@+id/ic_date"
                 android:layout_alignParentStart="true"/>
         </RelativeLayout>
@@ -130,13 +130,13 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_margin="5dp"
-            android:hint="Description"
+            android:hint="@string/Description"
             android:layout_weight="2"/>
         <Button android:textColor="#fff"
             android:id="@+id/btnupload"
             android:background="#0298a8"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Submitt"/>
+            android:text="@string/Submitt"/>
     </LinearLayout>
 </RelativeLayout>

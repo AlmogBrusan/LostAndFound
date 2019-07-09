@@ -39,7 +39,7 @@
             android:background="@drawable/ic_magnify"
             android:layout_width="15dp"
             android:layout_height="15dp"
-            android:layout_marginLeft="10dp"
+            android:layout_marginStart="10dp"
             android:layout_centerVertical="true"/>
         <AutoCompleteTextView
             android:textSize="15sp"
@@ -48,9 +48,9 @@
             android:background="@null"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:hint="Entre Address , City , Zip Code"
+            android:hint="@string/EntreAddressCityZipCode"
             android:maxLines="1"
-            android:layout_toRightOf="@+id/icmagnify"
+            android:layout_toEndOf="@+id/icmagnify"
             android:layout_centerVertical="true"
             android:inputType="text"
             android:imeOptions="actionSearch"/>
@@ -63,7 +63,7 @@
         android:layout_margin="10dp"
         android:scaleType="centerCrop"
         android:layout_above="@+id/linearmaplayout"
-        android:layout_alignParentLeft="true"/>
+        android:layout_alignParentStart="true"/>
     <LinearLayout
         android:orientation="horizontal"
         android:id="@+id/linearmaplayout"
@@ -83,7 +83,7 @@
             android:layout_margin="5dp"
             android:maxWidth="250dp"
             android:minWidth="250dp"
-            android:text=" Chose your Location "
+            android:text="@string/ChoseyourLocation"
             android:layout_weight="2"/>
         <ImageButton
             android:textColor="#fff"
@@ -92,7 +92,7 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_marginTop="5dp"
-            android:layout_marginRight="5dp"
+            android:layout_marginEnd="5dp"
             android:layout_marginBottom="5dp"
             android:src="@drawable/ic_check_black_24dp"
             android:layout_weight="1"/>

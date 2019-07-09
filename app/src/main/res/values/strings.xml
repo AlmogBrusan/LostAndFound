@@ -1,66 +1,116 @@
 <resources>
     <string name="app_name">Lost And Found</string>
-    <string name="custom_title">Select Image</string>
+    <string name="custom_title" translatable="false">Select Image</string>
 
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="test">Test</string>
-    <string name="time_test">10/12/2019 15:14</string>
-    <string name="choose_hobby">Choose hobby</string>
-    <string name="additional_info_optional">Additional info (optional)</string>
-    <string name="password">Password</string>
-    <string name="email">Email</string>
-    <string name="login">Login</string>
-    <string name="create_account_signup">Create Account ? Signup</string>
-    <string name="test_long">tennis as I do.. I\'ve got the all equipment (table balls and bet\'s)</string>
-    <string name="posts">Posts</string>
-    <string name="hobbys">Hobbys</string>
-    <string name="age">Age</string>
-    <string name="gender">Gender</string>
-    <string name="notification">Notification</string>
-    <string name="create_user_profile">Create User Profile</string>
-    <string name="first_name">First name</string>
-    <string name="last_name">Last name</string>
-    <string name="birthday">Birthday</string>
-    <string name="add">add</string>
-    <string name="accept">Accept</string>
-    <string name="signup">SignUp</string>
-    <string name="re_enter_password">Re-enter Password</string>
-    <string name="city">City</string>
-    <string name="chose_all_your_hobbys">Chose all your hobbys:</string>
-    <string name="pick_a_Birthday">Cant validate birthday</string>
-    <string name="add_at_least_one_hobby">add at least one hobby</string>
-    <string name="you_already_choose_this_hobby">You already choose this hobby</string>
-    <string name="uploading_please_wait">Uploading. Please wait...</string>
-    <string name="somthing_went_wrong">Something went wrong</string>
-    <string name="no_internet_connection">No internet connection</string>
-    <string name="retry">Retry</string>
-    <string name="email_or_password_incorrect">Email or Password are incorrect</string>
-    <string name="sign_in_successfully">Sign in successfully</string>
-    <string name="must_give_photo_pemission">you must give those permissions to take a photo</string>
-    <string name="info">Info</string>
-    <string name="warning">Warning</string>
-    <string name="password_must_be_at_least_6">Password must be at least 6 characters</string>
-    <string name="password_dont_match">Passwords don\'t match</string>
-    <string name="enter_a_valit_email">Enter a valid email</string>
-    <string name="invalid_email">Invalid Email</string>
-    <string name="registerd_successfully">Registered successfully</string>
-    <string name="registr_faild">Register Failed</string>
-    <string name="seen">Seen</string>
-    <string name="deliverd">Delivered</string>
-    <string name="check_out_new_activity_on">Check out new Activity on</string>
-    <string name="invalid_input_please_choose">Invalid input, Please choose 1 item from list</string>
-    <string name="location_pemission_nedded">Location permissions are required</string>
-    <string name="new_message_from">New Message from</string>
-    <string name="failed">Failed</string>
-    <string name="last_seet_at">Last seen at:</string>
-    <string name="online">Online</string>
-    <string name="are_you_sure">Are you sure you want do delete the post?</string>
-    <string name="yes">Yes</string>
-    <string name="no">No</string>
-    <string name="we_miss_you">We miss you!</string>
-    <string name="checkout">To catch up with all your friend and hobbies Click here!</string>
-    <string name="click_here"></string>
-    <string name="pick_your_hobby_s_and_start_connecting">Pick your hobbies and start connecting</string>
+    <string name="hello_blank_fragment" translatable="false">Hello blank fragment</string>
+    <string name="test" translatable="false">Test</string>
+    <string name="time_test" translatable="false">10/12/2019 15:14</string>
+    <string name="choose_hobby" translatable="false">Choose hobby</string>
+    <string name="additional_info_optional" translatable="false">Additional info (optional)</string>
+    <string name="password" translatable="false">Password</string>
+    <string name="email" translatable="false">Email</string>
+    <string name="login" translatable="false">Login</string>
+    <string name="create_account_signup" translatable="false">Create Account ? Signup</string>
+    <string name="test_long" translatable="false">tennis as I do.. I\'ve got the all equipment (table balls and bet\'s)</string>
+    <string name="posts" translatable="false">Posts</string>
+    <string name="hobbys" translatable="false">Hobbys</string>
+    <string name="age" translatable="false">Age</string>
+    <string name="gender" translatable="false">Gender</string>
+    <string name="notification" translatable="false">Notification</string>
+    <string name="create_user_profile" translatable="false">Create User Profile</string>
+    <string name="first_name" translatable="false">First name</string>
+    <string name="last_name" translatable="false">Last name</string>
+    <string name="birthday" translatable="false">Birthday</string>
+    <string name="add" translatable="false">add</string>
+    <string name="accept" translatable="false">Accept</string>
+    <string name="signup" translatable="false">SignUp</string>
+    <string name="re_enter_password" translatable="false">Re-enter Password</string>
+    <string name="city" translatable="false">City</string>
+    <string name="chose_all_your_hobbys" translatable="false">Chose all your hobbys:</string>
+    <string name="pick_a_Birthday" translatable="false">Cant validate birthday</string>
+    <string name="add_at_least_one_hobby" translatable="false">add at least one hobby</string>
+    <string name="you_already_choose_this_hobby" translatable="false">You already choose this hobby</string>
+    <string name="uploading_please_wait" translatable="false">Uploading. Please wait...</string>
+    <string name="somthing_went_wrong" translatable="false">Something went wrong</string>
+    <string name="no_internet_connection" translatable="false">No internet connection</string>
+    <string name="retry" translatable="false">Retry</string>
+    <string name="email_or_password_incorrect" translatable="false">Email or Password are incorrect</string>
+    <string name="sign_in_successfully" translatable="false">Sign in successfully</string>
+    <string name="must_give_photo_pemission" translatable="false">you must give those permissions to take a photo</string>
+    <string name="info" translatable="false">Info</string>
+    <string name="warning" translatable="false">Warning</string>
+    <string name="password_must_be_at_least_6" translatable="false">Password must be at least 6 characters</string>
+    <string name="password_dont_match" translatable="false">Passwords don\'t match</string>
+    <string name="enter_a_valit_email" translatable="false">Enter a valid email</string>
+    <string name="invalid_email" translatable="false">Invalid Email</string>
+    <string name="registerd_successfully" translatable="false">Registered successfully</string>
+    <string name="registr_faild" translatable="false">Register Failed</string>
+    <string name="seen" translatable="false">Seen</string>
+    <string name="deliverd" translatable="false">Delivered</string>
+    <string name="check_out_new_activity_on" translatable="false">Check out new Activity on</string>
+    <string name="invalid_input_please_choose" translatable="false">Invalid input, Please choose 1 item from list</string>
+    <string name="location_pemission_nedded" translatable="false">Location permissions are required</string>
+    <string name="new_message_from" translatable="false">New Message from</string>
+    <string name="failed" translatable="false">Failed</string>
+    <string name="last_seet_at" translatable="false">Last seen at:</string>
+    <string name="online" translatable="false">Online</string>
+    <string name="are_you_sure" translatable="false">Are you sure you want do delete the post?</string>
+    <string name="yes" translatable="false">Yes</string>
+    <string name="no" translatable="false">No</string>
+    <string name="we_miss_you" translatable="false">We miss you!</string>
+    <string name="checkout" translatable="false">To catch up with all your friend and hobbies Click here!</string>
+    <string name="click_here" translatable="false"></string>
+    <string name="pick_your_hobby_s_and_start_connecting" translatable="false">Pick your hobbies and start connecting</string>
+    <string name="Detail">Detail</string>
+    <string name="call">call</string>
+    <string name="Sms">Sms</string>
+    <string name="Chat">Chat</string>
+    <string name="Postedby">Posted by:</string>
+    <string name="AppInformation">Lost And found is an useful application here you can help others by report things that you have found or search for your lost items</string>
+    <string name="contactUs">For more information contact us</string>
+    <string name="names">Almog Brusan and Golan Hammer</string>
+    <string name="resetPassword">Entrer your registered Email to Reset Your Password</string>
+    <string name="Email">Email</string>
+    <string name="ResetPassword">Reset Password</string>
+    <string name="NoInternetConnection">No Internet Connection</string>
+    <string name="HaveFoundSomething">Have Found Something ?</string>
+    <string name="Lost_items">Lost items</string>
+    <string name="Title">Title</string>
+    <string name="Phonenumber">Phone number</string>
+    <string name="ChooseLocation">Choose Location</string>
+    <string name="Category">Category</string>
+    <string name="PHONE">PHONE</string>
+    <string name="LAPTOP">LAPTOP</string>
+    <string name="OTHERELECTRONICS">OTHER ELECTRONICS</string>
+    <string name="PERSON">PERSON</string>
+    <string name="KEYS">KEYS</string>
+    <string name="DOCUMENT">DOCUMENT</string>
+    <string name="ANIMALS">ANIMALS</string>
+    <string name="OTHERS">OTHERS</string>
+    <string name="Date">Date</string>
+    <string name="Description">Description</string>
+    <string name="Submitt">Submitt</string>
+    <string name="Password">Password</string>
+    <string name="Login">Login</string>
+    <string name="ForgetPasword">Forget Pasword</string>
+    <string name="Registerhere">Register here</string>
+    <string name="HaveLostSomething">Have Lost Something ?</string>
+    <string name="FoundItems">Found Items</string>
+    <string name="LostItems">Lost Items</string>
+    <string name="ViewProfile">View Profile</string>
+    <string name="Inbox">Inbox</string>
+    <string name="Postalost">Post a lost</string>
+    <string name="PostaFound">Post a Found</string>
+    <string name="AboutUs">About Us</string>
+    <string name="EntreAddressCityZipCode">Entre Address , City , Zip Code</string>
+    <string name="ChoseyourLocation">Choose your Location</string>
+    <string name="FirstName">First Name</string>
+    <string name="LastName">Last Name</string>
+    <string name="ConfirmPassword">Confirm Password</string>
+    <string name="Register">Register</string>
+    <string name="Address">Address</string>
+    <string name="HomePage">Home Page</string>
+    <string name="NoInformation">No Information</string>
 
 
 </resources>

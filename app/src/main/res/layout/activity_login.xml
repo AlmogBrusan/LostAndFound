@@ -28,7 +28,7 @@
             android:id="@+id/loginemail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Email"
+            android:hint="@string/Email"
             android:inputType="textEmailAddress"/>
         <EditText
             android:textColor="#fff"
@@ -36,7 +36,7 @@
             android:id="@+id/loginpassword"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Password"
+            android:hint="@string/password"
             android:inputType="textPassword"/>
         <Button
             android:textColor="#fff"
@@ -45,7 +45,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:text="Login"/>
+            android:text="@string/login"/>
     </LinearLayout>
     <TextView
         android:textSize="18sp"
@@ -55,7 +55,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="20dp"
-        android:text="Forget Pasword"
+        android:text="@string/ForgetPasword"
         android:layout_above="@+id/txtreghere"/>
     <TextView
         android:textSize="18sp"
@@ -65,6 +65,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="20dp"
-        android:text="Register here"
+        android:text="@string/Registerhere"
         android:layout_alignParentBottom="true"/>
 </RelativeLayout>

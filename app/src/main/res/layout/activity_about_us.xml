@@ -15,35 +15,27 @@
         android:id="@+id/txtAppname"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="40dp"
+        android:layout_marginStart="40dp"
         android:layout_marginTop="50dp"
         android:text="Lost And Found"/>
-    <TextView android:textSize="18sp"
-        android:textColor="#000"
-        android:id="@+id/txtcopyright"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="40dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginRight="70dp"
-        android:text="Copyright © 2018 -Lost And Found is powered by Techju Technologies."
-        android:layout_below="@+id/txtAppname"/>
+
     <TextView android:textSize="18sp"
         android:textColor="#000"
         android:id="@+id/appinfo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="40dp"
-        android:layout_marginRight="70dp"
-        android:text="Lost And found is an useful application here you can help others by report things that you have found or search for your lost items." android:layout_centerVertical="true"/>
+        android:layout_marginStart="40dp"
+        android:layout_marginEnd="70dp"
+        android:layout_marginTop="200dp"
+        android:text="@string/AppInformation" />
     <TextView android:textSize="18sp"
         android:textColor="#000"
         android:id="@+id/txtContact"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="40dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginRight="70dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="250dp"
+        android:layout_marginEnd="70dp"
         android:text="For more information please contact us "
         android:layout_below="@+id/appinfo"/>
     <TextView android:textSize="18sp"
@@ -53,16 +45,8 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="40dp"
         android:layout_marginTop="20dp"
-        android:text="Email :"
+        android:text="@string/names"
         android:layout_below="@+id/txtContact"/>
-    <TextView android:textSize="18sp"
-        android:textColor="#304ffe"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="5dp"
-        android:layout_marginTop="20dp"
-        android:text="aaa"
-        android:layout_toRightOf="@+id/txtemail"
-        android:layout_below="@+id/txtContact"/>
+
 </RelativeLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
