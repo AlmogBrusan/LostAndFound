@@ -72,6 +72,14 @@ public class MainActivity extends AppCompatActivity implements UserAdapter.Recyc
 
         stopnotifyref = FirebaseDatabase.getInstance().getReference("token");
 
+        txtaboutus.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getBaseContext(), AboutUs.class);
+                startActivity(intent);
+            }
+        });
+
 
         tVinboxMenu.setOnClickListener(new View.OnClickListener() {
             public void onClick(View param1View) {

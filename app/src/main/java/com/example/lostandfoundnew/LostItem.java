@@ -46,9 +46,9 @@ public class LostItem extends AppCompatActivity {
     private static final String TEXT_KEY = "text";
     private static final int TOTAL_ITEM_TO_LOAD = 10;
     CustomAdapter adopter1;
-    Context context;
     DatabaseReference databaseReference;
     private AppCompatEditText editText;
+    Button lostBtn;
     FirebaseAuth firebaseAuth;
     int index = 0;
     List<ItemModel> item_modelList = new ArrayList();
@@ -67,6 +67,7 @@ public class LostItem extends AppCompatActivity {
     FirebaseUser user;
     boolean userScrolled = false;
     ValueEventListener valueEventListener;
+    FloatingActionButton fab;
 
 
     @SuppressLint({"ResourceAsColor"})
@@ -82,8 +83,8 @@ public class LostItem extends AppCompatActivity {
         adopter1 = new CustomAdapter(this, item_modelList);
         listViewshow.setAdapter(adopter1);
         progressBar.setVisibility(View.VISIBLE);
-        Button button = findViewById(R.id.btnhavelost);
-        final FloatingActionButton fab = findViewById(R.id.btnfilterlost);
+         lostBtn = findViewById(R.id.btnhavelost);
+         fab = findViewById(R.id.btnfilterlost);
         databaseReference = FirebaseDatabase.getInstance().getReference("lostitem");
         query = databaseReference.orderByKey().limitToLast(10);
         TextView textView = findViewById(R.id.txtinterneterrorlost);
@@ -97,21 +98,21 @@ public class LostItem extends AppCompatActivity {
         toolbar1.setContentView(editText);
         if (haveNetworkConnection()) {
             textView.setVisibility(View.GONE);
-            button.setOnClickListener(new View.OnClickListener() {
+            lostBtn.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View param1View) {
                     if (firebaseAuth.getCurrentUser() != null) {
-                        Intent intent1 = new Intent(context, ItemUpload.class);
+                        Intent intent1 = new Intent(LostItem.this, ItemUpload.class);
                         intent1.putExtra("status", 1);
                         startActivity(intent1);
                         return;
                     }
-                    Intent intent = new Intent(getApplicationContext(), Login.class);
+                    Intent intent = new Intent(LostItem.this, Login.class);
                     startActivity(intent);
                 }
             });
         } else {
-            button.setOnClickListener(new View.OnClickListener() {
-                public void onClick(View param1View) { Toast.makeText(context, "Conect to the internet", Toast.LENGTH_SHORT).show(); }
+            lostBtn.setOnClickListener(new View.OnClickListener() {
+                public void onClick(View param1View) { Toast.makeText(LostItem.this, "Conect to the internet", Toast.LENGTH_SHORT).show(); }
             });
         }
         fab.setOnClickListener(new View.OnClickListener() {
