@@ -151,7 +151,7 @@ public class ItemDetail extends AppCompatActivity implements GoogleApiClient.OnC
                 String str2 = (param1DataSnapshot.getValue(UserProfileModel.class)).getLastName();
                 txtname.setText(str1 + " " + str2);
                 profile_image = (param1DataSnapshot.getValue(UserProfileModel.class)).getImage();
-                profile_phone = (param1DataSnapshot.getValue(UserProfileModel.class)).getPhonenumber();
+                profile_phone = (param1DataSnapshot.getValue(UserProfileModel.class)).getPhoneNumber();
                 profileid = (param1DataSnapshot.getValue(UserProfileModel.class)).getEmail();
             }
         });

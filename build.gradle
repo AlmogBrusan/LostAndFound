@@ -21,8 +21,10 @@ allprojects {
         jcenter()
         maven { url "https://jitpack.io" }
         maven { url "https://s3.amazonaws.com/repo.commonsware.com" }
+        maven { url "https://repo.commonsware.com.s3.amazonaws.com" }
 
-        
+
+
     }
 }
 

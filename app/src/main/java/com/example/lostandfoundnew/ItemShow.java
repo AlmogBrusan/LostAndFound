@@ -59,7 +59,7 @@ public class ItemShow extends AppCompatActivity {
     ListView listViewshow;
     List<ItemModel> listdelete = new ArrayList();
     List<ItemModel> listdelete_lost = new ArrayList();
-    TextView phonenumber;
+    TextView phoneNumber;
     Query query;
     Query query1;
     RecyclerView recyclerView;
@@ -84,7 +84,7 @@ public class ItemShow extends AppCompatActivity {
         txtnoDatafound = findViewById(R.id. txtnodatalostitem);
         txtnoDatalost = findViewById(R.id. txtnodatafounditem);
         relativeLayout = findViewById(R.id. relativelayoutsnack);
-        phonenumber = findViewById(R.id. phonenumberprofileitemshow);
+        phoneNumber = findViewById(R.id. phonenumberprofileitemshow);
         useremail = findViewById(R.id. emailprofileitemshow);
         txtusername = findViewById(R.id. displaynameitemshow);
         tabHost.setup();
@@ -112,32 +112,32 @@ public class ItemShow extends AppCompatActivity {
 
             @SuppressLint({"SetTextI18n"})
             public void onDataChange(DataSnapshot param1DataSnapshot) {
-                ItemShow.this.useremail.setText(((UserProfileModel)param1DataSnapshot.getValue(UserProfileModel.class)).getEmail());
-                ItemShow.this.txtusername.setText(((UserProfileModel)param1DataSnapshot.getValue(UserProfileModel.class)).getFirstName() + " " + ((UserProfileModel)param1DataSnapshot.getValue(UserProfileModel.class)).getLastName());
-                ItemShow.this.phonenumber.setText(((UserProfileModel)param1DataSnapshot.getValue(UserProfileModel.class)).getPhonenumber());
-                ItemShow.this.imageprofiledecode = ((UserProfileModel)param1DataSnapshot.getValue(UserProfileModel.class)).getImage();
-                if (ItemShow.this.imageprofiledecode.equals("no")) {
-                    ItemShow.this.imageprofile.setImageBitmap(BitmapFactory.decodeResource(ItemShow.this.getBaseContext().getResources(), 2131623939));
+                useremail.setText(((UserProfileModel)param1DataSnapshot.getValue(UserProfileModel.class)).getEmail());
+                txtusername.setText(((UserProfileModel)param1DataSnapshot.getValue(UserProfileModel.class)).getFirstName() + " " + ((UserProfileModel)param1DataSnapshot.getValue(UserProfileModel.class)).getLastName());
+                phoneNumber.setText(((UserProfileModel)param1DataSnapshot.getValue(UserProfileModel.class)).getPhoneNumber());
+                imageprofiledecode = ((UserProfileModel)param1DataSnapshot.getValue(UserProfileModel.class)).getImage();
+                if (imageprofiledecode.equals("no")) {
+                    imageprofile.setImageBitmap(BitmapFactory.decodeResource(getBaseContext().getResources(), R.mipmap.default_profile));
                     return;
                 }
-                ItemShow.this.imageprofile.setImageBitmap(ItemShow.decodeBase64(ItemShow.this.imageprofiledecode));
+                imageprofile.setImageBitmap(ItemShow.decodeBase64(imageprofiledecode));
             }
         });
         imageprofile.setOnClickListener(new View.OnClickListener() {
             @RequiresApi(api = 21)
             public void onClick(View param1View) {
-                Intent intent = new Intent(ItemShow.this.getBaseContext(), UserImage.class);
-                ActivityOptions activityOptions = ActivityOptions.makeSceneTransitionAnimation(ItemShow.this, new Pair[] { Pair.create(ItemShow.this.imageprofile, "imageprofile") });
-                intent.putExtra("image", ItemShow.encodeTobase64(((BitmapDrawable)ItemShow.this.imageprofile.getDrawable()).getBitmap()));
-                ItemShow.this.startActivity(intent, activityOptions.toBundle());
+                Intent intent = new Intent(getBaseContext(), UserImage.class);
+                ActivityOptions activityOptions = ActivityOptions.makeSceneTransitionAnimation(ItemShow.this, new Pair[] { Pair.create(imageprofile, "imageprofile") });
+                intent.putExtra("image", ItemShow.encodeTobase64(((BitmapDrawable)imageprofile.getDrawable()).getBitmap()));
+                startActivity(intent, activityOptions.toBundle());
             }
         });
         firebasePullRequests = new FirebasePullRequests(item_modelList, listViewshow, this, query, databaseReference, user, txtnoDatafound);
         firebasePullRequests.getdata();
         listViewshow.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> param1AdapterView, View param1View, int param1Int, long param1Long) {
-                Intent intent = new Intent(ItemShow.this.getBaseContext(), ItemDetail.class);
-                ItemModel item_Model = (ItemModel)ItemShow.this.item_modelList.get(param1Int);
+                Intent intent = new Intent(getBaseContext(), ItemDetail.class);
+                ItemModel item_Model = (ItemModel)item_modelList.get(param1Int);
                 intent.putExtra("title", item_Model.getTitle());
                 intent.putExtra("address", item_Model.getAddress());
                 intent.putExtra("categories", item_Model.getCategories());
@@ -148,7 +148,7 @@ public class ItemShow extends AppCompatActivity {
                 intent.putExtra("phone", item_Model.getPhone());
                 intent.putExtra("user_id", item_Model.getUser_id());
                 intent.putExtra("push_id", item_Model.getId());
-                ItemShow.this.startActivity(intent);
+                startActivity(intent);
             }
         });
         listViewshow.setMultiChoiceModeListener(new AbsListView.MultiChoiceModeListener() {
@@ -156,15 +156,16 @@ public class ItemShow extends AppCompatActivity {
                 switch (param1MenuItem.getItemId()) {
                     default:
                         return false;
-                    case 2131296275:
+                    case R.id.action_delete:
                         break;
                 }
-                for (ItemModel item_Model : ItemShow.this.listdelete) {
-                    ItemShow.this.adapter.remove(item_Model);
-                    ItemShow.this.delet_data(item_Model.getId());
+                for (ItemModel item_Model : listdelete) {
+
+                    delet_data(item_Model.getId());
+                    adapter.notifyDataSetChanged();
                 }
-                Snackbar.make(ItemShow.this.relativeLayout, ItemShow.this.count_Selected + " items deleted", Snackbar.LENGTH_SHORT).show();
-                ItemShow.this.count_Selected = 0;
+                Snackbar.make(relativeLayout, count_Selected + " items deleted", Snackbar.LENGTH_SHORT).show();
+                count_Selected = 0;
                 param1ActionMode.finish();
                 return true;
             }
@@ -175,8 +176,8 @@ public class ItemShow extends AppCompatActivity {
             }
 
             public void onDestroyActionMode(ActionMode param1ActionMode) {
-                while (ItemShow.this.count_Selected > 0) {
-                    ItemShow.this.listdelete.remove(0);
+                while (count_Selected > 0) {
+                    listdelete.remove(0);
                     ItemShow item_show = ItemShow.this;
                     item_show.count_Selected--;
                 }
@@ -185,23 +186,23 @@ public class ItemShow extends AppCompatActivity {
             public void onItemCheckedStateChanged(ActionMode param1ActionMode, int param1Int, long param1Long, boolean param1Boolean) {
                 boolean bool1;
                 boolean bool2 = true;
-                if (ItemShow.this.count_Selected == 0) {
+                if (count_Selected == 0) {
                     ItemShow item_show = ItemShow.this;
                     item_show.count_Selected++;
-                    param1ActionMode.setTitle(ItemShow.this.count_Selected + " Items selected");
-                    ItemShow.this.listdelete.add(ItemShow.this.item_modelList.get(param1Int));
+                    param1ActionMode.setTitle(count_Selected + " Items selected");
+                    listdelete.add(item_modelList.get(param1Int));
                     return;
                 }
-                Iterator iterator = ItemShow.this.listdelete.iterator();
+                Iterator iterator = listdelete.iterator();
                 while (true) {
                     bool1 = bool2;
                     if (iterator.hasNext()) {
                         String str = ((ItemModel)iterator.next()).getId();
-                        if (((ItemModel)ItemShow.this.item_modelList.get(param1Int)).getId().equals(str)) {
+                        if (((ItemModel)item_modelList.get(param1Int)).getId().equals(str)) {
                             ItemShow item_show = ItemShow.this;
                             item_show.count_Selected--;
-                            param1ActionMode.setTitle(ItemShow.this.count_Selected + " item selected");
-                            ItemShow.this.listdelete.remove(ItemShow.this.item_modelList.get(param1Int));
+                            param1ActionMode.setTitle(count_Selected + " item selected");
+                            listdelete.remove(item_modelList.get(param1Int));
                             bool1 = false;
                             break;
                         }
@@ -212,15 +213,15 @@ public class ItemShow extends AppCompatActivity {
                 if (bool1 == true) {
                     ItemShow item_show = ItemShow.this;
                     item_show.count_Selected++;
-                    param1ActionMode.setTitle(ItemShow.this.count_Selected + " item selected");
-                    ItemShow.this.listdelete.add(ItemShow.this.item_modelList.get(param1Int));
+                    param1ActionMode.setTitle(count_Selected + " item selected");
+                    listdelete.add(item_modelList.get(param1Int));
                     return;
                 }
             }
 
             public boolean onPrepareActionMode(ActionMode param1ActionMode, Menu param1Menu) { return false; }
         });
-        listView2.setChoiceMode(3);
+        //listView2.setChoiceMode(3);
         adapter2 = new CustomAdapter(this, item_modelList_lost);
         listView2.setAdapter(adapter2);
         databaseReferencelost = FirebaseDatabase.getInstance().getReference("lostitem");
@@ -229,8 +230,8 @@ public class ItemShow extends AppCompatActivity {
         firebasePullRequests.getdata();
         listView2.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> param1AdapterView, View param1View, int param1Int, long param1Long) {
-                Intent intent = new Intent(ItemShow.this.getBaseContext(), ItemDetail.class);
-                ItemModel item_Model = (ItemModel)ItemShow.this.item_modelList_lost.get(param1Int);
+                Intent intent = new Intent(getBaseContext(), ItemDetail.class);
+                ItemModel item_Model = (ItemModel)item_modelList_lost.get(param1Int);
                 intent.putExtra("title", item_Model.getTitle());
                 intent.putExtra("address", item_Model.getAddress());
                 intent.putExtra("categories", item_Model.getCategories());
@@ -241,7 +242,7 @@ public class ItemShow extends AppCompatActivity {
                 intent.putExtra("phone", item_Model.getPhone());
                 intent.putExtra("user_id", item_Model.getUser_id());
                 intent.putExtra("push_id", item_Model.getId());
-                ItemShow.this.startActivity(intent);
+                startActivity(intent);
             }
         });
         listView2.setMultiChoiceModeListener(new AbsListView.MultiChoiceModeListener() {
@@ -249,15 +250,16 @@ public class ItemShow extends AppCompatActivity {
                 switch (param1MenuItem.getItemId()) {
                     default:
                         return false;
-                    case 2131296275:
+                    case R.id.action_delete:
                         break;
                 }
-                for (ItemModel item_Model : ItemShow.this.listdelete_lost) {
-                    ItemShow.this.adapter2.remove(item_Model);
-                    ItemShow.this.delet_datalost(item_Model.getId());
+                for (ItemModel item_Model : listdelete_lost) {
+                    delet_datalost(item_Model.getId());
+                    adapter2.notifyDataSetChanged();
+
                 }
-                Snackbar.make(ItemShow.this.relativeLayout, ItemShow.this.count_Selected + " items deleted", Snackbar.LENGTH_SHORT).show();
-                ItemShow.this.count_Selected = 0;
+                Snackbar.make(relativeLayout, count_Selected + " items deleted", Snackbar.LENGTH_SHORT).show();
+                count_Selected = 0;
                 param1ActionMode.finish();
                 return true;
             }
@@ -268,8 +270,8 @@ public class ItemShow extends AppCompatActivity {
             }
 
             public void onDestroyActionMode(ActionMode param1ActionMode) {
-                while (ItemShow.this.count_Selected > 0) {
-                    ItemShow.this.listdelete_lost.remove(0);
+                while (count_Selected > 0) {
+                    listdelete_lost.remove(0);
                     ItemShow item_show = ItemShow.this;
                     item_show.count_Selected--;
                 }
@@ -278,23 +280,23 @@ public class ItemShow extends AppCompatActivity {
             public void onItemCheckedStateChanged(ActionMode param1ActionMode, int param1Int, long param1Long, boolean param1Boolean) {
                 boolean bool1;
                 boolean bool2 = true;
-                if (ItemShow.this.count_Selected == 0) {
+                if (count_Selected == 0) {
                     ItemShow item_show = ItemShow.this;
                     item_show.count_Selected++;
-                    param1ActionMode.setTitle(ItemShow.this.count_Selected + " Items selected");
-                    ItemShow.this.listdelete_lost.add(ItemShow.this.item_modelList_lost.get(param1Int));
+                    param1ActionMode.setTitle(count_Selected + " Items selected");
+                    listdelete_lost.add(item_modelList_lost.get(param1Int));
                     return;
                 }
-                Iterator iterator = ItemShow.this.listdelete_lost.iterator();
+                Iterator iterator = listdelete_lost.iterator();
                 while (true) {
                     bool1 = bool2;
                     if (iterator.hasNext()) {
                         String str = ((ItemModel)iterator.next()).getId();
-                        if (((ItemModel)ItemShow.this.item_modelList_lost.get(param1Int)).getId().equals(str)) {
+                        if (((ItemModel)item_modelList_lost.get(param1Int)).getId().equals(str)) {
                             ItemShow item_show = ItemShow.this;
                             item_show.count_Selected--;
-                            param1ActionMode.setTitle(ItemShow.this.count_Selected + " item selected");
-                            ItemShow.this.listdelete_lost.remove(ItemShow.this.item_modelList_lost.get(param1Int));
+                            param1ActionMode.setTitle(count_Selected + " item selected");
+                            listdelete_lost.remove(item_modelList_lost.get(param1Int));
                             bool1 = false;
                             break;
                         }
@@ -305,8 +307,8 @@ public class ItemShow extends AppCompatActivity {
                 if (bool1 == true) {
                     ItemShow item_show = ItemShow.this;
                     item_show.count_Selected++;
-                    param1ActionMode.setTitle(ItemShow.this.count_Selected + " item selected");
-                    ItemShow.this.listdelete_lost.add(ItemShow.this.item_modelList_lost.get(param1Int));
+                    param1ActionMode.setTitle(count_Selected + " item selected");
+                    listdelete_lost.add(item_modelList_lost.get(param1Int));
                     return;
                 }
             }
@@ -328,14 +330,14 @@ public class ItemShow extends AppCompatActivity {
 
     public void delet_data(String paramString) {
         FirebaseDatabase.getInstance().getReference("database").child(paramString).removeValue(new DatabaseReference.CompletionListener() {
-            public void onComplete(DatabaseError param1DatabaseError, DatabaseReference param1DatabaseReference) { Toast.makeText(ItemShow.this.getApplicationContext(), "Deleted", Toast.LENGTH_SHORT).show(); }
+            public void onComplete(DatabaseError param1DatabaseError, DatabaseReference param1DatabaseReference) { Toast.makeText(getApplicationContext(), "Deleted", Toast.LENGTH_SHORT).show(); }
         });
         recreate();
     }
 
     public void delet_datalost(String paramString) {
         FirebaseDatabase.getInstance().getReference("lostitem").child(paramString).removeValue(new DatabaseReference.CompletionListener() {
-            public void onComplete(DatabaseError param1DatabaseError, DatabaseReference param1DatabaseReference) { Toast.makeText(ItemShow.this.getApplicationContext(), "Deleted", Toast.LENGTH_SHORT).show(); }
+            public void onComplete(DatabaseError param1DatabaseError, DatabaseReference param1DatabaseReference) { Toast.makeText(getApplicationContext(), "Deleted", Toast.LENGTH_SHORT).show(); }
         });
         recreate();
     }

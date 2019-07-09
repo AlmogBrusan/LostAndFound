@@ -12,6 +12,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import android.util.Base64;
+import android.util.Log;
 import android.util.Pair;
 import android.view.View;
 import android.widget.ImageView;
@@ -48,6 +49,61 @@ public class UserProfile extends AppCompatActivity {
     RecyclerView recyclerViewfound;
     RecyclerView recyclerViewlost;
     FirebaseUser user;
+    TextView textView1, textView2;
+
+    protected void onCreate(Bundle paramBundle) {
+        super.onCreate(paramBundle);
+        Log.d("UserProfile ","before showdata1");
+        setContentView(R.layout.activity_user_profile);
+        recyclerViewfound = findViewById(R.id.recyclerlistadds);
+        recyclerViewlost = findViewById(R.id.recyclerlistaddslost);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getBaseContext());
+        linearLayoutManager.setOrientation(LinearLayout.HORIZONTAL);
+        recyclerViewfound.setLayoutManager(linearLayoutManager);
+        linearLayoutManager = new LinearLayoutManager(getBaseContext());
+        linearLayoutManager.setOrientation(LinearLayout.HORIZONTAL);
+        recyclerViewlost.setLayoutManager(linearLayoutManager);
+        firebaseAuth = FirebaseAuth.getInstance();
+        circleImageView = findViewById(R.id.imageview);
+        imgonline = findViewById(R.id.useronline);
+        user = firebaseAuth.getCurrentUser();
+        textView1 = findViewById(R.id.emailprofile);
+        textView2 = findViewById(R.id.phonenumberprofile);
+        databaseReference = FirebaseDatabase.getInstance().getReference("database");
+        context = this;
+        Bundle bundle = getIntent().getExtras();
+        if (bundle != null) {
+            image = (String)bundle.get("image");
+            phone = (String)bundle.get("phone");
+            email = (String)bundle.get("email");
+            profileid = (String)bundle.get("rec_id");
+            displayname = (String)bundle.get("displayname");
+        }
+        ((TextView)findViewById(R.id.displayname)).setText(displayname);
+        if (image.equals("no")) {
+            circleImageView.setImageBitmap(BitmapFactory.decodeResource(getBaseContext().getResources(), R.mipmap.default_profile));
+        } else {
+            circleImageView.setImageBitmap(decodeBase64(image));
+        }
+        textView1.setText(email);
+        textView2.setText(phone);
+        checkstatus();
+        Log.v("UserProfile","before showdata");
+
+        showdatafound();
+        Log.v("UserProfile","after showdata");
+        showdatalost();
+
+        circleImageView.setOnClickListener(new View.OnClickListener() {
+            @RequiresApi(api = 21)
+            public void onClick(View param1View) {
+                Intent intent = new Intent(getBaseContext(), UserImage.class);
+                ActivityOptions activityOptions = ActivityOptions.makeSceneTransitionAnimation(UserProfile.this, new Pair[] { Pair.create(circleImageView, "imageprofile") });
+                intent.putExtra("image", ItemShow.encodeTobase64(((BitmapDrawable)circleImageView.getDrawable()).getBitmap()));
+                startActivity(intent, activityOptions.toBundle());
+            }
+        });
+    }
 
     private void checkstatus() { FirebaseDatabase.getInstance().getReference("onlineuser").child(this.profileid).child("conection").addValueEventListener(new ValueEventListener() {
         public void onCancelled(DatabaseError param1DatabaseError) {}
@@ -110,8 +166,12 @@ public class UserProfile extends AppCompatActivity {
         }
     }); }
 
-    private void showdatalost() { FirebaseDatabase.getInstance().getReference("lostitem").orderByChild("user_id").equalTo(this.profileid).addValueEventListener(new ValueEventListener() {
+    private void showdatalost() {
+        FirebaseDatabase.getInstance().getReference("lostitem").orderByChild("user_id")
+                .equalTo(this.profileid).addValueEventListener(new ValueEventListener() {
+
         public void onCancelled(DatabaseError param1DatabaseError) {
+
             String str = param1DatabaseError.getMessage().toString();
             Toast.makeText(getApplicationContext(), str, Toast.LENGTH_SHORT).show();
         }
@@ -139,7 +199,7 @@ public class UserProfile extends AppCompatActivity {
                 item_modellost.add(item_Model);
             }
             if (item_modellost.isEmpty()) {
-                Toast.makeText(getApplicationContext(), " No Found Item availible !", 0).show();
+                Toast.makeText(getApplicationContext(), " No Found Item availible !", Toast.LENGTH_SHORT).show();
                 return;
             }
             Collections.reverse(item_modellost);
@@ -147,52 +207,5 @@ public class UserProfile extends AppCompatActivity {
         }
     }); }
 
-    protected void onCreate(Bundle paramBundle) {
-        super.onCreate(paramBundle);
-        setContentView(R.layout.activity_user_profile);
-        recyclerViewfound = findViewById(R.id.recyclerlistadds);
-        recyclerViewlost = findViewById(R.id.recyclerlistaddslost);
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getBaseContext());
-        linearLayoutManager.setOrientation(LinearLayout.HORIZONTAL);
-        recyclerViewfound.setLayoutManager(linearLayoutManager);
-        linearLayoutManager = new LinearLayoutManager(getBaseContext());
-        linearLayoutManager.setOrientation(LinearLayout.HORIZONTAL);
-        recyclerViewlost.setLayoutManager(linearLayoutManager);
-        firebaseAuth = FirebaseAuth.getInstance();
-        circleImageView = findViewById(R.id.imageview);
-        imgonline = findViewById(R.id.useronline);
-        user = firebaseAuth.getCurrentUser();
-        TextView textView1 = findViewById(R.id.emailprofile);
-        TextView textView2 = findViewById(R.id.phonenumberprofile);
-        databaseReference = FirebaseDatabase.getInstance().getReference("database");
-        context = this;
-        Bundle bundle = getIntent().getExtras();
-        if (bundle != null) {
-            image = (String)bundle.get("image");
-            phone = (String)bundle.get("phone");
-            email = (String)bundle.get("email");
-            profileid = (String)bundle.get("rec_id");
-            displayname = (String)bundle.get("displayname");
-        }
-        ((TextView)findViewById(R.id.displayname)).setText(displayname);
-        if (image.equals("no")) {
-            circleImageView.setImageBitmap(BitmapFactory.decodeResource(getBaseContext().getResources(), R.mipmap.default_profile));
-        } else {
-            circleImageView.setImageBitmap(decodeBase64(image));
-        }
-        textView1.setText(email);
-        textView2.setText(phone);
-        checkstatus();
-        showdatafound();
-        showdatalost();
-        circleImageView.setOnClickListener(new View.OnClickListener() {
-            @RequiresApi(api = 21)
-            public void onClick(View param1View) {
-                Intent intent = new Intent(getBaseContext(), UserImage.class);
-                ActivityOptions activityOptions = ActivityOptions.makeSceneTransitionAnimation(UserProfile.this, new Pair[] { Pair.create(circleImageView, "imageprofile") });
-                intent.putExtra("image", ItemShow.encodeTobase64(((BitmapDrawable)circleImageView.getDrawable()).getBitmap()));
-                startActivity(intent, activityOptions.toBundle());
-            }
-        });
-    }
+
 }

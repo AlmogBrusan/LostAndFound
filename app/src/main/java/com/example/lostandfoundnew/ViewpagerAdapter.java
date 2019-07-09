@@ -37,7 +37,6 @@ public class ViewpagerAdapter extends PagerAdapter {
         if (this.imgArray[paramInt].equals("no"))
             return null;
         Context context1 = this.context;
-        Context context2 = this.context;
         this.layoutInflater = (LayoutInflater)context1.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View view = this.layoutInflater.inflate(R.layout.swipe_layout, paramViewGroup, false);
         ((ImageView)view.findViewById(R.id.imgview_pager)).setImageBitmap(decodeBase64(this.imgArray[paramInt]));

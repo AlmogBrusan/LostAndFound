@@ -1,7 +1,9 @@
 package com.example.lostandfoundnew;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentManager;
 
 import android.content.Context;
 import android.content.Intent;
@@ -24,14 +26,16 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ServerValue;
 import com.google.firebase.database.ValueEventListener;
+import com.google.gson.Gson;
 import com.mxn.soul.flowingdrawer_core.ElasticDrawer;
 import com.mxn.soul.flowingdrawer_core.FlowingDrawer;
 import com.yarolegovich.slidingrootnav.SlidingRootNavBuilder;
 
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements UserAdapter.RecyclerCallBack {
     public static final int ERROR_DIALOG_REQ = 9001;
 
     Button btnFound, btnLost, btnLoginMenu;
@@ -44,6 +48,7 @@ public class MainActivity extends AppCompatActivity {
     RelativeLayout relativeLayout;
     SlidingRootNavBuilder slidingRootNavBuilder;
     DatabaseReference stopnotifyref;
+    FragmentManager fragmentManager = getSupportFragmentManager();
     TextView txtaboutus;
     TextView txtpostfound;
     TextView txtpostlost;
@@ -67,12 +72,14 @@ public class MainActivity extends AppCompatActivity {
 
         stopnotifyref = FirebaseDatabase.getInstance().getReference("token");
 
+
         tVinboxMenu.setOnClickListener(new View.OnClickListener() {
             public void onClick(View param1View) {
                 if (firebaseAuth.getCurrentUser() != null) {
-                    Intent intent = new Intent(getBaseContext(), Telephony.Sms.Inbox.class);
-                    startActivity(intent);
+
+                    getSupportFragmentManager().beginTransaction().add(R.id.chatContainer,new ChatsFragment()).commit();
                     return;
+
                 }
 
                 Snackbar snackbar = Snackbar.make(relativeLayout, "You Are not Login", Snackbar.LENGTH_SHORT).setAction("Login", new View.OnClickListener() {
@@ -231,4 +238,17 @@ public class MainActivity extends AppCompatActivity {
             });
         }
     }
+
+
+
+    @Override
+        public void ChatFragmentOnItemClicked(String userId) {
+
+        MessageFragment messageFragment = MessageFragment.newInstance( userId );
+        //fragment for chat getting user id
+        fragmentManager.beginTransaction().add( R.id.chatContainer, messageFragment, "11" ).addToBackStack( null ).commit();
+
+    }
+
+
 }

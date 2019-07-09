@@ -2,4 +2,67 @@
     <string name="app_name">Lost And Found</string>
     <string name="custom_title">Select Image</string>
 
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="test">Test</string>
+    <string name="time_test">10/12/2019 15:14</string>
+    <string name="choose_hobby">Choose hobby</string>
+    <string name="additional_info_optional">Additional info (optional)</string>
+    <string name="password">Password</string>
+    <string name="email">Email</string>
+    <string name="login">Login</string>
+    <string name="create_account_signup">Create Account ? Signup</string>
+    <string name="test_long">tennis as I do.. I\'ve got the all equipment (table balls and bet\'s)</string>
+    <string name="posts">Posts</string>
+    <string name="hobbys">Hobbys</string>
+    <string name="age">Age</string>
+    <string name="gender">Gender</string>
+    <string name="notification">Notification</string>
+    <string name="create_user_profile">Create User Profile</string>
+    <string name="first_name">First name</string>
+    <string name="last_name">Last name</string>
+    <string name="birthday">Birthday</string>
+    <string name="add">add</string>
+    <string name="accept">Accept</string>
+    <string name="signup">SignUp</string>
+    <string name="re_enter_password">Re-enter Password</string>
+    <string name="city">City</string>
+    <string name="chose_all_your_hobbys">Chose all your hobbys:</string>
+    <string name="pick_a_Birthday">Cant validate birthday</string>
+    <string name="add_at_least_one_hobby">add at least one hobby</string>
+    <string name="you_already_choose_this_hobby">You already choose this hobby</string>
+    <string name="uploading_please_wait">Uploading. Please wait...</string>
+    <string name="somthing_went_wrong">Something went wrong</string>
+    <string name="no_internet_connection">No internet connection</string>
+    <string name="retry">Retry</string>
+    <string name="email_or_password_incorrect">Email or Password are incorrect</string>
+    <string name="sign_in_successfully">Sign in successfully</string>
+    <string name="must_give_photo_pemission">you must give those permissions to take a photo</string>
+    <string name="info">Info</string>
+    <string name="warning">Warning</string>
+    <string name="password_must_be_at_least_6">Password must be at least 6 characters</string>
+    <string name="password_dont_match">Passwords don\'t match</string>
+    <string name="enter_a_valit_email">Enter a valid email</string>
+    <string name="invalid_email">Invalid Email</string>
+    <string name="registerd_successfully">Registered successfully</string>
+    <string name="registr_faild">Register Failed</string>
+    <string name="seen">Seen</string>
+    <string name="deliverd">Delivered</string>
+    <string name="check_out_new_activity_on">Check out new Activity on</string>
+    <string name="invalid_input_please_choose">Invalid input, Please choose 1 item from list</string>
+    <string name="location_pemission_nedded">Location permissions are required</string>
+    <string name="new_message_from">New Message from</string>
+    <string name="failed">Failed</string>
+    <string name="last_seet_at">Last seen at:</string>
+    <string name="online">Online</string>
+    <string name="are_you_sure">Are you sure you want do delete the post?</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="we_miss_you">We miss you!</string>
+    <string name="checkout">To catch up with all your friend and hobbies Click here!</string>
+    <string name="click_here"></string>
+    <string name="pick_your_hobby_s_and_start_connecting">Pick your hobbies and start connecting</string>
+
+
 </resources>
+
+

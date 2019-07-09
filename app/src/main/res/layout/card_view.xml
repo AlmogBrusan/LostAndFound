@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="100dp"
     android:layout_margin="5dp">
@@ -10,18 +10,22 @@
         android:layout_height="match_parent"
         android:layout_margin="5dp">
 
-        <RelativeLayout android:layout_width="match_parent"
+        <RelativeLayout
+            android:layout_width="match_parent"
             android:layout_height="match_parent">
-            <ImageView android:id="@+id/main_card_image"
+
+            <ImageView
+                android:id="@+id/main_card_image"
                 android:layout_width="100dp"
                 android:layout_height="match_parent"
-                android:layout_margin="2dp"
+                android:layout_margin="5dp"
+                android:src="@drawable/no_image_availible"
                 android:scaleType="centerCrop"/>
 
             <LinearLayout android:orientation="vertical"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="1dp"
+                android:layout_margin="5dp"
                 android:layout_toRightOf="@+id/main_card_image"
                 android:layout_centerVertical="true">
 
@@ -33,6 +37,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="5dp"
                     android:layout_marginRight="5dp"
+                    android:text="Title"
                     android:maxLines="1"/>
 
                 <TextView
@@ -42,6 +47,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="5dp"
                     android:layout_marginTop="2dp"
+                    android:text="Address"
                     android:layout_marginRight="5dp"
                     android:maxLines="1"/>
 
@@ -51,9 +57,10 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="5dp"
                     android:layout_marginTop="2dp"
+                    android:text="Date"
                     android:layout_marginRight="5dp"
                     android:maxLines="1"/>
             </LinearLayout>
         </RelativeLayout>
     </androidx.cardview.widget.CardView>
-</FrameLayout>
+</LinearLayout>
