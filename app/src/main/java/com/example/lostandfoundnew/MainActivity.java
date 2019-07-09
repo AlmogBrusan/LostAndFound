@@ -138,7 +138,7 @@ public class MainActivity extends AppCompatActivity implements UserAdapter.Recyc
             }
         });
         if (firebaseAuth.getCurrentUser() != null) {
-            btnLoginMenu.setText("log out");
+            btnLoginMenu.setText(getResources().getString(R.string.logout));
             btnLoginMenu.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View param1View) {
                     String str = FirebaseAuth.getInstance().getCurrentUser().getUid();

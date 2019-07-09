@@ -354,13 +354,18 @@ public class ItemUpload extends AppCompatActivity {
         public Bitmap getResizedBitmap(Bitmap paramBitmap, int paramInt) {
             int i = paramBitmap.getWidth();
             int j = paramBitmap.getHeight();
-            float f = i / j;
+            float f=0;
+            if(i>j) {
+                 f = i / j;
+            } else f=j/i;
+
             if (f > 1.0F) {
                 j = (int)(paramInt / f);
                 i = paramInt;
                 paramInt = j;
                 return Bitmap.createScaledBitmap(paramBitmap, i, paramInt, true);
             }
+
             i = (int)(paramInt * f);
             return Bitmap.createScaledBitmap(paramBitmap, i, paramInt, true);
         }

@@ -3,13 +3,13 @@
     <array name="Category">
         <item>@string/Category</item>
         <item>@string/PHONE</item>
-        <item>LAPTOP</item>
-        <item>OTHER ELECTRONICS</item>
-        <item>PERSON</item>
-        <item>KEYS</item>
-        <item>DOCUMENT</item>
-        <item>ANIMALS</item>
-        <item>OTHERS</item>
+        <item>@string/LAPTOP</item>
+        <item>@string/OTHERELECTRONICS</item>
+        <item>@string/PERSON</item>
+        <item>@string/KEYS</item>
+        <item>@string/DOCUMENT</item>
+        <item>@string/ANIMALS</item>
+        <item>@string/OTHERS</item>
     </array>
     <!--<array name="cast_expanded_controller_default_control_buttons">-->
         <!--<item>@id/cast_button_type_closed_caption</item>-->

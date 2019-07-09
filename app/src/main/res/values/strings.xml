@@ -111,6 +111,7 @@
     <string name="Address">Address</string>
     <string name="HomePage">Home Page</string>
     <string name="NoInformation">No Information</string>
+    <string name="logout">log out</string>
 
 
 </resources>
