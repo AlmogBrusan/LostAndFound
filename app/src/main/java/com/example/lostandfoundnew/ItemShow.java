@@ -90,7 +90,7 @@ public class ItemShow extends AppCompatActivity {
         tabHost.setup();
         tabHost.getTabWidget();
         TabHost.TabSpec tabSpec = tabHost.newTabSpec("Found items");
-        tabSpec.setContent(R.id.Lost_items);
+        tabSpec.setContent(R.id.LOST_ITEMS);
         tabSpec.setIndicator("Found items");
         tabHost.addTab(tabSpec);
         tabSpec = tabHost.newTabSpec("Lost items");

@@ -184,9 +184,7 @@ public class ItemUpload extends AppCompatActivity {
 
     private void refreshImagePicker() {
 
-        imagePicker = new ImagePicker(this,
-                null,
-                imageUri -> {
+        imagePicker = new ImagePicker(this,null,  imageUri -> {
                     Picasso.get().load(imageUri).into(uploadimage);
                     imageUri1=imageUri.toString();
                   int  a=0;
