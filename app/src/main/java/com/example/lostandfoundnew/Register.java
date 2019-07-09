@@ -9,6 +9,8 @@ import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.provider.MediaStore;
 import android.text.TextUtils;
 import android.util.Base64;
 import android.view.View;
@@ -29,45 +31,65 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import de.hdodenhof.circleimageview.CircleImageView;
 import java.io.ByteArrayOutputStream;
+import java.util.ArrayList;
 
 public class Register extends AppCompatActivity {
     private static final String FINE_CAMERA = "android.permission.CAMERA";
-
     private static final String WRITE_EXTERNAL_STORAGE = "android.permission.WRITE_EXTERNAL_STORAGE";
-
-    private static final int camera_request_code = 1234;
-
+    private static final int camera_request_code = 100;
     Button button;
-
     CircleImageView circleImageView;
-
     DatabaseReference databaseReference;
-
     EditText editTextemail;
-
     EditText editTextpassword;
-
     EditText edtxtconfrmpas;
-
     FirebaseAuth firebaseAuth1;
-
     EditText firstname;
-
     String image = "no";
-
     EditText lastname;
-
     private boolean mCamera_permissiongrannted = false;
-
     EditText phonenumber;
-
     ProgressBar progressBar;
-
     ProgressDialog progressDialog;
-
     TextView textView;
-
     String uid;
+    Bitmap bitmap;
+
+
+    protected void onCreate(Bundle paramBundle) {
+        super.onCreate(paramBundle);
+        setContentView(R.layout.activity_register);
+        firebaseAuth1 = FirebaseAuth.getInstance();
+        progressDialog = new ProgressDialog(this);
+        button = findViewById(R.id.btnregister);
+        textView = findViewById(R.id.txtalreadyreg);
+        editTextemail = findViewById(R.id.email);
+        editTextpassword = findViewById(R.id.password);
+        databaseReference = FirebaseDatabase.getInstance().getReference("userprofile");
+        edtxtconfrmpas = findViewById(R.id.confermpassword);
+        firstname = findViewById(R.id.firstname);
+        lastname = findViewById(R.id.lastname);
+        phonenumber = findViewById(R.id.phonenum);
+        progressBar = findViewById(R.id.progressBarimageload);
+        circleImageView = findViewById(R.id.imgupload);
+        circleImageView.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View param1View) { checkpermission(); }
+        });
+        button.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View param1View) {
+                if (param1View == button)
+                    registerUser();
+            }
+        });
+        this.textView.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View param1View) {
+                if (param1View == textView) {
+                    Intent intent = new Intent(getBaseContext(), Login.class);
+                    startActivity(intent);
+                }
+            }
+        });
+    }
 
     private void checkpermission() {
         String[] arrayOfString = new String[2];
@@ -77,10 +99,10 @@ public class Register extends AppCompatActivity {
             if (ContextCompat.checkSelfPermission(getApplicationContext(), WRITE_EXTERNAL_STORAGE) == 0) {
                 mCamera_permissiongrannted = true;
                 onPickImage();
-
+                return;
             }
             ActivityCompat.requestPermissions(this, arrayOfString, camera_request_code);
-
+            return;
         }
         ActivityCompat.requestPermissions(this, arrayOfString, camera_request_code);
     }
@@ -99,8 +121,8 @@ public class Register extends AppCompatActivity {
 
     public static String encodeTobase64(Bitmap paramBitmap) {
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-        paramBitmap.compress(Bitmap.CompressFormat.PNG, TRIM_MEMORY_BACKGROUND, byteArrayOutputStream);
-        return Base64.encodeToString(byteArrayOutputStream.toByteArray(), MODE_PRIVATE);
+        paramBitmap.compress(Bitmap.CompressFormat.PNG, 40, byteArrayOutputStream);
+        return Base64.encodeToString(byteArrayOutputStream.toByteArray(), 0);
     }
 
     private void registerUser() {
@@ -147,7 +169,7 @@ public class Register extends AppCompatActivity {
     }
 
     private void userprofile() {
-        UserProfileModel _User_profileModel = new UserProfileModel(firstname.getText().toString(), lastname.getText().toString(), phonenumber.getText().toString(), editTextemail.getText().toString(), image);
+        UserProfileModel _User_profileModel = new UserProfileModel(firstname.getText().toString(), lastname.getText().toString(), phonenumber.getText().toString(), editTextemail.getText().toString(), image , uid);
         databaseReference.child(uid).setValue(_User_profileModel).addOnCompleteListener(new OnCompleteListener<Void>() {
             public void onComplete(@NonNull Task<Void> param1Task) {
                 if (param1Task.isSuccessful()) {
@@ -171,7 +193,11 @@ public class Register extends AppCompatActivity {
     public Bitmap getResizedBitmap(Bitmap paramBitmap, int paramInt) {
         int i = paramBitmap.getWidth();
         int j = paramBitmap.getHeight();
-        float f = i / j;
+        float f;
+        if (i >= j){
+            f = i/j;}
+        else {  f = j/i;}
+
         if (f > 1.0F) {
             j = (int)(paramInt / f);
             i = paramInt;
@@ -182,49 +208,20 @@ public class Register extends AppCompatActivity {
         return Bitmap.createScaledBitmap(paramBitmap, i, paramInt, true);
     }
 
-    protected void onActivityResult(int paramInt1, int paramInt2, Intent paramIntent) {
-        super.onActivityResult( paramInt1, paramInt2, paramIntent);
-        if (paramInt2 == RESULT_OK && paramInt1 ==(mCamera_permissiongrannted?1:0) ) {
-            Bitmap bitmap = decodeFile(paramIntent.getStringArrayListExtra(Pix.IMAGE_RESULTS).get(0));
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == this.RESULT_OK && requestCode == camera_request_code) {
+             bitmap = decodeFile((String)data.getStringArrayListExtra(Pix.IMAGE_RESULTS).get(0));
             circleImageView.setImageBitmap(bitmap);
             image = encodeTobase64(getResizedBitmap(bitmap, 400));
         }
-    }
 
-    protected void onCreate(Bundle paramBundle) {
-        super.onCreate(paramBundle);
-        setContentView(R.layout.activity_register);
-        firebaseAuth1 = FirebaseAuth.getInstance();
-        progressDialog = new ProgressDialog(this);
-        button = findViewById(R.id.btnregister);
-        textView = findViewById(R.id.txtalreadyreg);
-        editTextemail = findViewById(R.id.email);
-        editTextpassword = findViewById(R.id.password);
-        databaseReference = FirebaseDatabase.getInstance().getReference("userprofile");
-        edtxtconfrmpas = findViewById(R.id.confermpassword);
-        firstname = findViewById(R.id.firstname);
-        lastname = findViewById(R.id.lastname);
-        phonenumber = findViewById(R.id.phonenum);
-        progressBar = findViewById(R.id.progressBarimageload);
-        circleImageView = findViewById(R.id.imgupload);
-        circleImageView.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View param1View) { checkpermission(); }
-        });
-        button.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View param1View) {
-                if (param1View == button)
-                    registerUser();
-            }
-        });
-        this.textView.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View param1View) {
-                if (param1View == textView) {
-                    Intent intent = new Intent(getBaseContext(), Login.class);
-                    startActivity(intent);
-                }
-            }
-        });
-    }
+        }
 
-    public void onPickImage() { Pix.start(this, Options.init().setRequestCode(100).setCount(1));}
+
+
+
+    public void onPickImage() {
+        Pix.start(this, Options.init().setRequestCode(100));
+    }
 }

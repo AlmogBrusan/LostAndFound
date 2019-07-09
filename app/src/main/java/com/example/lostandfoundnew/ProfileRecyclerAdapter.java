@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.util.Base64;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -38,13 +39,15 @@ public class ProfileRecyclerAdapter extends RecyclerView.Adapter {
         ((MyViewHolder)paramViewHolder).bind(item_Model);
     }
 
-    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup paramViewGroup, int paramInt) { return new MyViewHolder(LayoutInflater.from(this.context).inflate(R.layout.useradds, paramViewGroup, false)); }
+    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup paramViewGroup, int paramInt) {
+        return new MyViewHolder(LayoutInflater.from(this.context).inflate(R.layout.useradds, paramViewGroup, false));
+    }
 
-    public void setClickListener(View.OnClickListener paramOnClickListener) { mClickListener = paramOnClickListener; }
+    public void setClickListener(View.OnClickListener paramOnClickListener) {
+        mClickListener = paramOnClickListener; }
 
     private static class MyViewHolder extends RecyclerView.ViewHolder {
         ImageView imageView;
-
         TextView txtTittle;
 
         MyViewHolder(View param1View) {
@@ -56,6 +59,7 @@ public class ProfileRecyclerAdapter extends RecyclerView.Adapter {
         void bind(ItemModel param1Item_Model) {
             imageView.setImageBitmap(ProfileRecyclerAdapter.decodeBase64(param1Item_Model.getImageurl1()));
             txtTittle.setText(param1Item_Model.getTitle());
+            int a=0;
         }
     }
 }

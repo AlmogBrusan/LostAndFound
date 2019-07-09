@@ -1,18 +1,46 @@
 package com.example.lostandfoundnew;
 
 public class UserProfileModel {
-    public String email;
-    public String firstName;
-    public String image;
-    public String lastName;
-    public String phoneNumber;
+    private String email;
+    private String firstName;
+    private String image;
+    private String lastName;
+     String phoneNumber;
+    private String talkTo;
+    private String userId;
 
-    public UserProfileModel(String firstName, String lastName, String phonenumber, String email, String image) {
+
+    public UserProfileModel(String firstName, String lastName, String phoneNumber, String email, String image , String uid) {
         this.firstName = firstName;
         this.lastName = lastName;
-        this.phoneNumber = phonenumber;
+        this.phoneNumber = phoneNumber;
         this.email = email;
         this.image = image;
+        this.userId = uid;
+    }
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+
+    public String getTalkTo() {
+        return talkTo;
+    }
+
+    public void setTalkTo(String talkTo) {
+        this.talkTo = talkTo;
     }
 
     public UserProfileModel(){}
@@ -33,13 +61,6 @@ public class UserProfileModel {
         this.lastName = lastName;
     }
 
-    public String getPhonenumber() {
-        return this.phoneNumber;
-    }
-
-    public void setPhonenumber(String phonenumber) {
-        this.phoneNumber = phonenumber;
-    }
 
     public String getEmail() {
         return this.email;
