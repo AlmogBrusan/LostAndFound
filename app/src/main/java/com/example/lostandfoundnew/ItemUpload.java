@@ -147,17 +147,17 @@ public class ItemUpload extends AppCompatActivity {
             public void onClick(View param1View) {
                 if (edtphonenum.getText().toString().equals("") || edtTittle.getText().toString().equals("") || edtdescription.getText().toString().equals("") || txtdateupload.getText().toString().equals("") || edtTextpicklc.getText().toString().equals("") || spnrctrg.getSelectedItem().toString().equals("Category")) {
                     if (edtphonenum.getText().toString().equals(""))
-                        edtphonenum.setError("Field cannot be empty");
+                        edtphonenum.setError(getResources().getString(R.string.Fieldcannotbeempty));
                     if (edtTittle.getText().toString().equals(""))
-                        edtTittle.setError("Field cannot be empty");
+                        edtTittle.setError(getResources().getString(R.string.Fieldcannotbeempty));
                     if (edtdescription.getText().toString().equals(""))
-                        edtdescription.setError("Field cannot be empty");
+                        edtdescription.setError(getResources().getString(R.string.Fieldcannotbeempty));
                     if (edtTextpicklc.getText().toString().equals(""))
-                        edtTextpicklc.setError("Field cannot be empty");
+                        edtTextpicklc.setError(getResources().getString(R.string.Fieldcannotbeempty));
                     if (txtdateupload.getText().toString().equals(""))
-                        txtdateupload.setError("Field cannot be empty");
+                        txtdateupload.setError(getResources().getString(R.string.Fieldcannotbeempty));
                     if (spnrctrg.getSelectedItem().toString().equals("Category"))
-                        ((TextView)spnrctrg.getSelectedView()).setError("Error message");
+                        ((TextView)spnrctrg.getSelectedView()).setError(getResources().getString(R.string.Fieldcannotbeempty));
                     return;
                 }
                 if (status == 0) {

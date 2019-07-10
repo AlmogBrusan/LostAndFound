@@ -52,4 +52,5 @@
     <string name="HomePage">דף הבית</string>
     <string name="NoInformation">אין מידע</string>
     <string name="logout">התנתק</string>
+    <string name="Fieldcannotbeempty">שדה לא יכול להיות ריק</string>
 </resources>

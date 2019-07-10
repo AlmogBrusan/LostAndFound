@@ -112,6 +112,7 @@
     <string name="HomePage">Home Page</string>
     <string name="NoInformation">No Information</string>
     <string name="logout">log out</string>
+    <string name="Fieldcannotbeempty">Field cannot be empty</string>
 
 
 </resources>
