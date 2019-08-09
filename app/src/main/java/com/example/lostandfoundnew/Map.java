@@ -43,7 +43,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Map2 extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener {
+public class Map extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener {
     private static final String COARSE_LOCATION = "android.permission.ACCESS_COARSE_LOCATION";
     private static final float DEFOULt_ZOOM = 15.0F;
     private static final String FINE_LOCATION = "android.permission.ACCESS_FINE_LOCATION";
@@ -100,7 +100,7 @@ public class Map2 extends AppCompatActivity implements GoogleApiClient.OnConnect
                                 Toast.makeText(getApplicationContext(), "unable to get location", Toast.LENGTH_SHORT).show();
                                 return;
                             }
-                        Toast.makeText(Map2.this, "unable to get current location", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(Map.this, "unable to get current location", Toast.LENGTH_SHORT).show();
                     }
                 });
             return;
@@ -151,11 +151,11 @@ public class Map2 extends AppCompatActivity implements GoogleApiClient.OnConnect
 
     private void initmap() { ((SupportMapFragment)getSupportFragmentManager().findFragmentById(R.id.map)).getMapAsync(new OnMapReadyCallback() {
         public void onMapReady(GoogleMap param1GoogleMap) {
-            Toast.makeText(Map2.this, "Chose a location", Toast.LENGTH_SHORT).show();
+            Toast.makeText(Map.this, "Chose a location", Toast.LENGTH_SHORT).show();
             mMap = param1GoogleMap;
             if (mLocation_permissiongrannted) {
                 get_device_location();
-                if (ActivityCompat.checkSelfPermission(Map2.this, "android.permission.ACCESS_FINE_LOCATION") != 0 && ActivityCompat.checkSelfPermission(Map2.this, "android.permission.ACCESS_COARSE_LOCATION") != 0)
+                if (ActivityCompat.checkSelfPermission(Map.this, "android.permission.ACCESS_FINE_LOCATION") != 0 && ActivityCompat.checkSelfPermission(Map.this, "android.permission.ACCESS_COARSE_LOCATION") != 0)
                     return;
             }
             mMap.setMyLocationEnabled(true);

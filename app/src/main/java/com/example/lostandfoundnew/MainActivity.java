@@ -5,6 +5,8 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.location.Location;
@@ -43,6 +45,8 @@ public class MainActivity extends AppCompatActivity implements UserAdapter.Recyc
     DatabaseReference lastOnlineRef;
     Location location;
     private LocationManager locationManager;
+    AlarmManager alarmManager;
+
     FlowingDrawer mDrawer;
     DatabaseReference myConnectionsRef;
     RelativeLayout relativeLayout;
@@ -70,6 +74,8 @@ public class MainActivity extends AppCompatActivity implements UserAdapter.Recyc
         txtpostlost = findViewById(R.id.txtpostlost);
         txtaboutus = findViewById(R.id.txtaboutus);
 
+        alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+
         stopnotifyref = FirebaseDatabase.getInstance().getReference("token");
 
         txtaboutus.setOnClickListener(new View.OnClickListener() {
@@ -90,7 +96,7 @@ public class MainActivity extends AppCompatActivity implements UserAdapter.Recyc
 
                 }
 
-                Snackbar snackbar = Snackbar.make(relativeLayout, "You Are not Login", Snackbar.LENGTH_SHORT).setAction("Login", new View.OnClickListener() {
+                Snackbar snackbar = Snackbar.make(relativeLayout, getResources().getString(R.string.notlogin), Snackbar.LENGTH_SHORT).setAction(getResources().getString(R.string.login), new View.OnClickListener() {
                     public void onClick(View param2View) {
                         Intent intent = new Intent(getBaseContext(), Login.class);
                         startActivity(intent);
@@ -109,7 +115,7 @@ public class MainActivity extends AppCompatActivity implements UserAdapter.Recyc
                     startActivity(intent);
                     return;
                 }
-                Snackbar snackbar = Snackbar.make(relativeLayout, "You Are not Login", Snackbar.LENGTH_LONG).setAction("Login", new View.OnClickListener() {
+                Snackbar snackbar = Snackbar.make(relativeLayout, getResources().getString(R.string.notlogin), Snackbar.LENGTH_LONG).setAction(getResources().getString(R.string.login), new View.OnClickListener() {
                     public void onClick(View param2View) {
                         Intent intent = new Intent(getBaseContext(), Login.class);
                         startActivity(intent);
@@ -127,7 +133,7 @@ public class MainActivity extends AppCompatActivity implements UserAdapter.Recyc
                     startActivity(intent);
                     return;
                 }
-                Snackbar snackbar = Snackbar.make(relativeLayout, "You Are not Login", Snackbar.LENGTH_SHORT).setAction("Login", new View.OnClickListener() {
+                Snackbar snackbar = Snackbar.make(relativeLayout, getResources().getString(R.string.notlogin), Snackbar.LENGTH_SHORT).setAction(getResources().getString(R.string.login), new View.OnClickListener() {
                     public void onClick(View param2View) {
                         Intent intent = new Intent(getBaseContext(), Login.class);
                         startActivity(intent);
@@ -148,11 +154,11 @@ public class MainActivity extends AppCompatActivity implements UserAdapter.Recyc
                     finish();
                     Intent intent = new Intent(getBaseContext(), MainActivity.class);
                     startActivity(intent);
-                    Toast.makeText(getApplicationContext(), "logout", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), getResources().getString(R.string.logout), Toast.LENGTH_SHORT).show();
                 }
             });
         } else {
-            btnLoginMenu.setText("log in");
+            btnLoginMenu.setText(getResources().getString(R.string.login));
             btnLoginMenu.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View param1View) {
                     Intent intent = new Intent(getBaseContext(), Login.class);
@@ -167,7 +173,7 @@ public class MainActivity extends AppCompatActivity implements UserAdapter.Recyc
                     startActivity(intent);
                     return;
                 }
-                Snackbar snackbar = Snackbar.make(relativeLayout, "You Are not Login", Snackbar.LENGTH_SHORT).setAction("Login", new View.OnClickListener() {
+                Snackbar snackbar = Snackbar.make(relativeLayout, getResources().getString(R.string.notlogin), Snackbar.LENGTH_SHORT).setAction("Login", new View.OnClickListener() {
                     public void onClick(View param2View) {
                         Intent intent = new Intent(getBaseContext(), Login.class);
                         startActivity(intent);
@@ -258,5 +264,28 @@ public class MainActivity extends AppCompatActivity implements UserAdapter.Recyc
 
     }
 
+    @Override
+    protected void onStop() {
+        super.onStop();
 
+        long dayMillis = 1000 * 60 * 60 * 12;
+        setIntervalNotif(dayMillis);
+    }
+
+    private void setIntervalNotif(long dayMillis) {
+
+        Intent intent = new Intent(this, AlarmReceiver.class);
+        intent.putExtra("dayMillis", dayMillis);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(MainActivity.this, 0, intent, PendingIntent.FLAG_CANCEL_CURRENT);
+        alarmManager.cancel(pendingIntent);
+        alarmManager.setExact(AlarmManager.RTC_WAKEUP, System.currentTimeMillis() + dayMillis, pendingIntent);
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        Intent intent = new Intent(MainActivity.this, AlarmReceiver.class);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(MainActivity.this, 0, intent, PendingIntent.FLAG_CANCEL_CURRENT);
+        alarmManager.cancel(pendingIntent);
+    }
 }

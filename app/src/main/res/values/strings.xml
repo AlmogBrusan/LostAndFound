@@ -9,7 +9,7 @@
     <string name="additional_info_optional" translatable="false">Additional info (optional)</string>
     <string name="password" translatable="false">Password</string>
     <string name="email" translatable="false">Email</string>
-    <string name="login" translatable="false">Login</string>
+    <string name="login">Login</string>
     <string name="create_account_signup" translatable="false">Create Account ? Signup</string>
     <string name="test_long" translatable="false">tennis as I do.. I\'ve got the all equipment (table balls and bet\'s)</string>
     <string name="posts" translatable="false">Posts</string>
@@ -113,6 +113,10 @@
     <string name="NoInformation">No Information</string>
     <string name="logout">log out</string>
     <string name="Fieldcannotbeempty">Field cannot be empty</string>
+    <string name="SelectAction">Select Action</string>
+    <string name="fromcamera">Capture photo from camera</string>
+    <string name="fromgallery">Select photo from gallery</string>
+    <string name="notlogin">You Are not Login</string>
 
 
 </resources>

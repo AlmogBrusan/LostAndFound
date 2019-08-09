@@ -135,7 +135,7 @@ public class MessageFragment extends Fragment {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()){
                     Token token = snapshot.getValue(Token.class);
-                    Data data = new Data(firebaseUser.getUid(),R.drawable.appiconfinal,msg,getString(R.string.new_message_from)+ username,mUserId);
+                    Data data = new Data(firebaseUser.getUid(),msg,getString(R.string.new_message_from)+ username,mUserId);
 
                     Sender sender = new Sender(data,token.getToken());
 

@@ -56,6 +56,8 @@ public class ChatsFragment extends Fragment {
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
 
         usersList = new ArrayList<>();
+        recyclerView.setAdapter(userAdapter);
+
 
         reference = FirebaseDatabase.getInstance().getReference("chats");
         reference.addValueEventListener(new ValueEventListener() {

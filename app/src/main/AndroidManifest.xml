@@ -43,7 +43,7 @@
         <meta-data android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyDgzPklSKBpO12R_jxyxNrUlguwvHxTfSo"/>
 
-        <activity android:name=".Map2"/>
+        <activity android:name=".Map"/>
         <activity android:name=".UserImage" />
         <activity android:name=".ImageDetailFull" />
         <activity android:name=".UserProfile" />
@@ -66,6 +66,23 @@
             </intent-filter>
         </activity>
 
+        <service
+            android:name=".Notifications.MyFireBaseIdService"
+            android:enabled="true"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="com.google.firebase.INSTANCE_ID_EVENT"/>
+            </intent-filter>
+        </service>
+        <service
+            android:name=".Notifications.MyFireBaseMessaging"
+            android:enabled="true"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT"/>
+            </intent-filter>
+        </service>
+        <receiver android:name=".AlarmReceiver"/>
     </application>
 
 </manifest>

@@ -5,7 +5,6 @@ import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.pm.ActivityInfo;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.location.LocationManager;
@@ -33,31 +32,39 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.bumptech.glide.Glide;
+import com.example.lostandfoundnew.Notifications.Client;
+import com.example.lostandfoundnew.Notifications.Data;
+import com.example.lostandfoundnew.Notifications.MyResponse;
+import com.example.lostandfoundnew.Notifications.Sender;
+import com.example.lostandfoundnew.Notifications.Token;
 import com.google.android.gms.common.GoogleApiAvailability;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.gun0912.tedpicker.Config;
 import com.gun0912.tedpicker.ImagePickerActivity;
-import com.squareup.picasso.Picasso;
-import com.zhihu.matisse.Matisse;
-import com.zhihu.matisse.MimeType;
-import com.zhihu.matisse.engine.impl.GlideEngine;
-import com.zhihu.matisse.filter.Filter;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
-import java.net.URI;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 import static android.content.Intent.FLAG_ACTIVITY_CLEAR_TASK;
 import static android.content.Intent.FLAG_ACTIVITY_NEW_TASK;
@@ -66,12 +73,7 @@ public class ItemUpload extends AppCompatActivity {
     private static final String FINE_CAMERA = "android.permission.CAMERA";
     private int CAMERA_CODE = 13;
     private int GALLERY_CODE = 10;
-    private static final int RESULT_LOAD_IMAGE1 = 15;
-    private static final String TAG = "TedPicker";
-    private static final String WRITE_EXTERNAL_STORAGE = "android.permission.WRITE_EXTERNAL_STORAGE";
-    private static final int camera_request_code = 1234;
     static int requestcodepicklocation = 11;
-    List Imageslist = new ArrayList();
     RelativeLayout btnpicklocation;
     Button btnsubmit;
     Context context;
@@ -103,6 +105,10 @@ public class ItemUpload extends AppCompatActivity {
     String uniqueID;
     ImageView uploadimage;
     String user_login_id;
+    FirebaseUser firebaseUser;
+    APIService apiService;
+
+
 
     protected void onCreate(Bundle paramBundle) {
         super.onCreate(paramBundle);
@@ -126,6 +132,8 @@ public class ItemUpload extends AppCompatActivity {
         uniqueID = key.toString();
         user_login_id = firebaseAuth.getCurrentUser().getUid().toString().trim();
         mStorageref = FirebaseStorage.getInstance().getReference();
+        apiService= Client.getClient("https://fcm.googleapis.com/").create(APIService.class);
+        firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
 
         uploadimage.setOnClickListener(new View.OnClickListener() {
             public void onClick(View param1View) {
@@ -138,7 +146,7 @@ public class ItemUpload extends AppCompatActivity {
         btnpicklocation.setOnClickListener(new View.OnClickListener() {
             public void onClick(View param1View) {
                 if (isServiceOK() && islocationenable()) {
-                    Intent intent = new Intent(getApplicationContext(), Map2.class);
+                    Intent intent = new Intent(getApplicationContext(), Map.class);
                     startActivityForResult(intent, ItemUpload.requestcodepicklocation);
                 }
             }
@@ -190,10 +198,10 @@ public class ItemUpload extends AppCompatActivity {
     private void showPictureDialog() {
 
         AlertDialog.Builder pictureDialog = new AlertDialog.Builder(this);
-        pictureDialog.setTitle("Select Action");
+        pictureDialog.setTitle(getResources().getString(R.string.SelectAction));
         String[] pictureDialogItems = {
-                "Select photo from gallery",
-                "Capture photo from camera" };
+                getResources().getString(R.string.fromgallery),
+                getResources().getString(R.string.fromcamera) };
         pictureDialog.setItems(pictureDialogItems,
                 new DialogInterface.OnClickListener() {
                     @Override
@@ -304,6 +312,7 @@ public class ItemUpload extends AppCompatActivity {
             public void onComplete(@NonNull Task<Void> param1Task) {
                 if (param1Task.isSuccessful())
                     Toast.makeText(getApplicationContext(), "information saved", Toast.LENGTH_SHORT).show();
+
             }
         });
     }
@@ -349,9 +358,48 @@ public class ItemUpload extends AppCompatActivity {
         });
     }
 
+    private void sendNotification (String address, final String username, final String msg) {
+
+        DatabaseReference tokens = FirebaseDatabase.getInstance().getReference("token");
+        Query query = tokens.orderByKey();
+        query.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()){
+                    Token token = snapshot.getValue(Token.class);
+                    String a= firebaseUser.getUid();
+                    Data data = new Data(firebaseUser.getUid(),"jnjnj","from almog",user_login_id);
+
+                    Sender sender = new Sender(data,token.getToken());
+
+                    apiService.sendNotification(sender).enqueue(new Callback<MyResponse>() {
+                        @Override
+                        public void onResponse(Call<MyResponse> call, Response<MyResponse> response) {
+                            if(response.code()==200){
+                                if (response.body().success != 1){
+                                    Toast.makeText(ItemUpload.this, getString(R.string.failed), Toast.LENGTH_SHORT).show();
+                                }
+                            }
+                        }
+
+                        @Override
+                        public void onFailure(Call<MyResponse> call, Throwable t) {
+
+                        }
+                    });
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+    }
 
 
-        public Bitmap getResizedBitmap(Bitmap paramBitmap, int paramInt) {
+    public Bitmap getResizedBitmap(Bitmap paramBitmap, int paramInt) {
             int i = paramBitmap.getWidth();
             int j = paramBitmap.getHeight();
             float f=0;
@@ -453,5 +501,7 @@ public class ItemUpload extends AppCompatActivity {
             protected void onPostExecute(String[] param1ArrayOfString) { super.onPostExecute(param1ArrayOfString); }
 
             protected void onPreExecute() { super.onPreExecute(); }
+
+
         }
     }

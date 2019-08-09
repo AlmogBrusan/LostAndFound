@@ -36,7 +36,7 @@
             android:id="@+id/loginpassword"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/password"
+            android:hint="@string/Password"
             android:inputType="textPassword"/>
         <Button
             android:textColor="#fff"
@@ -45,7 +45,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:text="@string/login"/>
+            android:text="@string/Login"/>
     </LinearLayout>
     <TextView
         android:textSize="18sp"

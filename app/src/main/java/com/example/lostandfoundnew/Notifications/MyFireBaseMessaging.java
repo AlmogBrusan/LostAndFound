@@ -59,7 +59,7 @@ public class MyFireBaseMessaging extends FirebaseMessagingService {
             }
             builder.setContentTitle(title)
                     .setContentText(body)
-                  //  .setSmallIcon(R.mipmap.ic_logo_foreground)
+                    .setSmallIcon(R.mipmap.ic_launcher)
                     .setAutoCancel(true)
                     .setContentIntent(pendingIntent)
                     .setPriority(NotificationCompat.PRIORITY_HIGH);

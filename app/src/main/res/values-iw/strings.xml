@@ -53,4 +53,9 @@
     <string name="NoInformation">אין מידע</string>
     <string name="logout">התנתק</string>
     <string name="Fieldcannotbeempty">שדה לא יכול להיות ריק</string>
+    <string name="SelectAction">בחר פעולה</string>
+    <string name="fromcamera">צלם תמונה</string>
+    <string name="fromgallery">בחר תמונה מהגלריה</string>
+    <string name="login" translatable="false">התחבר</string>
+    <string name="notlogin">אתה לא מחובר</string>
 </resources>
